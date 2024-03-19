@@ -6,6 +6,9 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.address.model.person.Person;
 
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
+
 /**
  * An UI component that displays information of a {@code Person}.
  */
@@ -32,6 +35,9 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private Label nric;
 
+    @FXML
+    private Circle statusCircle;
+
     /**
      * Creates a {@code PersonCode} with the given {@code Person} and index to display.
      */
@@ -39,6 +45,13 @@ public class PersonCard extends UiPart<Region> {
         super(FXML);
         this.person = person;
         id.setText(displayedIndex + ". ");
-        name.setText(person.getName().toString());
+        name.setText(person.getName().toString() + " (" + person.getSex().toString() + ")");
+        nric.setText(person.getNric().toString());
+        setStatusColor(person.getStatus().getColor());
+    }
+
+    private void setStatusColor(Color color) {
+        statusCircle.setFill(color);
+        statusCircle.setStroke(color);
     }
 }

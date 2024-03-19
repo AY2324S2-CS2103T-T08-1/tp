@@ -3,6 +3,8 @@ package seedu.address.model.person;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
+import javafx.scene.paint.Color;
+
 /**
  * Represents a Person's status in the address book.
  * Guarantees: immutable;
@@ -66,5 +68,18 @@ public class Status {
     @Override
     public int hashCode() {
         return status.hashCode();
+    }
+
+    public Color getColor() {
+        switch (status) {
+            case HEALTHY:
+                return Color.GREEN;
+            case UNWELL:
+                return Color.RED;
+            case PENDING:
+                return Color.YELLOW;
+            default:
+                return Color.BLACK;
+        }
     }
 }
