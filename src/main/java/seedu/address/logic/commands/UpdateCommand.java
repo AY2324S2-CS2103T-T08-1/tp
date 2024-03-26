@@ -216,7 +216,7 @@ public class UpdateCommand extends Command {
          */
         public boolean isAnyFieldUpdated() {
             return CollectionUtil.isAnyNonNull(name, phone, address, sex, status, email, country,
-                    allergies, bloodType, condition, dateOfAdmission, diagnosis, symptom, tags);
+                    allergies, bloodType, condition, dateOfAdmission, diagnosis, symptom);
         }
 
         public void setNric(Nric nric) {
