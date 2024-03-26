@@ -25,7 +25,6 @@ public class ReadCommand extends Command {
             + PREFIX_NRIC + "T0123456A";
 
     public static final String MESSAGE_READ_PERSON_SUCCESS = "Read Person: %1$s";
-    public static final String MESSAGE_NO_PERSON = "There is no such person with this NRIC.";
     public static final String MESSAGE_NOT_READ = "NRIC to be specified.";
     private final Nric nric;
 
@@ -41,15 +40,16 @@ public class ReadCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        if (model.hasPerson(Person.createPersonWithNric(nric))) {
-            throw new CommandException(MESSAGE_NO_PERSON);
+
+        if (!model.hasPerson(Person.createPersonWithNric(nric))) {
+            throw new CommandException(Messages.MESSAGE_PERSON_NOT_FOUND);
         }
 
         model.updateFilteredPersonList(new NricContainsKeywordsPredicate(nric.toString()));
         Person readPerson = model.getFilteredPersonList().get(0);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
 
-        return new CommandResult(String.format(MESSAGE_READ_PERSON_SUCCESS, Messages.format(readPerson)));
+        return new CommandResult(String.format(MESSAGE_READ_PERSON_SUCCESS, Messages.formatRead(readPerson)));
     }
 
     @Override
