@@ -92,7 +92,7 @@ public class UpdateCommand extends Command {
                 new NricContainsKeywordsPredicate(nric.toString())).findFirst().get();
         Person updatedPerson = createUpdatedPerson(personToUpdate, updatePersonDescriptor);
 
-        if (!personToUpdate.isSamePerson(updatedPerson) && model.hasPerson(updatedPerson)) {
+        if (personToUpdate.equals(updatedPerson) /* && model.hasPerson(updatedPerson) */) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         }
 
@@ -150,7 +150,8 @@ public class UpdateCommand extends Command {
         }
 
         UpdateCommand otherUpdateCommand = (UpdateCommand) other;
-        return updatePersonDescriptor.equals(otherUpdateCommand.updatePersonDescriptor);
+        return nric.equals(otherUpdateCommand.nric)
+                && updatePersonDescriptor.equals(otherUpdateCommand.updatePersonDescriptor);
     }
 
     @Override
@@ -216,7 +217,7 @@ public class UpdateCommand extends Command {
          */
         public boolean isAnyFieldUpdated() {
             return CollectionUtil.isAnyNonNull(name, phone, address, sex, status, email, country,
-                    allergies, bloodType, condition, dateOfAdmission, diagnosis, symptom, tags);
+                    allergies, bloodType, condition, dateOfAdmission, diagnosis, symptom);
         }
 
         public void setNric(Nric nric) {
