@@ -19,7 +19,7 @@ import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showPersonAtIndex;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
-import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
+import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import org.junit.jupiter.api.Test;
@@ -45,7 +45,7 @@ public class UpdateCommandTest {
 
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
-        Person editedPerson = new PersonBuilder().build();
+        Person editedPerson = new PersonBuilder().withNric(ALICE.getNric().toString()).build();
         UpdatePersonDescriptor descriptor = new UpdatePersonDescriptorBuilder(editedPerson).build();
         UpdateCommand updateCommand = new UpdateCommand(descriptor.getNric(), descriptor);
 
@@ -65,13 +65,11 @@ public class UpdateCommandTest {
 
         PersonBuilder personInList = new PersonBuilder(lastPerson);
         Person editedPerson = personInList.withName(VALID_NAME_BOB).withPhone(VALID_PHONE_BOB)
-                .build();
+                .build(); // get person from list, change name and phone
 
-        UpdatePersonDescriptor descriptor = new UpdatePersonDescriptorBuilder().withNric(VALID_NRIC_AMY)
-                .withName(VALID_NAME_AMY).withPhone(VALID_PHONE_AMY).withAddress(VALID_ADDRESS_AMY)
-                .withDateOfBirth(VALID_DATEOFBIRTH_AMY).withSex(VALID_SEX_AMY).withStatus(VALID_STATUS_AMY).build();
+        UpdatePersonDescriptor descriptor = new UpdatePersonDescriptorBuilder(editedPerson).build();
         UpdateCommand updateCommand = new UpdateCommand(descriptor.getNric(), descriptor);
-
+        // alice nric, alice descriptor
         String expectedMessage = String.format(
                 UpdateCommand.MESSAGE_UPDATE_PERSON_SUCCESS, Messages.format(editedPerson));
 
@@ -82,16 +80,17 @@ public class UpdateCommandTest {
     }
 
     @Test
-    public void execute_noFieldSpecifiedUnfilteredList_success() {
-        UpdateCommand updateCommand = new UpdateCommand(INDEX_FIRST_PERSON, new UpdatePersonDescriptor());
-        Person editedPerson = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
+    public void execute_noFieldSpecifiedUnfilteredList_failure() {
+        UpdateCommand updateCommand = new UpdateCommand(ALICE.getNric(), new UpdatePersonDescriptor());
+        /* Person editedPerson = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
 
         String expectedMessage = String.format(
                 UpdateCommand.MESSAGE_UPDATE_PERSON_SUCCESS, Messages.format(editedPerson));
 
         Model expectedModel = new ModelManager(new ImmuniMate(model.getImmuniMate()), new UserPrefs());
 
-        assertCommandSuccess(updateCommand, model, expectedMessage, expectedModel);
+        assertCommandSuccess(updateCommand, model, expectedMessage, expectedModel); */
+        assertCommandFailure(updateCommand, model, UpdateCommand.MESSAGE_DUPLICATE_PERSON);
     }
 
     @Test
@@ -100,7 +99,7 @@ public class UpdateCommandTest {
 
         Person personInFilteredList = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
         Person editedPerson = new PersonBuilder(personInFilteredList).withName(VALID_NAME_BOB).build();
-        UpdateCommand updateCommand = new UpdateCommand(INDEX_FIRST_PERSON,
+        UpdateCommand updateCommand = new UpdateCommand(ALICE.getNric(),
                 new UpdatePersonDescriptorBuilder().withName(VALID_NAME_BOB).build());
 
         String expectedMessage = String.format(
@@ -116,7 +115,7 @@ public class UpdateCommandTest {
     public void execute_duplicatePersonUnfilteredList_failure() {
         Person firstPerson = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
         UpdatePersonDescriptor descriptor = new UpdatePersonDescriptorBuilder(firstPerson).build();
-        UpdateCommand updateCommand = new UpdateCommand(INDEX_SECOND_PERSON, descriptor);
+        UpdateCommand updateCommand = new UpdateCommand(ALICE.getNric(), descriptor);
 
         assertCommandFailure(updateCommand, model, UpdateCommand.MESSAGE_DUPLICATE_PERSON);
     }
@@ -126,9 +125,9 @@ public class UpdateCommandTest {
         showPersonAtIndex(model, INDEX_FIRST_PERSON);
 
         // edit person in filtered list into a duplicate in address book
-        Person personInList = model.getImmuniMate().getPersonList().get(INDEX_SECOND_PERSON.getZeroBased());
-        UpdateCommand updateCommand = new UpdateCommand(INDEX_FIRST_PERSON,
-                new UpdatePersonDescriptorBuilder(personInList).build());
+        Person personInList = model.getImmuniMate().getPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
+        UpdatePersonDescriptor descriptor = new UpdatePersonDescriptorBuilder(personInList).build();
+        UpdateCommand updateCommand = new UpdateCommand(ALICE.getNric(), descriptor);
 
         assertCommandFailure(updateCommand, model, UpdateCommand.MESSAGE_DUPLICATE_PERSON);
     }
@@ -190,13 +189,8 @@ public class UpdateCommandTest {
                 .withDateOfBirth(VALID_DATEOFBIRTH_AMY).withSex(VALID_SEX_AMY).withStatus(VALID_STATUS_AMY).build();
         UpdateCommand updateCommand = new UpdateCommand(new Nric(VALID_NRIC_AMY), descriptor);
         String expected = UpdateCommand.class.getCanonicalName()
-                + "{nric=" + VALID_NRIC_AMY
-                + ", name=" + VALID_NAME_AMY
-                + ", phone=" + VALID_PHONE_AMY
-                + ", address=" + VALID_ADDRESS_AMY
-                + ", date of birth=" + VALID_DATEOFBIRTH_AMY
-                + ", sex=" + VALID_SEX_AMY
-                + ", status=" + VALID_STATUS_AMY
+                + "{updatePersonDescriptor="
+                + descriptor.toString()
                 + "}";
         assertEquals(expected, updateCommand.toString());
     }
