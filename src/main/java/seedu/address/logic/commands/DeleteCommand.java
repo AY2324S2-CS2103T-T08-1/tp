@@ -43,7 +43,7 @@ public class DeleteCommand extends Command {
         //second checks if the NRIC is in the list
         Person personToDelete = persons.filtered(person -> person.getNric().equals(targetNric)).get(0);
         model.deletePerson(personToDelete);
-        return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, Messages.format(personToDelete)));
+        return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, Messages.formatRead(personToDelete)));
     }
 
     @Override
