@@ -30,34 +30,32 @@ public class PersonBuilder {
     // Data fields
     public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
     public static final String DEFAULT_STATUS = "HEALTHY";
-    /*
+
     public static final String DEFAULT_EMAIL = "test@email.com";
     public static final String DEFAULT_ALLERGIES = "Peanuts";
-    public static final String[] DEFAULT_BLOODTYPE = {"A", "POSITIVE"};
+    public static final String DEFAULT_BLOODTYPE = "A+";
     public static final String DEFAULT_COUNTRY = "Singapore";
-    // Medical history
+
     public static final String DEFAULT_CONDITION = "High blood pressure";
     public static final String DEFAULT_DOA = "2024-01-01";
     public static final String DEFAULT_DIAGNOSIS = "Runny nose";
     public static final String DEFAULT_SYMPTOM = "Sneezing, sniffing";
-    */
+
     // Mandatory fields
     private Nric nric;
     private Name name;
     private Phone phone;
     private DateOfBirth dateOfBirth;
     private Sex sex;
-    // Data fields
     private Address address;
+    private Status status;
     private Allergies allergies;
     private BloodType bloodType;
     private Country country;
     private Email email;
-    //Medical history
     private Condition condition;
     private DateOfAdmission dateOfAdmission;
     private Diagnosis diagnosis;
-    private Status status;
     private Symptom symptom;
 
     /**
@@ -71,18 +69,14 @@ public class PersonBuilder {
         dateOfBirth = new DateOfBirth(DEFAULT_DOB);
         sex = new Sex(DEFAULT_SEX);
         status = new Status(DEFAULT_STATUS);
-
-        /*
         allergies = new Allergies(DEFAULT_ALLERGIES);
-        bloodType = new BloodType(DEFAULT_BLOODTYPE[0], DEFAULT_BLOODTYPE[1]);
+        bloodType = new BloodType(DEFAULT_BLOODTYPE);
         country = new Country(DEFAULT_COUNTRY);
         email = new Email(DEFAULT_EMAIL);
-
         condition = new Condition(DEFAULT_CONDITION);
         dateOfAdmission = new DateOfAdmission(DEFAULT_DOA);
         diagnosis = new Diagnosis(DEFAULT_DIAGNOSIS);
         symptom = new Symptom(DEFAULT_SYMPTOM);
-        */
     }
 
     /**
@@ -97,7 +91,6 @@ public class PersonBuilder {
         address = personToCopy.getAddress();
         status = personToCopy.getStatus();
 
-        /*
         address = personToCopy.getAddress();
         allergies = personToCopy.getAllergies();
         bloodType = personToCopy.getBloodType();
@@ -108,7 +101,7 @@ public class PersonBuilder {
         dateOfAdmission = personToCopy.getDateOfAdmission();
         diagnosis = personToCopy.getDiagnosis();
         symptom = personToCopy.getSymptom();
-         */
+
     }
 
     /**
@@ -236,14 +229,39 @@ public class PersonBuilder {
      */
     public Person build() {
         Person p = new Person(nric, name, phone, address, dateOfBirth, sex, status);
-        p.setEmail(email);
-        p.setCountry(country);
-        p.setAllergies(allergies);
-        p.setBloodType(bloodType);
-        p.setCondition(condition);
-        p.setDateOfAdmission(dateOfAdmission);
-        p.setDiagnosis(diagnosis);
-        p.setSymptom(symptom);
+
+        if (email != null) {
+            p.setEmail(email);
+        }
+
+        if (country != null) {
+            p.setCountry(country);
+        }
+
+        if (allergies != null) {
+            p.setAllergies(allergies);
+        }
+
+        if (bloodType != null) {
+            p.setBloodType(bloodType);
+        }
+
+        if (condition != null) {
+            p.setCondition(condition);
+        }
+
+        if (dateOfAdmission != null) {
+            p.setDateOfAdmission(dateOfAdmission);
+        }
+
+        if (diagnosis != null) {
+            p.setDiagnosis(diagnosis);
+        }
+
+        if (symptom != null) {
+            p.setSymptom(symptom);
+        }
+
         return p;
     }
 }
