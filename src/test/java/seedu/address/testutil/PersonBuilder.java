@@ -91,7 +91,6 @@ public class PersonBuilder {
         address = personToCopy.getAddress();
         status = personToCopy.getStatus();
 
-        address = personToCopy.getAddress();
         allergies = personToCopy.getAllergies();
         bloodType = personToCopy.getBloodType();
         country = personToCopy.getCountry();
@@ -102,6 +101,20 @@ public class PersonBuilder {
         diagnosis = personToCopy.getDiagnosis();
         symptom = personToCopy.getSymptom();
 
+    }
+    /**
+     * Sets the optional fields as null in this personBuilder.
+     */
+    public PersonBuilder withoutOptionalFields() {
+        allergies = null;
+        bloodType = null;
+        country = null;
+        email = null;
+        condition = null;
+        dateOfAdmission = null;
+        diagnosis = null;
+        symptom = null;
+        return this;
     }
 
     /**

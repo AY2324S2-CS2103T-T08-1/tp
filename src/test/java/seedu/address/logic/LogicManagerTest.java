@@ -3,13 +3,7 @@ package seedu.address.logic;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.address.logic.Messages.MESSAGE_PERSON_NOT_FOUND;
 import static seedu.address.logic.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.DATEOFBIRTH_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.NRIC_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.SEX_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.STATUS_DESC_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.ALL_FIELDS_DESC_AMY;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalPersons.AMY;
 
@@ -169,8 +163,7 @@ public class LogicManagerTest {
         logic = new LogicManager(model, storage);
 
         // Triggers the saveAddressBook method by executing an add command
-        String addCommand = CreateCommand.COMMAND_WORD + NRIC_DESC_AMY + NAME_DESC_AMY
-                + PHONE_DESC_AMY + ADDRESS_DESC_AMY + DATEOFBIRTH_DESC_AMY + SEX_DESC_AMY + STATUS_DESC_AMY;
+        String addCommand = CreateCommand.COMMAND_WORD + ALL_FIELDS_DESC_AMY;
         Person expectedPerson = new PersonBuilder(AMY).build();
         ModelManager expectedModel = new ModelManager();
         expectedModel.addPerson(expectedPerson);
