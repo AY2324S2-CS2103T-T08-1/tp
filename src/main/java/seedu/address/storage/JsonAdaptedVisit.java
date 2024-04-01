@@ -2,13 +2,16 @@ package seedu.address.storage;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import jdk.jshell.Diag;
+
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.person.*;
+import seedu.address.model.person.Diagnosis;
+import seedu.address.model.person.Nric;
+import seedu.address.model.person.Person;
+import seedu.address.model.person.Status;
+import seedu.address.model.person.Symptom;
 import seedu.address.model.visit.DateOfVisit;
 import seedu.address.model.visit.Visit;
 
-import java.util.Optional;
 
 /**
  * Jackson-friendly version of {@link Person}.
@@ -25,7 +28,9 @@ class JsonAdaptedVisit {
      * Constructs a {@code JsonAdaptedPerson} with the given person details.
      */
     @JsonCreator
-    public JsonAdaptedVisit(@JsonProperty("nric") String nric, @JsonProperty("dateOfVisit") String dov, @JsonProperty("diagnosis") String diagnosis, @JsonProperty("symptom") String symptom, @JsonProperty("status") String status) {
+    public JsonAdaptedVisit(@JsonProperty("nric") String nric, @JsonProperty("dateOfVisit") String dov,
+                            @JsonProperty("diagnosis") String diagnosis, @JsonProperty("symptom") String symptom,
+                            @JsonProperty("status") String status) {
         this.nric = nric;
         this.dov = dov;
         this.status = status;
@@ -63,7 +68,8 @@ class JsonAdaptedVisit {
         final Nric modelNric = new Nric(nric);
         // DateOfVisit Check
         if (dov == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, DateOfVisit.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+              DateOfVisit.class.getSimpleName()));
         }
         if (!DateOfVisit.isValidDateOfVisit(dov)) {
             throw new IllegalValueException(DateOfVisit.MESSAGE_CONSTRAINTS);
@@ -71,22 +77,25 @@ class JsonAdaptedVisit {
         final DateOfVisit modelDov = new DateOfVisit(dov);
         // Symptom check
         if (symptom == null || symptom.isEmpty()) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Symptom.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+              Symptom.class.getSimpleName()));
         }
         final Symptom modelSymptom = new Symptom(symptom);
         // Diagnosis check
         if (diagnosis == null || diagnosis.isEmpty()) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Diagnosis.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+              Diagnosis.class.getSimpleName()));
         }
         final Diagnosis modelDiagnosis = new Diagnosis(diagnosis);
         // Status Check
         if (status == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Status.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+              Status.class.getSimpleName()));
         }
         if (!Status.isValidStatus(status)) {
-            throw new IllegalValueException(DateOfBirth.MESSAGE_CONSTRAINTS);
+            throw new IllegalValueException(Status.MESSAGE_CONSTRAINTS);
         }
-        final Status modelStatus= new Status(status);
+        final Status modelStatus = new Status(status);
         visit = new Visit(modelNric, modelDov, modelSymptom, modelDiagnosis, modelStatus);
         return visit;
     }

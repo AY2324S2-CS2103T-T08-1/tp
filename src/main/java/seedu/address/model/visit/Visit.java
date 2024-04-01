@@ -1,12 +1,14 @@
 package seedu.address.model.visit;
 
-import seedu.address.commons.util.ToStringBuilder;
-import seedu.address.model.person.*;
-import seedu.address.model.tag.Tag;
-
-import java.util.*;
-
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+
+import java.util.Objects;
+
+import seedu.address.commons.util.ToStringBuilder;
+import seedu.address.model.person.Diagnosis;
+import seedu.address.model.person.Nric;
+import seedu.address.model.person.Status;
+import seedu.address.model.person.Symptom;
 
 /**
  * Represents a single Patient Visit
@@ -35,12 +37,14 @@ public class Visit {
         return nric;
     }
 
-    public DateOfVisit getDateOfVisit() { return dateOfVisit; }
+    public DateOfVisit getDateOfVisit() {
+        return this.dateOfVisit;
+    }
     public Symptom getSymptom() {
-        return symptom;
+        return this.symptom;
     }
     public Diagnosis getDiagnosis() {
-        return diagnosis;
+        return this.diagnosis;
     }
     public Status getStatus() {
         return this.status;
