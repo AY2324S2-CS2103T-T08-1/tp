@@ -4,12 +4,16 @@ import seedu.address.model.ImmuniMate;
 import seedu.address.model.ReadOnlyImmuniMate;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.DateOfBirth;
+import seedu.address.model.person.Diagnosis;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Nric;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.Sex;
 import seedu.address.model.person.Status;
+import seedu.address.model.person.Symptom;
+import seedu.address.model.visit.DateOfVisit;
+import seedu.address.model.visit.Visit;
 
 /**
  * Contains utility methods for populating {@code AddressBook} with sample data.
@@ -35,6 +39,17 @@ public class SampleDataUtil {
             new Person(new Nric("S9781662B"), new Name("Roy Balakrishnan"), new Phone("92624417"),
                     new Address("Blk 45 Aljunied Street 85, #11-31"), new DateOfBirth("1987-04-03"),
                     new Sex("M"), new Status("PENDING"))
+        };
+    }
+
+    public static Visit[] getSampleVisits() {
+        return new Visit[] {
+                new Visit(new Nric("T0245123C"), new DateOfVisit("2023-01-02"),
+                        new Symptom("Dying"), new Diagnosis("Cancer"), new Status("UNWELL")),
+                new Visit(new Nric("T0245123C"), new DateOfVisit("2023-02-25"),
+                        new Symptom("Throat Pain"), new Diagnosis("Cancer"),  new Status("HEALTHY")),
+                new Visit(new Nric("S9234568N"), new DateOfVisit("2023-01-02"),
+                        new Symptom("Headache"), new Diagnosis("COVID"), new Status("UNWELL")),
         };
     }
 
