@@ -2,7 +2,6 @@ package seedu.address.testutil;
 
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATEOFBIRTH;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NRIC;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
@@ -29,6 +28,7 @@ public class PersonUtil {
         return CreateCommand.COMMAND_WORD + " " + getPersonDetails(person);
     }
 
+    //TODO: add in optionals
     /**
      * Returns the part of command string for the given {@code person}'s details.
      */
@@ -52,10 +52,13 @@ public class PersonUtil {
      */
     public static String getEditPersonDescriptorDetails(UpdatePersonDescriptor descriptor) {
         StringBuilder sb = new StringBuilder();
+        sb.append(PREFIX_NRIC).append(descriptor.getNric()).append(" ");
         descriptor.getName().ifPresent(name -> sb.append(PREFIX_NAME).append(name.toString()).append(" "));
         descriptor.getPhone().ifPresent(phone -> sb.append(PREFIX_PHONE).append(phone.toString()).append(" "));
-        descriptor.getEmail().ifPresent(email -> sb.append(PREFIX_EMAIL).append(email.toString()).append(" "));
         descriptor.getAddress().ifPresent(address -> sb.append(PREFIX_ADDRESS).append(address.toString()).append(" "));
+        descriptor.getDateOfBirth().ifPresent(dob -> sb.append(PREFIX_DATEOFBIRTH).append(dob.toString()).append(" "));
+        descriptor.getSex().ifPresent(sex -> sb.append(PREFIX_SEX).append(sex.toString()).append(" "));
+        descriptor.getStatus().ifPresent(status -> sb.append(PREFIX_STATUS).append(status.toString()).append(" "));
         if (descriptor.getTags().isPresent()) {
             Set<Tag> tags = descriptor.getTags().get();
             if (tags.isEmpty()) {

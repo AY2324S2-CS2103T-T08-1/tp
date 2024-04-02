@@ -22,6 +22,7 @@ public class JsonSerializableAddressBookTest {
 
     @Test
     public void toModelType_typicalPersonsFile_success() throws Exception {
+        //TODO: read optional fields from json file
         JsonSerializableAddressBook dataFromFile = JsonUtil.readJsonFile(TYPICAL_PERSONS_FILE,
                 JsonSerializableAddressBook.class).get();
         ImmuniMate addressBookFromFile = dataFromFile.toModelType();
