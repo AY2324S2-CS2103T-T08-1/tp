@@ -275,16 +275,7 @@ public class Person {
                 && address.equals(otherPerson.address)
                 && dateOfBirth.equals(otherPerson.dateOfBirth)
                 && sex.equals(otherPerson.sex)
-                && status.equals(otherPerson.status)
-                && tags.equals(otherPerson.tags)
-                && Objects.equals(email, otherPerson.email)
-                && Objects.equals(country, otherPerson.country)
-                && Objects.equals(allergies, otherPerson.allergies)
-                && Objects.equals(bloodType, otherPerson.bloodType)
-                && Objects.equals(condition, otherPerson.condition)
-                && Objects.equals(dateOfAdmission, otherPerson.dateOfAdmission)
-                && Objects.equals(diagnosis, otherPerson.diagnosis)
-                && Objects.equals(symptom, otherPerson.symptom);
+                && status.equals(otherPerson.status);
     }
 
     @Override
