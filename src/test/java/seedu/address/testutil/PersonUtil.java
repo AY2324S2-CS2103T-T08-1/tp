@@ -28,6 +28,7 @@ public class PersonUtil {
         return CreateCommand.COMMAND_WORD + " " + getPersonDetails(person);
     }
 
+    //TODO: add in optionals
     /**
      * Returns the part of command string for the given {@code person}'s details.
      */
