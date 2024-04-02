@@ -1,0 +1,70 @@
+@startuml
+!include style.puml
+skinparam ArrowFontStyle plain
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
+participant ":ReadCommandParser" as ReadCommandParser LOGIC_COLOR
+participant "r:ReadCommand" as ReadCommand LOGIC_COLOR
+participant "r:CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant "m:Model" as Model MODEL_COLOR
+end box
+
+[-> LogicManager : execute("read T0123456A")
+activate LogicManager
+
+LogicManager -> AddressBookParser : parseCommand("read T0123456A")
+activate AddressBookParser
+
+create ReadCommandParser
+AddressBookParser -> ReadCommandParser
+activate ReadCommandParser
+
+ReadCommandParser --> AddressBookParser
+deactivate ReadCommandParser
+
+AddressBookParser -> ReadCommandParser : parse("T0123456A")
+activate ReadCommandParser
+
+create ReadCommand
+ReadCommandParser -> ReadCommand
+activate ReadCommand
+
+ReadCommand --> ReadCommandParser :
+deactivate ReadCommand
+
+ReadCommandParser --> AddressBookParser : r
+deactivate ReadCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+ReadCommandParser -[hidden]-> AddressBookParser
+destroy ReadCommandParser
+
+AddressBookParser --> LogicManager : r
+deactivate AddressBookParser
+
+LogicManager -> ReadCommand : execute(m)
+activate ReadCommand
+
+ReadCommand -> Model
+activate Model
+
+Model --> ReadCommand
+deactivate Model
+
+create CommandResult
+ReadCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> ReadCommand
+deactivate CommandResult
+
+ReadCommand --> LogicManager :
+deactivate ReadCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml
