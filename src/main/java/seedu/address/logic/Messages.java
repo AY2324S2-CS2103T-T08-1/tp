@@ -37,45 +37,6 @@ public class Messages {
      */
     public static String format(Person person) {
         final StringBuilder builder = new StringBuilder();
-        builder.append(person.getName())
-                .append("; NRIC: ")
-                .append(person.getNric())
-                .append("; Phone: ")
-                .append(person.getPhone())
-                .append("; Address: ")
-                .append(person.getAddress())
-                .append("; DOB: ")
-                .append(person.getDateOfBirth())
-                .append("; Sex: ")
-                .append(person.getSex())
-                .append("; Status: ")
-                .append(person.getStatus())
-                .append("; Email: ")
-                .append(Optional.ofNullable(person.getEmail()).map(Object::toString).orElse("-"))
-                .append("; Country: ")
-                .append(Optional.ofNullable(person.getCountry()).map(Object::toString).orElse("-"))
-                .append("; Allergies: ")
-                .append(Optional.ofNullable(person.getAllergies()).map(Object::toString).orElse("-"))
-                .append("; Blood Type: ")
-                .append(Optional.ofNullable(person.getBloodType()).map(Object::toString).orElse("-"))
-                .append("; Condition: ")
-                .append(Optional.ofNullable(person.getCondition()).map(Object::toString).orElse("-"))
-                .append("; DOA: ")
-                .append(Optional.ofNullable(person.getDateOfAdmission()).map(Object::toString).orElse("-"))
-                .append("; Diagnosis: ")
-                .append(Optional.ofNullable(person.getDiagnosis()).map(Object::toString).orElse("-"))
-                .append("; Symptom: ")
-                .append(Optional.ofNullable(person.getSymptom()).map(Object::toString).orElse("-"))
-                .append("; Tags: ");
-        person.getTags().forEach(builder::append);
-        return builder.toString();
-    }
-
-    /**
-     * Formats the {@code person} for display to the user in organised manner.
-     */
-    public static String formatRead(Person person) {
-        final StringBuilder builder = new StringBuilder();
         builder.append("Name: ").append(person.getName()).append("\n")
                 .append("NRIC: ").append(person.getNric()).append("\n")
                 .append("Phone: ").append(person.getPhone()).append("\n")
@@ -101,10 +62,7 @@ public class Messages {
                 .append("Symptom: ")
                 .append(Optional.ofNullable(person.getSymptom()).map(Object::toString).orElse("-")).append("\n")
                 .append("Tags: ");
-        person.getTags().forEach(tag -> builder.append(tag).append(", "));
-        if (!person.getTags().isEmpty()) {
-            builder.delete(builder.length() - 2, builder.length());
-        }
+        person.getTags().forEach(builder::append);
         return builder.toString();
     }
 
