@@ -10,6 +10,7 @@ import seedu.address.model.person.Nric;
 import seedu.address.model.person.Status;
 import seedu.address.model.person.Symptom;
 
+
 /**
  * Represents a single Patient Visit
  * Guarantees: details are present and not null, field values are validated, immutable.
@@ -72,6 +73,22 @@ public class Visit {
                 && visit.diagnosis != null
                 && visit.status != null;
     }
+
+    /**
+     * Returns true if both visits have the same nric and date
+     * NRIC and Date of Visit serve as the unique key for each Visit
+     * This is different from equals
+     * @return Boolean if two Visits are the same
+     */
+    public boolean isSameVisit(Visit otherVisit) {
+        if (otherVisit == this) {
+            return true;
+        }
+
+        return otherVisit != null && otherVisit.getNric().equals(getNric())
+            && otherVisit.getDateOfVisit().equals(getDateOfVisit());
+    }
+
 
     /**
      * Returns true if both persons have the same identity and all data fields.
