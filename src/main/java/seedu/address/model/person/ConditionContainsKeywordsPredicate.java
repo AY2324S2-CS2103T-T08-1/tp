@@ -18,6 +18,9 @@ public class ConditionContainsKeywordsPredicate implements Predicate<Person> {
 
     @Override
     public boolean test(Person person) {
+        if (person.getCondition() == null) {
+            return false;
+        }
         return keywords.stream().anyMatch(
                 keyword -> StringUtil.containsPhraseIgnoreCase(person.getCondition().toString(), keyword));
     }
