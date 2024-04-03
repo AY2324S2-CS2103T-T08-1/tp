@@ -207,19 +207,19 @@ Format: `check <NRIC>`
 Example:
 * `check S1234567A`displays all visits in history of patient uniquely identified by NRIC S1234567A.
 
-### Find cluster : `findcluster`
+### Find cluster : `cluster`
 
 Finds cluster in location specified. 
 
-Format: `findcluster loc/<Location>`
+Format: `cluster <Size_of_cluster> loc/<Location>`
 
 * The search is case-insensitive. e.g `serangoon` will match `Serangoon`
-* The order of the keywords does matter. e.g. `Clementi Ave` will not match `Ave Clementi`
+* The order of the keywords in location does matter. e.g. `Clementi Ave` will not match `Ave Clementi`
 * Only the address is searched.
 * Partial words will be matched e.g. `Clem` will match `Clementi`
 
 Example: 
-* `findcluster loc/Serangoon` finds clusters of patients exhibiting the same symptoms in the Serangoon vicinity. 
+* `cluster 3 loc/Serangoon` finds clusters of at least 3 patients exhibiting the same symptoms in the Serangoon vicinity. 
 
 ### Clearing all entries : `clear`
 
