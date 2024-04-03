@@ -269,28 +269,6 @@ public class Person {
         if (!(isValidPerson(this) && isValidPerson(otherPerson))) {
             return false;
         }
-        //TODO: delete
-        /*
-        boolean optionals = true;
-        System.out.println(name);
-        if (otherPerson.email == null) {
-            optionals = this.email == null;
-            System.out.println("other email is null");
-        } else {
-            System.out.println("other email is not null");
-        }
-        if (this.email == null) {
-            optionals = otherPerson.email == null;
-            System.out.println("email is null");
-        } else {
-            System.out.println("email is not null");
-        }
-
-        if (this.email != null && otherPerson.email != null) {
-            optionals = this.email.equals(otherPerson.email);
-            System.out.println(this.email.equals(otherPerson.email));
-        }
-         */
         return nric.equals(otherPerson.nric)
                 && name.equals(otherPerson.name)
                 && phone.equals(otherPerson.phone)

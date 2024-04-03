@@ -23,13 +23,14 @@ public class DeleteInfoCommandTest {
 
     @Test
     public void execute_deleteInfo_success() {
-        Person personToDeleteInfo = model.getFilteredPersonList().get(0);
-        Nric targetNric = personToDeleteInfo.getNric();
+        Person personToDeleteInfo = new PersonBuilder(ALICE).withNric("T0278967B").build();
+        model.addPerson(personToDeleteInfo);
+        Nric targetNric = new Nric("T0278967B");
         boolean[] fieldsToDelete = {true, true, true, true, true, true, true, true};
         DeleteInfoCommand deleteInfoCommand = new DeleteInfoCommand(targetNric, fieldsToDelete);
         ModelManager expectedModel = new ModelManager(model.getImmuniMate(), new UserPrefs());
+        Person expectedPerson = new PersonBuilder(ALICE).withNric("T0278967B").build();
 
-        Person expectedPerson = new PersonBuilder(ALICE).build();
         expectedPerson.setEmail(null);
         expectedPerson.setAllergies(null);
         expectedPerson.setBloodType(null);
