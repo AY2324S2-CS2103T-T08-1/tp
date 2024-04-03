@@ -9,6 +9,7 @@ import java.util.regex.Pattern;
 
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.AddVisitCommand;
+import seedu.address.logic.commands.CheckCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CreateCommand;
@@ -82,9 +83,12 @@ public class ImmuniMateParser {
 
         case ReadCommand.COMMAND_WORD:
             return new ReadCommandParser().parse(arguments);
+
         case AddVisitCommand.COMMAND_WORD:
             return new AddVisitCommandParser().parse(arguments);
 
+        case CheckCommand.COMMAND_WORD:
+            return new CheckCommandParser().parse(arguments);
 
         default:
             logger.finer("This user input caused a ParseException: " + userInput);
