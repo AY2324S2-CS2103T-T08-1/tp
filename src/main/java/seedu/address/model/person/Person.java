@@ -275,13 +275,22 @@ public class Person {
                 && address.equals(otherPerson.address)
                 && dateOfBirth.equals(otherPerson.dateOfBirth)
                 && sex.equals(otherPerson.sex)
-                && status.equals(otherPerson.status);
+                && status.equals(otherPerson.status)
+                && Objects.equals(email, otherPerson.email)
+                && Objects.equals(country, otherPerson.country)
+                && Objects.equals(allergies, otherPerson.allergies)
+                && Objects.equals(bloodType, otherPerson.bloodType)
+                && Objects.equals(condition, otherPerson.condition)
+                && Objects.equals(dateOfAdmission, otherPerson.dateOfAdmission)
+                && Objects.equals(diagnosis, otherPerson.diagnosis)
+                && Objects.equals(symptom, otherPerson.symptom);
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(nric, name, phone, address, dateOfBirth, sex, status);
+        return Objects.hash(nric, name, phone, address, dateOfBirth, sex, status, email, country, allergies, bloodType,
+                condition, dateOfAdmission, diagnosis, symptom);
     }
 
     @Override

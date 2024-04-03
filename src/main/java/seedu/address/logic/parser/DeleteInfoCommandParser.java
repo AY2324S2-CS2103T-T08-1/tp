@@ -48,21 +48,21 @@ public class DeleteInfoCommandParser implements Parser<DeleteInfoCommand> {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteInfoCommand.MESSAGE_USAGE));
         }
-        //Check for NRIC
-        Nric nric;
-        String[] splitedArgs = args.trim().split("\\s+");
-        try {
-            nric = ParserUtil.parseNric(splitedArgs[0]);
-        } catch (ParseException pe) {
-            throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteInfoCommand.MESSAGE_USAGE), pe);
-        }
         //Parse prefixes
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NRIC, PREFIX_NAME, PREFIX_PHONE, PREFIX_ADDRESS,
                         PREFIX_DATEOFBIRTH, PREFIX_SEX, PREFIX_STATUS, PREFIX_TAG, PREFIX_EMAIL, PREFIX_COUNTRY,
                         PREFIX_DATEOFADMISSION, PREFIX_ALLERGIES, PREFIX_BLOODTYPE, PREFIX_CONDITION, PREFIX_SYMPTOM,
                         PREFIX_DIAGNOSIS);
+        //Check for NRIC
+        Nric nric;
+        try {
+            nric = ParserUtil.parseNric(argMultimap.getPreamble());
+        } catch (ParseException pe) {
+            throw new ParseException(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteInfoCommand.MESSAGE_USAGE), pe);
+        }
+
         //Check for empty input
         if (argMultimap.length() <= 1) {
             throw new ParseException(
