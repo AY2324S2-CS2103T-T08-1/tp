@@ -25,7 +25,7 @@ public class ReadCommandTest {
     private final Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
     @Test
     void execute_validNric_success() {
-        String expectedMessage = String.format(MESSAGE_READ_PERSON_SUCCESS, Messages.formatRead(ALICE));
+        String expectedMessage = String.format(MESSAGE_READ_PERSON_SUCCESS, Messages.format(ALICE));
         ReadCommand command = new ReadCommand(ALICE.getNric());
         expectedModel.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);

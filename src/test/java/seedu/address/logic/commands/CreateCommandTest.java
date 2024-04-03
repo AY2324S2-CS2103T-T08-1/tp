@@ -23,6 +23,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyImmuniMate;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.person.Person;
+import seedu.address.model.visit.Visit;
 import seedu.address.testutil.PersonBuilder;
 
 public class CreateCommandTest {
@@ -86,7 +87,7 @@ public class CreateCommandTest {
     }
 
     /**
-     * A default model stub that have all of the methods failing.
+     * A default model stub that have all the methods failing.
      */
     private class ModelStub implements Model {
         @Override
@@ -125,6 +126,11 @@ public class CreateCommandTest {
         }
 
         @Override
+        public void addVisit(Visit visit) {
+
+        }
+
+        @Override
         public void setImmuniMate(ReadOnlyImmuniMate immuniMate) {
             throw new AssertionError("This method should not be called.");
         }
@@ -140,7 +146,17 @@ public class CreateCommandTest {
         }
 
         @Override
+        public boolean hasVisit(Visit visit) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void deletePerson(Person target) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deleteVisit(Visit target) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -150,12 +166,27 @@ public class CreateCommandTest {
         }
 
         @Override
+        public void setVisit(Visit target, Visit editedVisit) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public ObservableList<Person> getFilteredPersonList() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
+        public ObservableList<Visit> getFilteredVisitList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void updateFilteredPersonList(Predicate<Person> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredVisitList(Predicate<Visit> predicate) {
             throw new AssertionError("This method should not be called.");
         }
     }
