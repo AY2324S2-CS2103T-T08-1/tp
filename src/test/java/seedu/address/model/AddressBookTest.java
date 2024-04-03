@@ -86,7 +86,8 @@ public class AddressBookTest {
 
     @Test
     public void toStringMethod() {
-        String expected = ImmuniMate.class.getCanonicalName() + "{persons=" + addressBook.getPersonList() + "}";
+        String expected = ImmuniMate.class.getCanonicalName() + "{persons=" + addressBook.getPersonList()
+            + ", visits=" + addressBook.getVisitList() + "}";
         assertEquals(expected, addressBook.toString());
     }
 
