@@ -21,11 +21,12 @@ public class ReadCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Reads the details of the person identified "
             + "by the NRIC specified. "
-            + "Example: " + COMMAND_WORD
+            + "\nParameters: "
+            + PREFIX_NRIC + "NRIC "
+            + "\nExample: " + COMMAND_WORD
             + PREFIX_NRIC + "S0123456A";
 
     public static final String MESSAGE_READ_PERSON_SUCCESS = "Read Person ->\n%1$s";
-    public static final String MESSAGE_NOT_READ = "NRIC to be specified.";
     private final Nric nric;
 
     /**

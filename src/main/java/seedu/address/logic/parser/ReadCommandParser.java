@@ -21,7 +21,7 @@ public class ReadCommandParser implements Parser<ReadCommand> {
         String trimmedArg = args.trim();
         if (trimmedArg.isEmpty()) {
             throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, ReadCommand.MESSAGE_NOT_READ));
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, ReadCommand.MESSAGE_USAGE));
         }
 
         return new ReadCommand(new Nric(trimmedArg));

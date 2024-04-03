@@ -28,7 +28,7 @@ public class CreateCommand extends Command {
     public static final String COMMAND_WORD = "create";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Creates a patient in Immunimate. "
-            + "Parameters: "
+            + "\nParameters: "
             + PREFIX_NRIC + "NRIC "
             + PREFIX_NAME + "NAME "
             + PREFIX_PHONE + "PHONE "
