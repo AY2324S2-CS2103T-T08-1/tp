@@ -7,12 +7,10 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
-import java.util.function.Predicate;
-
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.person.Person;
+import seedu.address.model.person.AddressDiagnosisStatusPredicate;
 
 
 /**
@@ -35,18 +33,20 @@ public class ClusterCommand extends Command {
             + PREFIX_PHONE + "91234567 "
             + PREFIX_EMAIL + "johndoe@example.com";
 
-    public static final String MESSAGE_CLUSTER_FOUND_SUCCESS = "Cluster found! Here are the people in this cluster:";
-    public static final String MESSAGE_CLUSTER_NOT_FOUND = "Too few infected people to form a cluster.\n"
+    public static final String MESSAGE_NO_INFECTED_PEOPLE = "Good news! This area \"%1$s\" has no patients with %2$s.";
+    public static final String MESSAGE_CLUSTER_FOUND_SUCCESS =
+            "Cluster of %1$s found!\nHere's everyone in the area of \"%2$s\" with \"%3$s\":";
+    public static final String MESSAGE_CLUSTER_NOT_FOUND = "Cluster not found.\n"
+            + "There are only %1$s people in the area of \"%2$s\" with \"%3$s\".\n"
             + "But here are infected people in the area to look out for:";
     private final int clusterSize;
-    private final Predicate<Person> predicate;
+    private final AddressDiagnosisStatusPredicate predicate;
 
     /**
      * @param clusterSize of the person in the filtered person list to update
      * @param predicate details to update the person with
      */
-    public ClusterCommand(int clusterSize, Predicate<Person> predicate) {
-        requireNonNull(clusterSize);
+    public ClusterCommand(int clusterSize, AddressDiagnosisStatusPredicate predicate) {
         requireNonNull(predicate);
 
         this.clusterSize = clusterSize;
@@ -58,10 +58,16 @@ public class ClusterCommand extends Command {
         requireNonNull(model);
         model.updateFilteredPersonList(predicate);
 
-        if (model.getFilteredPersonList().size() >= clusterSize) {
-            return new CommandResult(String.format(MESSAGE_CLUSTER_FOUND_SUCCESS));
+        int len = model.getFilteredPersonList().size();
+        if (len == 0) {
+            return new CommandResult(String.format(MESSAGE_NO_INFECTED_PEOPLE,
+                    predicate.getAddress(), predicate.getDisease()));
+        } else if (len < clusterSize) {
+            return new CommandResult(String.format(MESSAGE_CLUSTER_NOT_FOUND, len,
+                    predicate.getAddress(), predicate.getDisease()));
         } else {
-            return new CommandResult(String.format(MESSAGE_CLUSTER_NOT_FOUND));
+            return new CommandResult(String.format(MESSAGE_CLUSTER_FOUND_SUCCESS, len,
+                    predicate.getAddress(), predicate.getDisease()));
         }
     }
 

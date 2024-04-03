@@ -1,10 +1,12 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DIAGNOSIS;
 
 import seedu.address.logic.commands.ClusterCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.AddressAndStatusPredicate;
+import seedu.address.model.person.AddressDiagnosisStatusPredicate;
 
 /**
  * Parses input arguments and creates a new FindCommand object
@@ -19,24 +21,27 @@ public class ClusterCommandParser implements Parser<ClusterCommand> {
     public ClusterCommand parse(String args) throws ParseException {
         String trimmedArgs = args.trim();
         if (trimmedArgs.isEmpty()) {
-            throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, ClusterCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ClusterCommand.MESSAGE_USAGE));
         }
 
-        String[] keywords = trimmedArgs.split("\\s+", 2);
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(trimmedArgs, PREFIX_ADDRESS, PREFIX_DIAGNOSIS);
+
         int clusterSize;
         try {
-            clusterSize = Integer.parseInt(keywords[0]);
+            clusterSize = Integer.parseInt(argMultimap.getPreamble());
         } catch (NumberFormatException nfe) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ClusterCommand.MESSAGE_USAGE), nfe);
         }
 
-        if (keywords.length < 2 || clusterSize < 1) {
-            throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, ClusterCommand.MESSAGE_USAGE));
+        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_ADDRESS, PREFIX_DIAGNOSIS);
+        if (clusterSize < 1 || !argMultimap.getValue(PREFIX_ADDRESS).isPresent()
+                || !argMultimap.getValue(PREFIX_DIAGNOSIS).isPresent()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ClusterCommand.MESSAGE_USAGE));
         }
 
-        String addressKeyword = keywords[1];
-        return new ClusterCommand(clusterSize, new AddressAndStatusPredicate(addressKeyword, "UNWELL"));
+        String address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get()).toString();
+        String disease = ParserUtil.parseDiagnosis(argMultimap.getValue(PREFIX_DIAGNOSIS).get()).toString();
+        return new ClusterCommand(clusterSize,
+                new AddressDiagnosisStatusPredicate(address, disease, "UNWELL"));
     }
 }

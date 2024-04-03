@@ -18,7 +18,7 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
      */
     public DeleteCommand parse(String args) throws ParseException {
         try {
-            Nric nric = ParserUtil.parseNric(args);
+            Nric nric = ParserUtil.parseNric(args.toUpperCase());
             return new DeleteCommand(nric);
         } catch (ParseException pe) {
             throw new ParseException(
