@@ -119,12 +119,33 @@ public class ImmuniMate implements ReadOnlyImmuniMate {
     }
 
     /**
+     * Replaces the given visit {@code target} in the list with {@code editedVisit}.
+     * {@code target} must exist in the address book.
+     * The unique identifier of {@code editedVisit} must not be the same as another existing visit in the address book.
+     */
+    public void setVisit(Visit target, Visit editedVisit) {
+        requireNonNull(editedVisit);
+
+        visits.setVisit(target, editedVisit);
+    }
+
+
+    /**
      * Removes {@code key} from this {@code AddressBook}.
      * {@code key} must exist in the address book.
      */
     public void removePerson(Person key) {
         persons.remove(key);
     }
+
+    /**
+     * Removes {@code key} from this {@code AddressBook}.
+     * {@code key} must exist in the address book.
+     */
+    public void removeVisit(Visit key) {
+        visits.remove(key);
+    }
+
 
     //// util methods
 

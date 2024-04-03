@@ -25,6 +25,7 @@ import seedu.address.model.person.Sex;
 import seedu.address.model.person.Status;
 import seedu.address.model.person.Symptom;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.visit.DateOfVisit;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -124,6 +125,22 @@ public class ParserUtil {
             throw new ParseException(DateOfBirth.MESSAGE_CONSTRAINTS);
         }
         return new DateOfBirth(trimmedDob);
+    }
+
+    /**
+     * Parses a {@code String dov} into an {@code DateOfVisit}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code dov} is invalid.
+     */
+    //TODO test cases
+    public static DateOfVisit parseDateOfVisit(String dov) throws ParseException {
+        requireNonNull(dov);
+        String trimmedDov = dov.trim();
+        if (!DateOfVisit.isValidDateOfVisit(trimmedDov)) {
+            throw new ParseException(DateOfBirth.MESSAGE_CONSTRAINTS);
+        }
+        return new DateOfVisit(trimmedDov);
     }
 
     /**
