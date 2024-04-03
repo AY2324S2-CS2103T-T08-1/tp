@@ -22,9 +22,9 @@ public class ReadCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Reads the details of the person identified "
             + "by the NRIC specified. "
             + "Example: " + COMMAND_WORD
-            + PREFIX_NRIC + "T0123456A";
+            + PREFIX_NRIC + "S0123456A";
 
-    public static final String MESSAGE_READ_PERSON_SUCCESS = "Read Person: %1$s";
+    public static final String MESSAGE_READ_PERSON_SUCCESS = "Read Person ->\n%1$s";
     public static final String MESSAGE_NOT_READ = "NRIC to be specified.";
     private final Nric nric;
 
@@ -49,7 +49,7 @@ public class ReadCommand extends Command {
         Person readPerson = model.getFilteredPersonList().get(0);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
 
-        return new CommandResult(String.format(MESSAGE_READ_PERSON_SUCCESS, Messages.formatRead(readPerson)));
+        return new CommandResult(String.format(MESSAGE_READ_PERSON_SUCCESS, Messages.format(readPerson)));
     }
 
     @Override
