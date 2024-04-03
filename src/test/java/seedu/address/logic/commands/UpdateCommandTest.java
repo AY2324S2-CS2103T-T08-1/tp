@@ -82,15 +82,14 @@ public class UpdateCommandTest {
     @Test
     public void execute_noFieldSpecifiedUnfilteredList_failure() {
         UpdateCommand updateCommand = new UpdateCommand(ALICE.getNric(), new UpdatePersonDescriptor());
-        /* Person editedPerson = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
+        Person editedPerson = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
 
         String expectedMessage = String.format(
                 UpdateCommand.MESSAGE_UPDATE_PERSON_SUCCESS, Messages.format(editedPerson));
 
         Model expectedModel = new ModelManager(new ImmuniMate(model.getImmuniMate()), new UserPrefs());
 
-        assertCommandSuccess(updateCommand, model, expectedMessage, expectedModel); */
-        assertCommandFailure(updateCommand, model, UpdateCommand.MESSAGE_DUPLICATE_PERSON);
+        assertCommandSuccess(updateCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
@@ -112,16 +111,22 @@ public class UpdateCommandTest {
     }
 
     @Test
-    public void execute_duplicatePersonUnfilteredList_failure() {
+    public void execute_duplicatePersonUnfilteredList_success() {
         Person firstPerson = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
         UpdatePersonDescriptor descriptor = new UpdatePersonDescriptorBuilder(firstPerson).build();
         UpdateCommand updateCommand = new UpdateCommand(ALICE.getNric(), descriptor);
 
-        assertCommandFailure(updateCommand, model, UpdateCommand.MESSAGE_DUPLICATE_PERSON);
+        String expectedMessage = String.format(
+                UpdateCommand.MESSAGE_UPDATE_PERSON_SUCCESS, Messages.format(firstPerson));
+
+        Model expectedModel = new ModelManager(new ImmuniMate(model.getImmuniMate()), new UserPrefs());
+        expectedModel.setPerson(model.getFilteredPersonList().get(0), firstPerson);
+
+        assertCommandSuccess(updateCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
-    public void execute_duplicatePersonFilteredList_failure() {
+    public void execute_duplicatePersonFilteredList_success() {
         showPersonAtIndex(model, INDEX_FIRST_PERSON);
 
         // edit person in filtered list into a duplicate in address book
@@ -129,7 +134,13 @@ public class UpdateCommandTest {
         UpdatePersonDescriptor descriptor = new UpdatePersonDescriptorBuilder(personInList).build();
         UpdateCommand updateCommand = new UpdateCommand(ALICE.getNric(), descriptor);
 
-        assertCommandFailure(updateCommand, model, UpdateCommand.MESSAGE_DUPLICATE_PERSON);
+        String expectedMessage = String.format(
+                UpdateCommand.MESSAGE_UPDATE_PERSON_SUCCESS, Messages.format(personInList));
+
+        Model expectedModel = new ModelManager(new ImmuniMate(model.getImmuniMate()), new UserPrefs());
+        expectedModel.setPerson(model.getFilteredPersonList().get(0), personInList);
+
+        assertCommandSuccess(updateCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
