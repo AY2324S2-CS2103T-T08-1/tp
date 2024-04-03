@@ -8,6 +8,8 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 
+import java.util.LinkedList;
+
 /**
  * The UI component that is responsible for receiving user command inputs.
  */
@@ -17,6 +19,8 @@ public class CommandBox extends UiPart<Region> {
     private static final String FXML = "CommandBox.fxml";
 
     private final CommandExecutor commandExecutor;
+    private final LinkedList<String> commandHistory = new LinkedList<>();
+    private int historyIndex = 0;
 
     @FXML
     private TextField commandTextField;
@@ -29,6 +33,44 @@ public class CommandBox extends UiPart<Region> {
         this.commandExecutor = commandExecutor;
         // calls #setStyleToDefault() whenever there is a change to the text of the command box.
         commandTextField.textProperty().addListener((unused1, unused2, unused3) -> setStyleToDefault());
+
+        // Listen for key events on the commandTextField
+        commandTextField.setOnKeyPressed(event -> {
+            switch (event.getCode()) {
+            case UP:
+                navigateCommandHistory(1); // Navigate backwards in history
+                event.consume(); // Consume the event to prevent further processing
+                break;
+            case DOWN:
+                navigateCommandHistory(-1); // Navigate forwards in history
+                event.consume();
+                break;
+            default:
+                break;
+            }
+        });
+    }
+
+
+    private void navigateCommandHistory(int direction) {
+        if (commandHistory.isEmpty()) {
+            return; // No history to navigate
+        }
+
+        // Adjust the history index based on the direction
+        historyIndex += direction;
+
+        // Boundary checks
+        if (historyIndex < 0) {
+            historyIndex = 0;
+        } else if (historyIndex >= commandHistory.size()) {
+            historyIndex = commandHistory.size();
+            commandTextField.setText(""); // Clear the text field if we're past the last command
+            return;
+        }
+
+        // Set the commandTextField's text to the command at the new history index
+        commandTextField.setText(commandHistory.get(historyIndex));
     }
 
     /**
@@ -43,6 +85,8 @@ public class CommandBox extends UiPart<Region> {
 
         try {
             commandExecutor.execute(commandText);
+            commandHistory.addFirst(commandText);
+            historyIndex = 0;
             commandTextField.setText("");
         } catch (CommandException | ParseException e) {
             setStyleToIndicateCommandFailure();
