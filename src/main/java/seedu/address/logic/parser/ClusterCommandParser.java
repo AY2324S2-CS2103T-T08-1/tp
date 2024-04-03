@@ -2,12 +2,9 @@ package seedu.address.logic.parser;
 
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
-import java.util.Arrays;
-import java.util.List;
-
 import seedu.address.logic.commands.ClusterCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.AddressContainsKeywordsPredicate;
+import seedu.address.model.person.AddressAndStatusPredicate;
 
 /**
  * Parses input arguments and creates a new FindCommand object
@@ -39,8 +36,7 @@ public class ClusterCommandParser implements Parser<ClusterCommand> {
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, ClusterCommand.MESSAGE_USAGE));
         }
 
-        String addressKeywords = keywords[1];
-        List<String> list = Arrays.asList(addressKeywords);
-        return new ClusterCommand(clusterSize, new AddressContainsKeywordsPredicate(list));
+        String addressKeyword = keywords[1];
+        return new ClusterCommand(clusterSize, new AddressAndStatusPredicate(addressKeyword, "UNWELL"));
     }
 }
