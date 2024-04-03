@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.address.logic.commands.CommandTestUtil.NON_EXISTENT_NRIC;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import org.junit.jupiter.api.Test;
@@ -14,6 +15,7 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.person.Nric;
 import seedu.address.model.person.Person;
+import seedu.address.testutil.PersonBuilder;
 
 
 public class DeleteInfoCommandTest {
@@ -26,7 +28,8 @@ public class DeleteInfoCommandTest {
         boolean[] fieldsToDelete = {true, true, true, true, true, true, true, true};
         DeleteInfoCommand deleteInfoCommand = new DeleteInfoCommand(targetNric, fieldsToDelete);
         ModelManager expectedModel = new ModelManager(model.getImmuniMate(), new UserPrefs());
-        Person expectedPerson = expectedModel.getFilteredPersonList().get(0);
+
+        Person expectedPerson = new PersonBuilder(ALICE).build();
         expectedPerson.setEmail(null);
         expectedPerson.setAllergies(null);
         expectedPerson.setBloodType(null);

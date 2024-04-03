@@ -64,7 +64,6 @@ public class TypicalPersons {
     public static final Person GEORGE = new PersonBuilder().withNric("T0829102Z")
             .withName("George Best").withPhone("94824421").withDateOfBirth("2001-01-01")
             .withAddress("4th street").withSex("M").withStatus("HEALTHY").build();
-    //TODO add date of birth and some other optional fields
 
     // Manually added
     public static final Person HOON = new PersonBuilder().withNric("T0123071C").withName("Hoon Meier")
@@ -89,7 +88,6 @@ public class TypicalPersons {
             .withEmail(VALID_EMAIL_BOB).withCondition(VALID_CONDITION_BOB).withCountry(VALID_COUNTRY_BOB)
             .withBloodType(VALID_BLOODTYPE_BOB).withDateOfAdmission(VALID_DATEOFADMISSION_BOB)
             .withDiagnosis(VALID_DIAGNOSIS_BOB).withSymptom(VALID_SYMPTOM_BOB).build();
-    //TODO: person builder should be able to build a person with all fields (status)
 
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
 

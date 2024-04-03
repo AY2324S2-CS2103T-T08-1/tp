@@ -48,8 +48,6 @@ public class DeleteInfoCommand extends Command {
         this.targetNric = targetNric;
         this.fieldsToDelete = fieldsToDelete;
     }
-
-    //TODO test cases
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
