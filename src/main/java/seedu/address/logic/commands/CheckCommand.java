@@ -2,6 +2,8 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.List;
+
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -10,8 +12,7 @@ import seedu.address.model.person.Nric;
 import seedu.address.model.person.NricContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
 import seedu.address.model.visit.Visit;
-
-import java.util.List;
+import seedu.address.model.visit.VisitContainsNricPredicate;
 
 /**
  * Checks the visits in history of an existing person in the address book.
@@ -48,7 +49,7 @@ public class CheckCommand extends Command {
         model.updateFilteredPersonList(new NricContainsKeywordsPredicate(nric.toString()));
         Person checkedPerson = model.getFilteredPersonList().get(0);
 
-        model.updateFilteredVisitList(visit -> visit.getNric().equals(checkedPerson.getNric()));
+        model.updateFilteredVisitList(new VisitContainsNricPredicate(nric.toString()));
         List<Visit> filteredVisits = model.getFilteredVisitList();
 
         StringBuilder stringBuilder = new StringBuilder();
