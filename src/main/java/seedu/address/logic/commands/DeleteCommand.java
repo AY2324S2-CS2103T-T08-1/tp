@@ -22,7 +22,7 @@ public class DeleteCommand extends Command {
             + "Parameters: NRIC\n"
             + "Example: " + COMMAND_WORD + " S0123456A";
 
-    public static final String MESSAGE_DELETE_PERSON_SUCCESS = "Deleted Patient ->\n%1$s";
+    public static final String MESSAGE_DELETE_PERSON_SUCCESS = "Deleted Person ->\n%1$s";
 
     private final Nric targetNric;
     //TODO test cases

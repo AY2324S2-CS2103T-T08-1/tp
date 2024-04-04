@@ -25,8 +25,8 @@
 
             <VBox>
                 <MenuBar fx:id="menuBar" style="-fx-background-color: #469073;" VBox.vgrow="NEVER">
-                  <Menu mnemonicParsing="false" style="-fx-font-family: Arial; -fx-font-size: 14px;" text="Help">
-                    <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" style="-fx-font-family: Arial; -fx-font-size: 14px;" text="Help" />
+                  <Menu mnemonicParsing="false" text="Help" style="-fx-font-family: Arial; -fx-font-size: 14px;">
+                    <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help" style="-fx-font-family: Arial; -fx-font-size: 14px;" />
                   </Menu>
                   <Menu mnemonicParsing="false" style="-fx-font-family: Arial; -fx-font-size: 14px; -fx-font-weight: bold;" text="ImmuniMate" />
                 </MenuBar>
