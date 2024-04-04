@@ -51,7 +51,7 @@ public class UpdateCommandParser implements Parser<UpdateCommand> {
         Nric nric;
 
         try {
-            nric = ParserUtil.parseNric(argMultimap.getPreamble());
+            nric = ParserUtil.parseNric(argMultimap.getPreamble().toUpperCase());
         } catch (ParseException pe) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, UpdateCommand.MESSAGE_USAGE), pe);
         }

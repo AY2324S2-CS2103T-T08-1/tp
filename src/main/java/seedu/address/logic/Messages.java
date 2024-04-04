@@ -82,4 +82,16 @@ public class Messages {
         return builder.toString();
     }
 
+    /**
+     * Formats the {@code visit} for display to the user for check command.
+     */
+    public static String formatCheck(Visit visit) {
+        final StringBuilder builder = new StringBuilder();
+        builder.append("DOV: ").append(visit.getDateOfVisit()).append("\n")
+            .append("Symptom: ").append(visit.getSymptom()).append("\n")
+            .append("Diagnosis: ").append(visit.getDiagnosis()).append("\n")
+            .append("Status: ").append(visit.getStatus()).append("\n");
+        return builder.toString();
+    }
+
 }

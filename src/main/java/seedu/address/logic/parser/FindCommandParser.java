@@ -31,11 +31,6 @@ public class FindCommandParser implements Parser<FindCommand> {
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
         }
 
-        /*
-        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_ADDRESS, PREFIX_CONDITION);
-        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_NAME, PREFIX_ADDRESS, PREFIX_CONDITION);
-         */
-
         if (trimmedArgs.startsWith(PREFIX_NAME.getPrefix())) {
             String[] nameKeywords = trimmedArgs.substring(2).trim().split("\\s+");
             List<String> list = Arrays.asList(nameKeywords);
