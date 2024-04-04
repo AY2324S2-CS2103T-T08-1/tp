@@ -8,6 +8,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.logic.commands.AddVisitCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.ClusterCommand;
 import seedu.address.logic.commands.Command;
@@ -82,6 +83,9 @@ public class ImmuniMateParser {
 
         case ReadCommand.COMMAND_WORD:
             return new ReadCommandParser().parse(arguments);
+        case AddVisitCommand.COMMAND_WORD:
+            return new AddVisitCommandParser().parse(arguments);
+
 
         case UpdateCommand.COMMAND_WORD:
             return new UpdateCommandParser().parse(arguments);
