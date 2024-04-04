@@ -1,7 +1,20 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.*;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ALLERGIES;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_BLOODTYPE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CONDITION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_COUNTRY;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DATEOFADMISSION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DATEOFBIRTH;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DIAGNOSIS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_SEX;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_STATUS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_SYMPTOM;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.util.Collections;
@@ -52,7 +65,7 @@ public class UpdateCommand extends Command {
             + "[" + PREFIX_ADDRESS + "ADDRESS] "
             + "[" + PREFIX_DATEOFBIRTH + "DATEOFBIRTH] "
             + "[" + PREFIX_SEX + "SEX] "
-            + "[" + PREFIX_STATUS+ "STATUS] "
+            + "[" + PREFIX_STATUS + "STATUS] "
             + "[" + PREFIX_EMAIL + "EMAIL] "
             + "[" + PREFIX_COUNTRY + "COUNTRY] "
             + "[" + PREFIX_ALLERGIES + "ALLERGIES] "
