@@ -117,7 +117,7 @@ Finds patients whose name contain any of the given keywords.
 
 Format: `find n/KEYWORD [MORE_KEYWORDS]`
 
-* The search is case-insensitive. e.g `hans` will match `Hans`
+* The search is case-insensitive. e.g. `hans` will match `Hans`
 * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
 * Only the name is searched.
 * Only full words will be matched e.g. `Han` will not match `Hans`
@@ -136,7 +136,7 @@ Finds patients whose address contain any of the given keywords.
 
 Format: `find a/KEYWORD`
 
-* The search is case-insensitive. e.g `serangoon` will match `Serangoon`
+* The search is case-insensitive. e.g. `serangoon` will match `Serangoon`
 * The order of the keywords does matter. e.g. `Clementi Ave` will not match `Ave Clementi`
 * Only the address is searched.
 * Partial words will be matched e.g. `Clem` will match `Clementi`
@@ -155,7 +155,7 @@ Finds patients whose condition contain any of the given keywords.
 
 Format: `find con/KEYWORD`
 
-* The search is case-insensitive. e.g `covid` will match `Covid`
+* The search is case-insensitive. e.g. `covid` will match `Covid`
 * The order of the keywords does matter. e.g. `Stomach FLu` will not match `Flu Stomach`
 * Only the condition is searched.
 * Partial words will be matched e.g. `Cov` will match `Covid`
@@ -213,7 +213,7 @@ Finds cluster in location specified.
 
 Format: `cluster <Size_of_cluster> loc/<Location>`
 
-* The search is case-insensitive. e.g `serangoon` will match `Serangoon`
+* The search is case-insensitive. e.g. `serangoon` will match `Serangoon`
 * The order of the keywords in location does matter. e.g. `Clementi Ave` will not match `Ave Clementi`
 * Only the address is searched.
 * Partial words will be matched e.g. `Clem` will match `Clementi`
