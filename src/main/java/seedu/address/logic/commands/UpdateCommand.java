@@ -2,10 +2,19 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ALLERGIES;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_BLOODTYPE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CONDITION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_COUNTRY;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DATEOFADMISSION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DATEOFBIRTH;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DIAGNOSIS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_SEX;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_STATUS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_SYMPTOM;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.util.Collections;
@@ -53,10 +62,20 @@ public class UpdateCommand extends Command {
             + "Parameters: NRIC "
             + "[" + PREFIX_NAME + "NAME] "
             + "[" + PREFIX_PHONE + "PHONE] "
-            + "[" + PREFIX_EMAIL + "EMAIL] "
             + "[" + PREFIX_ADDRESS + "ADDRESS] "
-            + "[" + PREFIX_TAG + "TAG]...\n"
-            + "Example: " + COMMAND_WORD + " S0123456A "
+            + "[" + PREFIX_DATEOFBIRTH + "DATEOFBIRTH] "
+            + "[" + PREFIX_SEX + "SEX] "
+            + "[" + PREFIX_STATUS + "STATUS] "
+            + "[" + PREFIX_EMAIL + "EMAIL] "
+            + "[" + PREFIX_COUNTRY + "COUNTRY] "
+            + "[" + PREFIX_ALLERGIES + "ALLERGIES] "
+            + "[" + PREFIX_BLOODTYPE + "BLOODTYPE] "
+            + "[" + PREFIX_EMAIL + "EMAIL] "
+            + "[" + PREFIX_CONDITION + "CONDITION] "
+            + "[" + PREFIX_DATEOFADMISSION + "DATEOFADMISSION] "
+            + "[" + PREFIX_DIAGNOSIS + "DIAGNOSIS] "
+            + "[" + PREFIX_SYMPTOM + "SYMPTOM] "
+            + "\nExample: " + COMMAND_WORD + " S0123456A "
             + PREFIX_PHONE + "91234567 "
             + PREFIX_EMAIL + "johndoe@example.com";
 
