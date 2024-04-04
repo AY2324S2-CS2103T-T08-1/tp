@@ -15,9 +15,9 @@ import seedu.address.model.person.Status;
 public class PersonCard extends UiPart<Region> {
 
     private static final String FXML = "PersonListCard.fxml";
-    Color customGreen = Color.web("#81C784");
-    Color customYellow = Color.web("#FFF176");
-    Color customRed = Color.web("#EF5350");
+    private static final Color customGreen = Color.web("#81C784");
+    private static final Color customYellow = Color.web("#FFF176");
+    private static final Color customRed = Color.web("#EF5350");
 
 
     /**
