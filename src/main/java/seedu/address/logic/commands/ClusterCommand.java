@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DIAGNOSIS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
@@ -20,18 +21,16 @@ public class ClusterCommand extends Command {
 
     public static final String COMMAND_WORD = "cluster";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Updates the details of the person identified "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ":\nDetects if there is a cluster of the size given,"
+            + " at the location given, of the disease given, and shows the details of all there with the disease."
             + "by the respective NRIC in the displayed person list. "
             + "Existing values will be overwritten by the input values.\n"
-            + "Parameters: NRIC "
-            + "[" + PREFIX_NAME + "NAME] "
-            + "[" + PREFIX_PHONE + "PHONE] "
-            + "[" + PREFIX_EMAIL + "EMAIL] "
-            + "[" + PREFIX_ADDRESS + "ADDRESS] "
-            + "[" + PREFIX_TAG + "TAG]...\n"
-            + "Example: " + COMMAND_WORD + " S0123456A "
-            + PREFIX_PHONE + "91234567 "
-            + PREFIX_EMAIL + "johndoe@example.com";
+            + "Parameters: [CLUSTER SIZE] "
+            + "[" + PREFIX_ADDRESS + "LOCATION] "
+            + "[" + PREFIX_DIAGNOSIS + "DISEASE]\n"
+            + "Example: " + COMMAND_WORD + " 50 "
+            + PREFIX_ADDRESS + "choa chu kang "
+            + PREFIX_DIAGNOSIS + "dengue";
 
     public static final String MESSAGE_NO_INFECTED_PEOPLE = "Good news! This area \"%1$s\" has no patients with %2$s.";
     public static final String MESSAGE_CLUSTER_FOUND_SUCCESS =
