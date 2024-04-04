@@ -14,15 +14,15 @@ As communities grow, information management might prove complex for General Prac
 
 1. Ensure you have Java `11` or above installed in your Computer.
 
-1. Download the latest `immuniMate.jar` from [here](https://github.com/AY2324S2-CS2103T-T08-1/tp/releases).
+2. Download the latest `immuniMate.jar` from [here](https://github.com/AY2324S2-CS2103T-T08-1/tp/releases).
 
-1. Copy the file to the folder you want to use as the _home folder_ for your ImmuniMate.
+3. Copy the file to the folder you want to use as the _home folder_ for your ImmuniMate.
 
-1. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar immuniMate.jar` command to run the application.<br>
+4. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar immuniMate.jar` command to run the application.<br>
    A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
    ![Ui](images/GUI.png)
 
-1. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
+5. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
    Some example commands you can try:
 
    * `list` : Lists all contacts.
@@ -35,7 +35,7 @@ As communities grow, information management might prove complex for General Prac
 
    * `exit` : Exits the app.
 
-1. Refer to the [Features](#features) below for details of each command.
+6. Refer to the [Features](#features) below for details of each command.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -103,12 +103,12 @@ Updates information of an existing patient profile in ImmuniMate.
 
 Format: `update <NRIC> <Field>/CONTENT`
 
-* Edits the patient of corresponding NRIC. 
+* Updates the patient of corresponding NRIC. 
 * At least one of the fields must be provided.
 * Existing values will be updated to the input values.
 
 Examples:
-*  `update S1234567A hp/91234567 e/jd123@example.com` Edits the phone number and email address of the corresponding patient to be `91234567` and `jd123@example.com` respectively.
+*  `update S1234567A hp/91234567 e/jd123@example.com` Updates the phone number and email address of the corresponding patient to be `91234567` and `jd123@example.com` respectively.
 *  `update S0123456A a/123 Serangoon Road` Edits the address of the corresponding person to be `123 Serangoon Road`
 
 ### Locating patients by name: `find`
@@ -117,7 +117,7 @@ Finds patients whose name contain any of the given keywords.
 
 Format: `find n/KEYWORD [MORE_KEYWORDS]`
 
-* The search is case-insensitive. e.g `hans` will match `Hans`
+* The search is case-insensitive. e.g. `hans` will match `Hans`
 * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
 * Only the name is searched.
 * Only full words will be matched e.g. `Han` will not match `Hans`
@@ -136,7 +136,7 @@ Finds patients whose address contain any of the given keywords.
 
 Format: `find a/KEYWORD`
 
-* The search is case-insensitive. e.g `serangoon` will match `Serangoon`
+* The search is case-insensitive. e.g. `serangoon` will match `Serangoon`
 * The order of the keywords does matter. e.g. `Clementi Ave` will not match `Ave Clementi`
 * Only the address is searched.
 * Partial words will be matched e.g. `Clem` will match `Clementi`
@@ -155,7 +155,7 @@ Finds patients whose condition contain any of the given keywords.
 
 Format: `find con/KEYWORD`
 
-* The search is case-insensitive. e.g `covid` will match `Covid`
+* The search is case-insensitive. e.g. `covid` will match `Covid`
 * The order of the keywords does matter. e.g. `Stomach FLu` will not match `Flu Stomach`
 * Only the condition is searched.
 * Partial words will be matched e.g. `Cov` will match `Covid`
@@ -213,7 +213,7 @@ Finds cluster in location specified.
 
 Format: `cluster <Size_of_cluster> loc/<Location>`
 
-* The search is case-insensitive. e.g `serangoon` will match `Serangoon`
+* The search is case-insensitive. e.g. `serangoon` will match `Serangoon`
 * The order of the keywords in location does matter. e.g. `Clementi Ave` will not match `Ave Clementi`
 * Only the address is searched.
 * Partial words will be matched e.g. `Clem` will match `Clementi`
@@ -252,8 +252,6 @@ Furthermore, certain edits can cause ImmuniMate to behave in unexpected ways (e.
 
 ### Infection cluster tracking `[coming in v2.0]`
 
-_Details coming soon ..._
-
 --------------------------------------------------------------------------------------------------------------------
 
 ## FAQ
@@ -271,38 +269,38 @@ _Details coming soon ..._
 
 ## Command summary
 
-Action | Format, Examples
---------|------------------
-**Create** | `create ic/<NRIC> n/<Patient_Name> hp/<Phone_Number> a/<Address> dob/<Date_of_birth> s/<Sex> st/<Status> [e/Email] [c/Country_of_Nationality] [doa/Date_of_Admission] [bt/Blood type] [al/Allergies] [con/Condition] [sym/Symptom] [d/diagnosis]` <br> e.g., `create ic/S1234567A n/John Doe hp/98765432 a/311, Clementi Ave 2, #02-25 dob/1990-01-01 s/M st/PENDING`
-**Read** | `read <NRIC>` <br> e.g., `read S1234567A`
-**Update** | `update <NRIC> <Field>/CONTENT` <br> e.g., `update S1234567A hp/91234567 e/jd123@example.com`
-**Find** | `find n/KEYWORD` <br> e.g., `find n/Alex` <br> `find a/KEYWORD` <br> e.g., `find a/Serangoon` <br> `find con/KEYWORD` <br> e.g., `find con/Covid`
-**Delete** | `delete <NRIC>`<br> e.g., `delete S1234567A`
-**Delete Information** | `deleteinfo <NRIC> <Field>` <br> e.g., `deleteinfo S1234567A e/`
-**Add Visit** | `addvisit ic/<NRIC> dov/<Date_of_Visit> sym/<Symptoms> d/<Diagnosis> st/<Status>` <br> e.g., `addvisit ic/S1234567A dov/2024-01-01 sym/Cough d/Covid st/UNWELL`
-**Check** | `check <NRIC>` <br> e.g., `check S1234567A`
-**Find Cluster** | `findcluster loc/<Location>` <br> e.g. `findcluster loc/Serangoon`
-**Clear** | `clear`
-**List** | `list`
-**Help** | `help`
-**Exit** | `exit`
+| Action                 | Format, Examples                                                                                                                                                                                                                                                                                                                                                      |
+|------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Create**             | `create ic/<NRIC> n/<Patient_Name> hp/<Phone_Number> a/<Address> dob/<Date_of_birth> s/<Sex> st/<Status> [e/Email] [c/Country_of_Nationality] [doa/Date_of_Admission] [bt/Blood type] [al/Allergies] [con/Condition] [sym/Symptom] [d/diagnosis]` <br> e.g., `create ic/S1234567A n/John Doe hp/98765432 a/311, Clementi Ave 2, #02-25 dob/1990-01-01 s/M st/PENDING` |
+| **Read**               | `read <NRIC>` <br> e.g., `read S1234567A`                                                                                                                                                                                                                                                                                                                             |
+| **Update**             | `update <NRIC> <Field>/CONTENT` <br> e.g., `update S1234567A hp/91234567 e/jd123@example.com`                                                                                                                                                                                                                                                                         |
+| **Find**               | `find n/KEYWORD` <br> e.g., `find n/Alex` <br> `find a/KEYWORD` <br> e.g., `find a/Serangoon` <br> `find con/KEYWORD` <br> e.g., `find con/Covid`                                                                                                                                                                                                                     |
+| **Delete**             | `delete <NRIC>`<br> e.g., `delete S1234567A`                                                                                                                                                                                                                                                                                                                          |
+| **Delete Information** | `deleteinfo <NRIC> <Field>` <br> e.g., `deleteinfo S1234567A e/`                                                                                                                                                                                                                                                                                                      |
+| **Add Visit**          | `addvisit ic/<NRIC> dov/<Date_of_Visit> sym/<Symptoms> d/<Diagnosis> st/<Status>` <br> e.g., `addvisit ic/S1234567A dov/2024-01-01 sym/Cough d/Covid st/UNWELL`                                                                                                                                                                                                       |
+| **Check**              | `check <NRIC>` <br> e.g., `check S1234567A`                                                                                                                                                                                                                                                                                                                           |
+| **Find Cluster**       | `findcluster loc/<Location>` <br> e.g. `findcluster loc/Serangoon`                                                                                                                                                                                                                                                                                                    |
+| **Clear**              | `clear`                                                                                                                                                                                                                                                                                                                                                               |
+| **List**               | `list`                                                                                                                                                                                                                                                                                                                                                                |
+| **Help**               | `help`                                                                                                                                                                                                                                                                                                                                                                |
+| **Exit**               | `exit`                                                                                                                                                                                                                                                                                                                                                                |
 
 ## Field summary 
-Field | Prefix 
---------|------------------
-**Name** | `n/`
-**NRIC** | `ic/`
-**Phone Number** | `hp/`
-**Address** | `a/`
-**Date of birth** | `dob/`
-**Sex** | `s/`
-**Status** | `st/`
-**Email** | `e/`
-**Country of nationality** | `c/`
-**Date of admission** | `doa/`
-**Blood type** | `bt/`
-**Allergies** | `al/`
-**Condition** | `con/`
-**Symptom** | `sym/`
-**Diagnosis** | `d/`
+| Field                      | Prefix |
+|----------------------------|--------|
+| **Name**                   | `n/`   |
+| **NRIC**                   | `ic/`  |
+| **Phone Number**           | `hp/`  |
+| **Address**                | `a/`   |
+| **Date of birth**          | `dob/` |
+| **Sex**                    | `s/`   |
+| **Status**                 | `st/`  |
+| **Email**                  | `e/`   |
+| **Country of nationality** | `c/`   |
+| **Date of admission**      | `doa/` |
+| **Blood type**             | `bt/`  |
+| **Allergies**              | `al/`  |
+| **Condition**              | `con/` |
+| **Symptom**                | `sym/` |
+| **Diagnosis**              | `d/`   |
 
