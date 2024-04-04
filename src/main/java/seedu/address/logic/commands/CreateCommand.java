@@ -27,7 +27,7 @@ import seedu.address.model.person.Person;
 public class CreateCommand extends Command {
     public static final String COMMAND_WORD = "create";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Creates a person in Immunimate. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ":\nCreates a person in Immunimate. "
             + "\nParameters: "
             + PREFIX_NRIC + "NRIC "
             + PREFIX_NAME + "NAME "

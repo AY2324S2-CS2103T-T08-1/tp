@@ -19,7 +19,7 @@ import seedu.address.model.visit.Visit;
 public class AddVisitCommand extends Command {
     public static final String COMMAND_WORD = "addvisit";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a visit to a patient."
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ":\nAdds a visit to a patient."
             + "\nParameters: "
             + PREFIX_NRIC + "NRIC "
             + PREFIX_DATEOFVISIT + "DATEOFVISIT "
@@ -31,7 +31,7 @@ public class AddVisitCommand extends Command {
             + PREFIX_DATEOFVISIT + "2024-01-04 "
             + PREFIX_SYMPTOM + "Fever, Rhinorrhea "
             + PREFIX_DIAGNOSIS + "Common Flu "
-            + PREFIX_STATUS + "PENDING ";
+            + PREFIX_STATUS + "PENDING";
 
     public static final String MESSAGE_SUCCESS = "New Visit added: %1$s";
     public static final String MESSAGE_DUPLICATE_PERSON = "This visit already exists in the system";

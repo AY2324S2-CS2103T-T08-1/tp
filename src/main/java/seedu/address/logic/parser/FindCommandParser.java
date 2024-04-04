@@ -37,10 +37,18 @@ public class FindCommandParser implements Parser<FindCommand> {
             return new FindCommand(new NameContainsKeywordsPredicate(list));
         } else if (trimmedArgs.startsWith(PREFIX_ADDRESS.getPrefix())) {
             String[] addressKeywords = trimmedArgs.substring(2).trim().split(",");
+            int len = addressKeywords.length;
+            for (int i = 0; i < len; i++) {
+                addressKeywords[i] = addressKeywords[i].trim();
+            }
             List<String> list = Arrays.asList(addressKeywords);
             return new FindCommand(new AddressContainsKeywordsPredicate(list));
         } else if (trimmedArgs.startsWith(PREFIX_CONDITION.getPrefix())) {
             String[] conditionKeywords = trimmedArgs.substring(4).trim().split(",");
+            int len = conditionKeywords.length;
+            for (int i = 0; i < len; i++) {
+                conditionKeywords[i] = conditionKeywords[i].trim();
+            }
             List<String> list = Arrays.asList(conditionKeywords);
             return new FindCommand(new ConditionContainsKeywordsPredicate(list));
         } else {

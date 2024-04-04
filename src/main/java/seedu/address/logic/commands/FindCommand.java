@@ -20,13 +20,13 @@ public class FindCommand extends Command {
 
     public static final String COMMAND_WORD = "find";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all persons whose names, addresses or conditions"
-            + " contain any of "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ":\nFinds all persons"
+            + " whose names, addresses or conditions contain any of "
             + "the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"
             + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
-            + "Example (name): " + COMMAND_WORD + " " + PREFIX_NAME + " alice bob charlie"
-            + "\nExample (address): " + COMMAND_WORD + " " + PREFIX_ADDRESS + " tampines street, geylang road"
-            + "\nExample (condition): " + COMMAND_WORD + " " + PREFIX_CONDITION + " diabetes, high blood pressure";
+            + "Example (name): " + COMMAND_WORD + " " + PREFIX_NAME + "alice bob charlie"
+            + "\nExample (address): " + COMMAND_WORD + " " + PREFIX_ADDRESS + "tampines street, geylang road"
+            + "\nExample (condition): " + COMMAND_WORD + " " + PREFIX_CONDITION + "diabetes, high blood pressure";
 
     private final Predicate<Person> predicate;
     //TODO: add nric contains keywords

@@ -21,7 +21,7 @@ public class DeleteInfoCommand extends Command {
     public static final String COMMAND_WORD = "deleteinfo";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Deletes the information of the person identified by NRIC.\n"
+            + ":\nDeletes the information of the person identified by NRIC.\n"
             + "Parameters: NRIC, fields to be deleted\n"
             + "Example: " + COMMAND_WORD + " S1234567B" + PREFIX_EMAIL;
     public static final String MESSAGE_ONLY_OPTIONAL_FIELDS = "Only optional fields can be deleted.";

@@ -22,9 +22,9 @@ public class CheckCommand extends Command {
 
     public static final String COMMAND_WORD = "check";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Checks the visits in history of the person identified "
-            + "by the NRIC specified. "
-            + "Example: " + COMMAND_WORD
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ":\nChecks the visits in history of the person identified"
+            + " by the NRIC specified. "
+            + "\nExample: " + COMMAND_WORD
             + " S0123456A";
 
     public static final String MESSAGE_READ_PERSON_SUCCESS = "Checked Person ->\n%1$s";
