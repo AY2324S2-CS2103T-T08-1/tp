@@ -35,6 +35,9 @@ public class AddressDiagnosisStatusPredicate implements Predicate<Person> {
 
     @Override
     public boolean test(Person person) {
+        if (person.getDiagnosis() == null) {
+            return false;
+        }
         return person.getAddress().toString().toLowerCase().contains(address.toLowerCase())
                 && person.getDiagnosis().toString().toLowerCase().contains(disease.toLowerCase())
                 && person.getStatus().toString().equals(status);
