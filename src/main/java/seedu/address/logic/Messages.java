@@ -63,9 +63,7 @@ public class Messages {
                 .append("Diagnosis: ")
                 .append(Optional.ofNullable(person.getDiagnosis()).map(Object::toString).orElse("-")).append("\n")
                 .append("Symptom: ")
-                .append(Optional.ofNullable(person.getSymptom()).map(Object::toString).orElse("-")).append("\n")
-                .append("Tags: ");
-        person.getTags().forEach(builder::append);
+                .append(Optional.ofNullable(person.getSymptom()).map(Object::toString).orElse("-")).append("\n");
         return builder.toString();
     }
 
