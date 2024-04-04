@@ -109,13 +109,13 @@ Format: `update <NRIC> <Field>/CONTENT`
 
 Examples:
 *  `update S1234567A hp/91234567 e/jd123@example.com` Updates the phone number and email address of the corresponding patient to be `91234567` and `jd123@example.com` respectively.
-*  `update S0123456A a/123 Serangoon Road` Edits the address of the corresponding person to be `123 Serangoon Road`
+*  `update S0123456A a/123 Serangoon Road` Updates the address of the corresponding person to be `123 Serangoon Road`
 
 ### Locating patients by name: `find`
 
 Finds patients whose name contain any of the given keywords.
 
-Format: `find n/KEYWORD [MORE_KEYWORDS]`
+Format: `find n/[NAME] [NAME] [NAME] ...`
 
 * The search is case-insensitive. e.g. `hans` will match `Hans`
 * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
@@ -123,6 +123,7 @@ Format: `find n/KEYWORD [MORE_KEYWORDS]`
 * Only full words will be matched e.g. `Han` will not match `Hans`
 * Patients matching at least one keyword will be returned (i.e. `OR` search).
   e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+* Names can be separated with any number of spaces
 
 Examples:
 * `find n/John` returns `john` and `John Doe`
@@ -134,18 +135,20 @@ Examples:
 
 Finds patients whose address contain any of the given keywords.
 
-Format: `find a/KEYWORD`
+Format: `find a/[LOCATION], [LOCATION], [LOCATION], ...`
 
 * The search is case-insensitive. e.g. `serangoon` will match `Serangoon`
 * The order of the keywords does matter. e.g. `Clementi Ave` will not match `Ave Clementi`
 * Only the address is searched.
 * Partial words will be matched e.g. `Clem` will match `Clementi`
 * Patients matching at least one keyword will be returned (i.e. `OR` search). 
-  e.g. `Clementi Serangoon` will return patients with address containing `Serangoon` or `Clementi`.
+  e.g. `Clementi, Serangoon` will return patients with address containing `Serangoon` or `Clementi`.
+* Locations must be separated by commas, and whitespaces before and after each location will be ignored
 
 Examples:
 * `find a/Geylang` returns `Alex Yeoh`
-* `find a/Serangoon` returns `Bernice Yu`, `David Li`<br>
+* `find a/Serangoon` returns `Bernice Yu`, `David Li`
+* `find a/geylang, serangoon, choa chu kang` returns `Alex Yeoh`, `Bernice Yu`, `David Li`<br>
   <img src="images/findSerangoon.png" alt="result for 'find serangoon'" width="800"/>
 
 
@@ -153,7 +156,7 @@ Examples:
 
 Finds patients whose condition contain any of the given keywords.
 
-Format: `find con/KEYWORD`
+Format: `find con/[CONDITION], [CONDITION], [CONDITION], ...`
 
 * The search is case-insensitive. e.g. `covid` will match `Covid`
 * The order of the keywords does matter. e.g. `Stomach FLu` will not match `Flu Stomach`
@@ -161,9 +164,10 @@ Format: `find con/KEYWORD`
 * Partial words will be matched e.g. `Cov` will match `Covid`
 * Patients matching at least one keyword will be returned (i.e. `OR` search).
   e.g. `Covid Dengue` will return patients with address containing `Covid` or `Dengue`.
+* Conditions must be separated by commas, and whitespaces before and after each condition will be ignored
 
 Examples:
-* `find a/Covid` returns `Alex Yeoh`
+* `find con/covid, dengue, ebola `
 
 ### Deleting a patient : `delete`
 
@@ -207,19 +211,20 @@ Format: `check <NRIC>`
 Example:
 * `check S1234567A`displays all visits in history of patient uniquely identified by NRIC S1234567A.
 
-### Find cluster : `cluster`
+### Cluster finding : `cluster`
 
 Finds cluster in location specified. 
 
-Format: `cluster <Size_of_cluster> loc/<Location>`
+Format: `cluster [CLUSTER SIZE] a/[LOCATION] d/[DIAGNOSIS]`
 
 * The search is case-insensitive. e.g. `serangoon` will match `Serangoon`
-* The order of the keywords in location does matter. e.g. `Clementi Ave` will not match `Ave Clementi`
-* Only the address is searched.
-* Partial words will be matched e.g. `Clem` will match `Clementi`
+* Only one location and diagnosis is searched
+* Location and diagnosis cannot be empty
+* Cluster size must be between 1 and 2,000,000,000
+* Partial words will be matched e.g. `Clem` will match `Clementi`, `deng` will match `dengue`
 
 Example: 
-* `cluster 3 loc/Serangoon` finds clusters of at least 3 patients exhibiting the same symptoms in the Serangoon vicinity. 
+* `cluster 3 a/Serangoon d/dengue` finds dengue clusters of at least 3 patients in the Serangoon vicinity. 
 
 ### Clearing all entries : `clear`
 
@@ -277,12 +282,12 @@ Furthermore, certain edits can cause ImmuniMate to behave in unexpected ways (e.
 | **Create**             | `create ic/<NRIC> n/<Patient_Name> hp/<Phone_Number> a/<Address> dob/<Date_of_birth> s/<Sex> st/<Status> [e/Email] [c/Country_of_Nationality] [doa/Date_of_Admission] [bt/Blood type] [al/Allergies] [con/Condition] [sym/Symptom] [d/diagnosis]` <br> e.g., `create ic/S1234567A n/John Doe hp/98765432 a/311, Clementi Ave 2, #02-25 dob/1990-01-01 s/M st/PENDING` |
 | **Read**               | `read <NRIC>` <br> e.g., `read S1234567A`                                                                                                                                                                                                                                                                                                                             |
 | **Update**             | `update <NRIC> <Field>/CONTENT` <br> e.g., `update S1234567A hp/91234567 e/jd123@example.com`                                                                                                                                                                                                                                                                         |
-| **Find**               | `find n/KEYWORD` <br> e.g., `find n/Alex` <br> `find a/KEYWORD` <br> e.g., `find a/Serangoon` <br> `find con/KEYWORD` <br> e.g., `find con/Covid`                                                                                                                                                                                                                     |
+| **Find**               | `find n/KEYWORD` <br> e.g., `find n/Alex Bryan Charlie` <br> `find a/KEYWORD` <br> e.g., `find a/Serangoon, Geylang` <br> `find con/KEYWORD` <br> e.g., `find con/Covid, Ebola`                                                                                                                                                                                       |
 | **Delete**             | `delete <NRIC>`<br> e.g., `delete S1234567A`                                                                                                                                                                                                                                                                                                                          |
 | **Delete Information** | `deleteinfo <NRIC> <Field>` <br> e.g., `deleteinfo S1234567A e/`                                                                                                                                                                                                                                                                                                      |
 | **Add Visit**          | `addvisit ic/<NRIC> dov/<Date_of_Visit> sym/<Symptoms> d/<Diagnosis> st/<Status>` <br> e.g., `addvisit ic/S1234567A dov/2024-01-01 sym/Cough d/Covid st/UNWELL`                                                                                                                                                                                                       |
 | **Check**              | `check <NRIC>` <br> e.g., `check S1234567A`                                                                                                                                                                                                                                                                                                                           |
-| **Find Cluster**       | `findcluster loc/<Location>` <br> e.g. `findcluster loc/Serangoon`                                                                                                                                                                                                                                                                                                    |
+| **Find Cluster**       | `cluster <cluster size> a/<Location> d/diagnosis` <br> e.g. `cluster a/Serangoon d/dengue`                                                                                                                                                                                                                                                                            |
 | **Clear**              | `clear`                                                                                                                                                                                                                                                                                                                                                               |
 | **List**               | `list`                                                                                                                                                                                                                                                                                                                                                                |
 | **Help**               | `help`                                                                                                                                                                                                                                                                                                                                                                |
