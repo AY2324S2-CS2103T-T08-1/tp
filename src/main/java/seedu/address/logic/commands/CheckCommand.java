@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
+import java.util.Objects;
 
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
@@ -24,7 +25,7 @@ public class CheckCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Checks the visits in history of the person identified "
             + "by the NRIC specified. "
             + "Example: " + COMMAND_WORD
-            + "S0123456A";
+            + " S0123456A";
 
     public static final String MESSAGE_READ_PERSON_SUCCESS = "Checked Person ->\n%1$s";
     private final Nric nric;
@@ -82,4 +83,10 @@ public class CheckCommand extends Command {
                 .add("nric", nric)
                 .toString();
     }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(nric);
+    }
+
 }
