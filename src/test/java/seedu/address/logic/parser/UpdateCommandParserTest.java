@@ -63,15 +63,20 @@ public class UpdateCommandParserTest {
         assertParseFailure(parser, "", MESSAGE_INVALID_FORMAT);
     }
 
-    @Test
-    public void parse_invalidPreamble_failure() {
+    public void parse_validPreamble_success() {
+        UpdatePersonDescriptor descriptor = new UpdatePersonDescriptorBuilder().withName(VALID_NAME_AMY).build();
+        UpdateCommand expectedCommand = new UpdateCommand(new Nric("T0182991C"), descriptor);
+
         // one lowercase letter
-        assertParseFailure(parser, "t0182991C" + NAME_DESC_AMY, MESSAGE_INVALID_FORMAT);
-        assertParseFailure(parser, "T0182991c" + NAME_DESC_AMY, MESSAGE_INVALID_FORMAT);
+        assertParseSuccess(parser, "t0182991C" + NAME_DESC_AMY, expectedCommand);
+        assertParseSuccess(parser, "T0182991c" + NAME_DESC_AMY, expectedCommand);
 
         // 2 lowercase letters
-        assertParseFailure(parser, "t0182991c" + NAME_DESC_AMY, MESSAGE_INVALID_FORMAT);
+        assertParseSuccess(parser, "t0182991c" + NAME_DESC_AMY, expectedCommand);
+    }
 
+    @Test
+    public void parse_invalidPreamble_failure() {
         // invalid arguments being parsed as preamble
         assertParseFailure(parser, "1 some random string", MESSAGE_INVALID_FORMAT);
     }
