@@ -20,16 +20,16 @@ public class AddVisitCommand extends Command {
     public static final String COMMAND_WORD = "addvisit";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a visit to a patient."
-            + "Parameters: "
+            + "\nParameters: "
             + PREFIX_NRIC + "NRIC "
             + PREFIX_DATEOFVISIT + "DATEOFVISIT "
             + PREFIX_SYMPTOM + "SYMPTOM "
             + PREFIX_DIAGNOSIS + "DIAGNOSIS "
             + PREFIX_STATUS + "STATUS "
-            + "Example: " + COMMAND_WORD + " "
-            + PREFIX_NRIC + "S1234567A "
-            + PREFIX_DATEOFVISIT + "2024-01-04"
-            + PREFIX_SYMPTOM + "Headache, Runny nose"
+            + "\nExample: " + COMMAND_WORD + " "
+            + PREFIX_NRIC + "S0123456A "
+            + PREFIX_DATEOFVISIT + "2024-01-04 "
+            + PREFIX_SYMPTOM + "Fever, Rhinorrhea "
             + PREFIX_DIAGNOSIS + "Common Flu "
             + PREFIX_STATUS + "PENDING ";
 
