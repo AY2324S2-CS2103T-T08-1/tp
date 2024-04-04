@@ -92,7 +92,7 @@ public class UpdateCommand extends Command {
                 new NricContainsKeywordsPredicate(nric.toString())).findFirst().get();
         Person updatedPerson = createUpdatedPerson(personToUpdate, updatePersonDescriptor);
 
-        if (personToUpdate.equals(updatedPerson) /* && model.hasPerson(updatedPerson) */) {
+        if (!(personToUpdate.isSamePerson(updatedPerson) && model.hasPerson(updatedPerson))) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         }
 

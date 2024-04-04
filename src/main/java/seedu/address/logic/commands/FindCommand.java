@@ -1,6 +1,9 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CONDITION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 
 import java.util.function.Predicate;
 
@@ -20,7 +23,9 @@ public class FindCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all persons whose names contain any of "
             + "the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"
             + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
-            + "Example: " + COMMAND_WORD + " alice bob charlie";
+            + "Example (name): " + COMMAND_WORD + " " + PREFIX_NAME + " alice bob charlie"
+            + "Example (address): " + COMMAND_WORD + " " + PREFIX_ADDRESS + " tampines street, geylang road"
+            + "Example (condition): " + COMMAND_WORD + " " + PREFIX_CONDITION + " diabetes, high blood pressure";
 
     private final Predicate<Person> predicate;
     //TODO: add nric contains keywords
