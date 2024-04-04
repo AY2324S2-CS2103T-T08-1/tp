@@ -70,10 +70,8 @@ public class ImmuniMateParser {
 
         case DeleteCommand.COMMAND_WORD:
             return new DeleteCommandParser().parse(arguments);
-
         case DeleteInfoCommand.COMMAND_WORD:
             return new DeleteInfoCommandParser().parse(arguments);
-            
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
 
