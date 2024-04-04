@@ -312,5 +312,3 @@ Furthermore, certain edits can cause ImmuniMate to behave in unexpected ways (e.
 | **Condition**              | `con/` |
 | **Symptom**                | `sym/` |
 | **Diagnosis**              | `d/`   |
-
-
