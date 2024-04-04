@@ -23,7 +23,7 @@
                 <Insets bottom="3" left="10" right="3" top="3" />
             </padding>
             <HBox alignment="CENTER_LEFT" spacing="3">
-                <Label fx:id="id" styleClass="cell_big_label">
+                <Label fx:id="id" styleClass="cell_big_label" textFill="#073523">
                     <minWidth>
                         <!-- Ensures that the label text is never truncated -->
                         <Region fx:constant="USE_PREF_SIZE" />
@@ -32,14 +32,14 @@
                   <Insets left="10.0" />
                </padding>
                 </Label>
-                <Label fx:id="nric" styleClass="cell_big_label" text="\$nric">
+                <Label fx:id="nric" styleClass="cell_big_label" text="\\$nric" textFill="#073523">
                     <font>
-                        <Font size="14.0" />
+                        <Font name="System Bold" size="18.0" />
                     </font>
                 </Label>
             </HBox>
             <FlowPane fx:id="tags" />
-            <Label fx:id="name" styleClass="cell_big_label" text="\$name">
+            <Label fx:id="name" styleClass="cell_big_label" text="\$name" textFill="#073523">
                 <font>
                     <Font size="14.0" />
                 </font>
