@@ -239,7 +239,7 @@ ImmuniMate data are saved in the hard disk automatically after any command that 
 
 ### Editing the data file
 
-ImmuniMate data are saved automatically as a JSON file `[JAR file location]/data/addressbook.json`. Advanced users are welcome to update data directly by editing that data file.
+ImmuniMate data are saved automatically as a JSON file `[JAR file location]/data/immunimate.json`. Advanced users are welcome to update data directly by editing that data file.
 
 <div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
 If your changes to the data file makes its format invalid, ImmuniMate will discard all data and start with an empty data file at the next run. Hence, it is recommended to take a backup of the file before editing it.<br>
@@ -257,7 +257,10 @@ Furthermore, certain edits can cause ImmuniMate to behave in unexpected ways (e.
 ## FAQ
 
 **Q**: How do I transfer my data to another Computer?<br>
-**A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous AddressBook home folder.
+**A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous ImmuniMate home folder.
+
+**Q**: I entered a command and don't want to type it again, how can I go back to it? <br>
+**A**: Use the arrow pad on the keyboard to navigate your Command History. 
 
 --------------------------------------------------------------------------------------------------------------------
 
