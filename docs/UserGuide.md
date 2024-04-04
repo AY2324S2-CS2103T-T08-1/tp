@@ -294,6 +294,7 @@ Furthermore, certain edits can cause ImmuniMate to behave in unexpected ways (e.
 | **Exit**               | `exit`                                                                                                                                                                                                                                                                                                                                                                |
 
 ## Field summary 
+
 | Field                      | Prefix |
 |----------------------------|--------|
 | **Name**                   | `n/`   |
@@ -311,4 +312,5 @@ Furthermore, certain edits can cause ImmuniMate to behave in unexpected ways (e.
 | **Condition**              | `con/` |
 | **Symptom**                | `sym/` |
 | **Diagnosis**              | `d/`   |
+
 
