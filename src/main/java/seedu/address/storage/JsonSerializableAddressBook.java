@@ -12,7 +12,6 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.ImmuniMate;
 import seedu.address.model.ReadOnlyImmuniMate;
 import seedu.address.model.person.Person;
-import seedu.address.model.visit.Visit;
 
 /**
  * An Immutable AddressBook that is serializable to JSON format.
@@ -23,16 +22,13 @@ class JsonSerializableAddressBook {
     public static final String MESSAGE_DUPLICATE_PERSON = "Persons list contains duplicate person(s).";
 
     private final List<JsonAdaptedPerson> persons = new ArrayList<>();
-    private final List<JsonAdaptedVisit> visits = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonSerializableAddressBook} with the given persons.
      */
     @JsonCreator
-    public JsonSerializableAddressBook(@JsonProperty("persons") List<JsonAdaptedPerson> persons,
-                                       @JsonProperty("visits") List<JsonAdaptedVisit> visits) {
+    public JsonSerializableAddressBook(@JsonProperty("persons") List<JsonAdaptedPerson> persons) {
         this.persons.addAll(persons);
-        this.visits.addAll(visits);
     }
 
     /**
@@ -42,7 +38,6 @@ class JsonSerializableAddressBook {
      */
     public JsonSerializableAddressBook(ReadOnlyImmuniMate source) {
         persons.addAll(source.getPersonList().stream().map(JsonAdaptedPerson::new).collect(Collectors.toList()));
-        visits.addAll(source.getVisitList().stream().map(JsonAdaptedVisit::new).collect(Collectors.toList()));
     }
 
     /**
@@ -58,13 +53,6 @@ class JsonSerializableAddressBook {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
             }
             addressBook.addPerson(person);
-        }
-        for (JsonAdaptedVisit jsonAdaptedVisit : visits) {
-            Visit visit = jsonAdaptedVisit.toModelType();
-            if (addressBook.hasVisit(visit)) {
-                throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
-            }
-            addressBook.addVisit(visit);
         }
         return addressBook;
     }

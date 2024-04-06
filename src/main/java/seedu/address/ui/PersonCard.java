@@ -15,10 +15,6 @@ import seedu.address.model.person.Status;
 public class PersonCard extends UiPart<Region> {
 
     private static final String FXML = "PersonListCard.fxml";
-    private static final Color customGreen = Color.web("#81C784");
-    private static final Color customYellow = Color.web("#FFF176");
-    private static final Color customRed = Color.web("#EF5350");
-
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -61,20 +57,16 @@ public class PersonCard extends UiPart<Region> {
     public void updateStatusCircle(Status status) {
         switch (status.getStatusType()) {
         case HEALTHY:
-            statusCircle.setFill(customGreen);
-            statusCircle.setStroke(customGreen);
+            statusCircle.setFill(Color.GREEN);
             break;
         case UNWELL:
-            statusCircle.setFill(customRed);
-            statusCircle.setStroke(customRed);
+            statusCircle.setFill(Color.RED);
             break;
         case PENDING:
-            statusCircle.setFill(customYellow);
-            statusCircle.setStroke(customYellow);
+            statusCircle.setFill(Color.YELLOW);
             break;
         default:
             statusCircle.setFill(Color.GREY);
-            statusCircle.setStroke(Color.GREY);
             break;
         }
     }

@@ -66,10 +66,7 @@ dependencies {
 }
 
 shadowJar {
-    archiveFileName = 'immuniMate.jar'
+    archiveFileName = 'addressbook.jar'
 }
 
-run {
-    enableAssertions = true
-}
 defaultTasks 'clean', 'test'

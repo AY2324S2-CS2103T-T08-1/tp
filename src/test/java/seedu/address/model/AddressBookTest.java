@@ -19,7 +19,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
-import seedu.address.model.visit.Visit;
 import seedu.address.testutil.PersonBuilder;
 
 public class AddressBookTest {
@@ -49,8 +48,7 @@ public class AddressBookTest {
         Person editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB)
                 .build();
         List<Person> newPersons = Arrays.asList(ALICE, editedAlice);
-        List<Visit> emptyVisits = Collections.emptyList();
-        ImmuniMateStub newData = new ImmuniMateStub(newPersons, emptyVisits);
+        ImmuniMateStub newData = new ImmuniMateStub(newPersons);
 
         assertThrows(DuplicatePersonException.class, () -> addressBook.resetData(newData));
     }
@@ -86,8 +84,7 @@ public class AddressBookTest {
 
     @Test
     public void toStringMethod() {
-        String expected = ImmuniMate.class.getCanonicalName() + "{persons=" + addressBook.getPersonList()
-            + ", visits=" + addressBook.getVisitList() + "}";
+        String expected = ImmuniMate.class.getCanonicalName() + "{persons=" + addressBook.getPersonList() + "}";
         assertEquals(expected, addressBook.toString());
     }
 
@@ -96,21 +93,14 @@ public class AddressBookTest {
      */
     private static class ImmuniMateStub implements ReadOnlyImmuniMate {
         private final ObservableList<Person> persons = FXCollections.observableArrayList();
-        private final ObservableList<Visit> visits = FXCollections.observableArrayList();
 
-        ImmuniMateStub(Collection<Person> persons, Collection<Visit> visits) {
+        ImmuniMateStub(Collection<Person> persons) {
             this.persons.setAll(persons);
-            this.visits.setAll(visits);
         }
 
         @Override
         public ObservableList<Person> getPersonList() {
             return persons;
-        }
-
-        @Override
-        public ObservableList<Visit> getVisitList() {
-            return visits;
         }
     }
 

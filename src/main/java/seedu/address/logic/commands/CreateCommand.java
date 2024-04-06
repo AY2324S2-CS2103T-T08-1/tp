@@ -14,6 +14,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SEX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STATUS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SYMPTOM;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
@@ -27,8 +28,8 @@ import seedu.address.model.person.Person;
 public class CreateCommand extends Command {
     public static final String COMMAND_WORD = "create";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ":\nCreates a person in Immunimate. "
-            + "\nParameters: "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Creates a patient to the Immunimate System. "
+            + "Parameters: "
             + PREFIX_NRIC + "NRIC "
             + PREFIX_NAME + "NAME "
             + PREFIX_PHONE + "PHONE "
@@ -37,21 +38,25 @@ public class CreateCommand extends Command {
             + PREFIX_SEX + "SEX "
             + PREFIX_STATUS + "STATUS "
             + PREFIX_EMAIL + "EMAIL "
+            + "[" + PREFIX_TAG + "TAG]...\n"
             + PREFIX_ALLERGIES + "ALLERGIES "
             + PREFIX_BLOODTYPE + "BLOODTYPE "
             + PREFIX_CONDITION + "CONDITION "
             + PREFIX_SYMPTOM + "SYMPTOM "
             + PREFIX_DIAGNOSIS + "DIAGNOSIS "
-            + "\nExample: " + COMMAND_WORD + " "
-            + PREFIX_NRIC + "S0123456A "
+            + "Example: " + COMMAND_WORD + " "
+            + PREFIX_NRIC + "S1234567A "
             + PREFIX_NAME + "John Doe "
             + PREFIX_PHONE + "98765432 "
+            + PREFIX_EMAIL + "johnd@example.com "
             + PREFIX_ADDRESS + "311, Clementi Ave 2, #02-25 "
-            + PREFIX_DATEOFBIRTH + "1990-01-01 "
+            + PREFIX_DATEOFBIRTH + "01-01-1990 "
             + PREFIX_SEX + "M "
-            + PREFIX_STATUS + "PENDING ";
+            + PREFIX_STATUS + "PENDING "
+            + PREFIX_TAG + "Long term medication "
+            + PREFIX_TAG + "High blood pressure ";
 
-    public static final String MESSAGE_SUCCESS = "New patient added ->\n%1$s";
+    public static final String MESSAGE_SUCCESS = "New patient added: %1$s";
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the system";
 
     private final Person toAdd;

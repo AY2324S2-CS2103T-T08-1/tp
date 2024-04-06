@@ -239,55 +239,10 @@ The following activity diagram summarizes what happens when a user executes a ne
 
 _{more aspects and alternatives to be added}_
 
-### Create new patient
+### \[Proposed\] Data archiving
 
-Create new patient feature allows the healthcare workers to add a new patient to ImmuniMate.
-The healthcare worker must specify the patient's name, NRIC, phone, address, date of birth, sex, and status.
-The process of creating a new patient in Model is as follows:
-![CreateState1](images/CreateCommand.png)
+_{Explain here how the data archiving feature will be implemented}_
 
-### Update patient fields
-
-#### Proposed Implementation
-
-[to change below]
-
-The proposed undo/redo mechanism is facilitated by `VersionedAddressBook`. It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`. Additionally, it implements the following operations:
-
-* `VersionedAddressBook#commit()` — Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` — Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` — Restores a previously undone address book state from its history.
-
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
-
-[to change above]
-
-Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
-
-Step 1. The user launches the application for the first time.
-
-Step 2. The user types `update T0123456A a/35 Bishan Road, #10-40 con/myopia` command to update the address and condition fields in the profile of the person with `Nric` T0123456A in the address book. This calls `immuniMateParser.parseCommand()`, which separates the user input into the command `update` and the rest of the arguments.
-
-Step 3. As the command `update` matches `UpdateCommand.COMMAND_WORD`, `UpdateCommandParser().parse()` is called, taking in the rest of the arguments. Here, the arguments are checked if they are null values, then passed into `ArgumentTokenizer.tokenize()`, where they are separated into `Nric` and other provided fields by finding their respective prefixes, and stored in an `ArgumentMultimap`.
-
-Step 4. Still in `UpdateCommandParser().parse()`, checks are then done to verify the validity of the `Nric` and that no duplicate prefixes are found. A new `UpdatePersonDescriptor` object is then created to store the fields present in `ArgumentMultimap`.
-
-Step 5. At the end of `UpdateCommandParser().parse()`, a new `UpdateCommand` instance is created with the `Nric` and `UpdatePersonDescriptor` as arguments. `UpdateCommand.execute()` is then called, taking in the ImmuniMate `model` as an argument.
-
-Step 6. `model.getFilteredPersonsList()` retrieves the list of `Person`s stored, and a check is done to see if ImmuniMate has a `Person` with the given `Nric`.  This `Person` is then retrieved from the list, while a new `Person`  object is instantiated, with the `Person` and `UpdatePersonDescriptor` as arguments, representing the retrieved `Person` object with fields updated.
-
-Step 7. `model.setPerson()` then replaces the retrieved `Person` object with the new `Person` object with fields updated, taking in both `Person` objects as arguments. The `model` is then saved into `storage`.
-
-#### Design considerations:
-
-* **Alternative 1 (current choice):** Identify patient by `Nric`.
-  * Pros: More user convenience, as user just needs to type NRIC patients provide
-
-* **Alternative 2:** Identify patient by given `Index`.
-  * Pros: Easier to implement.
-  * Cons: Less user convenience, as user has to first know patient `Index` to find patient.
-
-_{more aspects and alternatives to be added}_
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -394,7 +349,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
   2a. IABS detects an error in the entered data.
 
   - 2a1. IABS requests for the correct data.
-  - 2a2. Healthcare Worker enters new data.
+  - 2a2. Healthcare Worker enters new data. 
   - Steps 2a1-2a2 are repeated until the data entered are correct. Use case resumes from step 3.
 
 ---
@@ -434,7 +389,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
   2a. IABS cannot find the patient specified.
   - 2a1. IABS requests for the correct NRIC.
-  - 2a2. Healthcare worker enters new NRIC.
+  - 2a2. Healthcare worker enters new NRIC. 
   - Steps 2a1-2a2 are repeated until the data entered are correct or Healthcare worker cancels the action. Use case resumes from step 3.
 
 **Use Case: UC05 - Delete Patient Information**
@@ -450,7 +405,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
   2a. IABS cannot find the patient specified.
   - 2a1. IABS requests for the correct NRIC.
-  - 2a2. Healthcare worker enters new NRIC.
+  - 2a2. Healthcare worker enters new NRIC. 
   - Steps 2a1-2a2 are repeated until the data entered are correct or Healthcare worker cancels the action. Use case resumes from step 3.
 
   2b. IABS cannot find the specified information.
@@ -469,6 +424,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 1.  Should work on any _mainstream OS_ as long as it has Java `11` or above installed.
 2.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
+3.  
 *{More to be added}*
 
 Data Requirements:
@@ -586,4 +542,3 @@ testers are expected to do more *exploratory* testing.
    1. _{explain how to simulate a missing/corrupted file, and the expected behavior}_
 
 1. _{ more test cases …​ }_
-

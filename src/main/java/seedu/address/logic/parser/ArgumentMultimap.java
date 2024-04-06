@@ -63,18 +63,6 @@ public class ArgumentMultimap {
     }
 
     /**
-     * Returns true if the argument multimap contains a mapping for the specified prefix.
-     */
-    public boolean contains(Prefix prefix) {
-        return argMultimap.containsKey(prefix);
-    }
-    /**
-     * Returns the number of elements in the argument multimap.
-     */
-    public int length() {
-        return argMultimap.size();
-    }
-    /**
      * Throws a {@code ParseException} if any of the prefixes given in {@code prefixes} appeared more than
      * once among the arguments.
      */

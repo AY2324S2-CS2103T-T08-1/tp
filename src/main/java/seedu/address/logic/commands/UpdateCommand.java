@@ -2,19 +2,10 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ALLERGIES;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_BLOODTYPE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_CONDITION;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_COUNTRY;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_DATEOFADMISSION;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_DATEOFBIRTH;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_DIAGNOSIS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_SEX;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_STATUS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_SYMPTOM;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.util.Collections;
@@ -56,30 +47,20 @@ public class UpdateCommand extends Command {
 
     public static final String COMMAND_WORD = "update";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ":\nUpdates the details of the person identified "
-            + "by the respective NRIC in the displayed person list. "
-            + "\nExisting values will be overwritten by the input values."
-            + "\nParameters: NRIC "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Updates the details of the person identified "
+            + "by the index number used in the displayed person list. "
+            + "Existing values will be overwritten by the input values.\n"
+            + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_NAME + "NAME] "
             + "[" + PREFIX_PHONE + "PHONE] "
+            + "[" + PREFIX_EMAIL + "EMAIL] "
             + "[" + PREFIX_ADDRESS + "ADDRESS] "
-            + "[" + PREFIX_DATEOFBIRTH + "DATEOFBIRTH] "
-            + "[" + PREFIX_SEX + "SEX] "
-            + "[" + PREFIX_STATUS + "STATUS] "
-            + "[" + PREFIX_EMAIL + "EMAIL] "
-            + "[" + PREFIX_COUNTRY + "COUNTRY] "
-            + "[" + PREFIX_ALLERGIES + "ALLERGIES] "
-            + "[" + PREFIX_BLOODTYPE + "BLOODTYPE] "
-            + "[" + PREFIX_EMAIL + "EMAIL] "
-            + "[" + PREFIX_CONDITION + "CONDITION] "
-            + "[" + PREFIX_DATEOFADMISSION + "DATEOFADMISSION] "
-            + "[" + PREFIX_DIAGNOSIS + "DIAGNOSIS] "
-            + "[" + PREFIX_SYMPTOM + "SYMPTOM] "
-            + "\nExample: " + COMMAND_WORD + " S0123456A "
+            + "[" + PREFIX_TAG + "TAG]...\n"
+            + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_PHONE + "91234567 "
             + PREFIX_EMAIL + "johndoe@example.com";
 
-    public static final String MESSAGE_UPDATE_PERSON_SUCCESS = "Updated Person ->\n%1$s";
+    public static final String MESSAGE_UPDATE_PERSON_SUCCESS = "Updated Person: %1$s";
     public static final String MESSAGE_NOT_UPDATED = "At least one field to update must be provided.";
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book.";
 
@@ -103,15 +84,16 @@ public class UpdateCommand extends Command {
         requireNonNull(model);
         List<Person> lastShownList = model.getFilteredPersonList();
 
+        Person personToUpdate = null;
         if (!model.hasPerson(Person.createPersonWithNric(nric))) {
             throw new CommandException(Messages.MESSAGE_PERSON_NOT_FOUND);
         }
+        personToUpdate = lastShownList.stream().filter(new NricContainsKeywordsPredicate(nric.toString()))
+                .findFirst().get();
 
-        Person personToUpdate = lastShownList.stream().filter(
-                new NricContainsKeywordsPredicate(nric.toString())).findFirst().get();
         Person updatedPerson = createUpdatedPerson(personToUpdate, updatePersonDescriptor);
 
-        if (!(personToUpdate.isSamePerson(updatedPerson) && model.hasPerson(updatedPerson))) {
+        if (!personToUpdate.isSamePerson(updatedPerson) && model.hasPerson(updatedPerson)) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         }
 
@@ -169,8 +151,7 @@ public class UpdateCommand extends Command {
         }
 
         UpdateCommand otherUpdateCommand = (UpdateCommand) other;
-        return nric.equals(otherUpdateCommand.nric)
-                && updatePersonDescriptor.equals(otherUpdateCommand.updatePersonDescriptor);
+        return updatePersonDescriptor.equals(otherUpdateCommand.updatePersonDescriptor);
     }
 
     @Override
@@ -219,16 +200,7 @@ public class UpdateCommand extends Command {
             setDateOfBirth(toCopy.dateOfBirth);
             setSex(toCopy.sex);
             setStatus(toCopy.status);
-
-            setEmail(toCopy.email);
-            setCountry(toCopy.country);
-
-            setAllergies(toCopy.allergies);
-            setBloodType(toCopy.bloodType);
-            setCondition(toCopy.condition);
-            setDateOfAdmission(toCopy.dateOfAdmission);
-            setDiagnosis(toCopy.diagnosis);
-            setSymptom(toCopy.symptom);
+            // setTags(toCopy.tags);
         }
 
         /**
@@ -236,7 +208,7 @@ public class UpdateCommand extends Command {
          */
         public boolean isAnyFieldUpdated() {
             return CollectionUtil.isAnyNonNull(name, phone, address, sex, status, email, country,
-                    allergies, bloodType, condition, dateOfAdmission, diagnosis, symptom);
+                    allergies, bloodType, condition, dateOfAdmission, diagnosis, symptom, tags);
         }
 
         public void setNric(Nric nric) {

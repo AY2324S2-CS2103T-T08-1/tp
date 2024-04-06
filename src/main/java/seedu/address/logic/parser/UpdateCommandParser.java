@@ -51,7 +51,7 @@ public class UpdateCommandParser implements Parser<UpdateCommand> {
         Nric nric;
 
         try {
-            nric = ParserUtil.parseNric(argMultimap.getPreamble().toUpperCase());
+            nric = ParserUtil.parseNric(argMultimap.getPreamble());
         } catch (ParseException pe) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, UpdateCommand.MESSAGE_USAGE), pe);
         }
@@ -117,8 +117,7 @@ public class UpdateCommandParser implements Parser<UpdateCommand> {
         if (argMultimap.getValue(PREFIX_SYMPTOM).isPresent()) {
             updatePersonDescriptor.setSymptom(ParserUtil.parseSymptom(argMultimap.getValue(PREFIX_SYMPTOM).get()));
         }
-
-        // parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(updatePersonDescriptor::setTags);
+        parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(updatePersonDescriptor::setTags);
 
         if (!updatePersonDescriptor.isAnyFieldUpdated()) {
             throw new ParseException(UpdateCommand.MESSAGE_NOT_UPDATED);

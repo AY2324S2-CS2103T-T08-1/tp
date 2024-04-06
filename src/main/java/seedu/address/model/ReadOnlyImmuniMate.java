@@ -2,7 +2,6 @@ package seedu.address.model;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.person.Person;
-import seedu.address.model.visit.Visit;
 
 /**
  * Unmodifiable view of an address book
@@ -15,8 +14,4 @@ public interface ReadOnlyImmuniMate {
      */
     ObservableList<Person> getPersonList();
 
-    /**
-     * Returns an unmodifiable view of the visits
-     */
-    ObservableList<Visit> getVisitList();
 }

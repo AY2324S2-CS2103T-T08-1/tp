@@ -12,7 +12,6 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.person.Person;
-import seedu.address.model.visit.Visit;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -23,7 +22,6 @@ public class ModelManager implements Model {
     private final ImmuniMate immuniMate;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
-    private final FilteredList<Visit> filteredVisits;
 
     /**
      * Initializes a ModelManager with the given system and userPrefs.
@@ -36,7 +34,6 @@ public class ModelManager implements Model {
         this.immuniMate = new ImmuniMate(immuniMate);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.immuniMate.getPersonList());
-        filteredVisits = new FilteredList<>(this.immuniMate.getVisitList());
     }
 
     public ModelManager() {
@@ -96,22 +93,10 @@ public class ModelManager implements Model {
         requireNonNull(person);
         return immuniMate.hasPerson(person);
     }
-
-    @Override
-    public boolean hasVisit(Visit visit) {
-        requireNonNull(visit);
-        return immuniMate.hasVisit(visit);
-    }
-
     //TODO test cases
     @Override
     public void deletePerson(Person target) {
         immuniMate.removePerson(target);
-    }
-
-    @Override
-    public void deleteVisit(Visit target) {
-        immuniMate.removeVisit(target);
     }
 
     @Override
@@ -121,21 +106,10 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void addVisit(Visit visit) {
-        immuniMate.addVisit(visit);
-        updateFilteredVisitList(PREDICATE_SHOW_ALL_VISITS);
-    }
-
-    @Override
     public void setPerson(Person target, Person editedPerson) {
         requireAllNonNull(target, editedPerson);
 
         immuniMate.setPerson(target, editedPerson);
-    }
-
-    @Override
-    public void setVisit(Visit target, Visit editedVisit) {
-
     }
 
     //=========== Filtered Person List Accessors =============================================================
@@ -150,20 +124,9 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public ObservableList<Visit> getFilteredVisitList() {
-        return filteredVisits;
-    }
-
-    @Override
     public void updateFilteredPersonList(Predicate<Person> predicate) {
         requireNonNull(predicate);
         filteredPersons.setPredicate(predicate);
-    }
-
-    @Override
-    public void updateFilteredVisitList(Predicate<Visit> predicate) {
-        requireNonNull(predicate);
-        filteredVisits.setPredicate(predicate);
     }
 
     @Override

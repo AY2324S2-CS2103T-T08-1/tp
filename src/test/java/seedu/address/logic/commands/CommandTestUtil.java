@@ -4,19 +4,14 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ALLERGIES;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_BLOODTYPE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_CONDITION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COUNTRY;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_DATEOFADMISSION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATEOFBIRTH;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_DIAGNOSIS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NRIC;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SEX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STATUS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_SYMPTOM;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.testutil.Assert.assertThrows;
 
@@ -39,12 +34,11 @@ import seedu.address.testutil.UpdatePersonDescriptorBuilder;
  */
 public class CommandTestUtil {
     public static final String VALID_NRIC_AMY = "T0182991C";
-    public static final String VALID_NRIC_AMI = "T0182992C";
     public static final String VALID_NRIC_BOB = "S9518552M";
     public static final String VALID_NAME_AMY = "Amy Bee";
     public static final String VALID_NAME_BOB = "Bob Choo";
-    public static final String VALID_PHONE_AMY = "91111111";
-    public static final String VALID_PHONE_BOB = "82222222";
+    public static final String VALID_PHONE_AMY = "11111111";
+    public static final String VALID_PHONE_BOB = "22222222";
     public static final String VALID_ADDRESS_AMY = "Block 312, Amy Street 1";
     public static final String VALID_ADDRESS_BOB = "Block 123, Bobby Street 3";
     public static final String VALID_DATEOFBIRTH_AMY = "2001-01-01";
@@ -72,7 +66,6 @@ public class CommandTestUtil {
     public static final String VALID_TAG_HUSBAND = "husband";
     public static final String VALID_TAG_FRIEND = "friend";
 
-    public static final String NRIC_DESC_AMI = " " + PREFIX_NRIC + VALID_NRIC_AMI;
     public static final String NRIC_DESC_AMY = " " + PREFIX_NRIC + VALID_NRIC_AMY;
     public static final String NRIC_DESC_BOB = " " + PREFIX_NRIC + VALID_NRIC_BOB;
     public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
@@ -87,32 +80,14 @@ public class CommandTestUtil {
     public static final String SEX_DESC_BOB = " " + PREFIX_SEX + VALID_SEX_BOB;
     public static final String STATUS_DESC_AMY = " " + PREFIX_STATUS + VALID_STATUS_AMY;
     public static final String STATUS_DESC_BOB = " " + PREFIX_STATUS + VALID_STATUS_BOB;
-    public static final String ALLERGIES_DESC_AMY = " " + PREFIX_ALLERGIES + VALID_ALLERGIES_AMY;
-    public static final String ALLERGIES_DESC_BOB = " " + PREFIX_ALLERGIES + VALID_ALLERGIES_BOB;
     public static final String EMAIL_DESC_AMY = " " + PREFIX_EMAIL + VALID_EMAIL_AMY;
     public static final String EMAIL_DESC_BOB = " " + PREFIX_EMAIL + VALID_EMAIL_BOB;
     public static final String COUNTRY_DESC_AMY = " " + PREFIX_COUNTRY + VALID_COUNTRY_AMY;
     public static final String COUNTRY_DESC_BOB = " " + PREFIX_COUNTRY + VALID_COUNTRY_BOB;
-    public static final String BLOODTYPE_DESC_AMY = " " + PREFIX_BLOODTYPE + VALID_BLOODTYPE_AMY;
-    public static final String BLOODTYPE_DESC_BOB = " " + PREFIX_BLOODTYPE + VALID_BLOODTYPE_BOB;
-    public static final String CONDITION_DESC_AMY = " " + PREFIX_CONDITION + VALID_CONDITION_AMY;
-    public static final String CONDITION_DESC_BOB = " " + PREFIX_CONDITION + VALID_CONDITION_BOB;
-    public static final String DATEOFADMISSION_DESC_AMY = " " + PREFIX_DATEOFADMISSION + VALID_DATEOFADMISSION_AMY;
-    public static final String DATEOFADMISSION_DESC_BOB = " " + PREFIX_DATEOFADMISSION + VALID_DATEOFADMISSION_BOB;
-    public static final String DIAGNOSIS_DESC_AMY = " " + PREFIX_DIAGNOSIS + VALID_DIAGNOSIS_AMY;
-    public static final String DIAGNOSIS_DESC_BOB = " " + PREFIX_DIAGNOSIS + VALID_DIAGNOSIS_BOB;
-    public static final String SYMPTOM_DESC_AMY = " " + PREFIX_SYMPTOM + VALID_SYMPTOM_AMY;
-    public static final String SYMPTOM_DESC_BOB = " " + PREFIX_SYMPTOM + VALID_SYMPTOM_BOB;
+    public static final String ALLERGIES_DESC_AMY = " " + PREFIX_ALLERGIES + VALID_ALLERGIES_AMY;
+    public static final String ALLERGIES_DESC_BOB = " " + PREFIX_ALLERGIES + VALID_ALLERGIES_BOB;
     public static final String TAG_DESC_FRIEND = " " + PREFIX_TAG + VALID_TAG_FRIEND;
     public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
-    public static final String ALL_FIELDS_DESC_AMY = NRIC_DESC_AMY + NAME_DESC_AMY + PHONE_DESC_AMY
-            + ADDRESS_DESC_AMY + DATEOFBIRTH_DESC_AMY + SEX_DESC_AMY + STATUS_DESC_AMY + ALLERGIES_DESC_AMY
-            + EMAIL_DESC_AMY + CONDITION_DESC_AMY + COUNTRY_DESC_AMY + BLOODTYPE_DESC_AMY + DATEOFADMISSION_DESC_AMY
-            + DIAGNOSIS_DESC_AMY + SYMPTOM_DESC_AMY;
-    public static final String ALL_FIELDS_DESC_BOB = NRIC_DESC_BOB + NAME_DESC_BOB + PHONE_DESC_BOB
-            + ADDRESS_DESC_BOB + DATEOFBIRTH_DESC_BOB + SEX_DESC_BOB + STATUS_DESC_BOB + ALLERGIES_DESC_BOB
-            + EMAIL_DESC_BOB + CONDITION_DESC_BOB + COUNTRY_DESC_BOB + BLOODTYPE_DESC_BOB + DATEOFADMISSION_DESC_BOB
-            + DIAGNOSIS_DESC_BOB + SYMPTOM_DESC_BOB;
 
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
     public static final String INVALID_PHONE_DESC = " " + PREFIX_PHONE + "911a"; // 'a' not allowed in phones
@@ -120,7 +95,6 @@ public class CommandTestUtil {
     public static final String INVALID_ADDRESS_DESC = " " + PREFIX_ADDRESS; // empty string not allowed for addresses
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
     public static final String NON_EXISTENT_NRIC = "S1234576A";
-    public static final String INVALID_NRIC = "S1234576"; // missing last letter
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
