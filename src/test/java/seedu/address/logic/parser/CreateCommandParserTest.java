@@ -3,6 +3,7 @@ package seedu.address.logic.parser;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.ALL_FIELDS_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.DATEOFBIRTH_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.DATEOFBIRTH_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_ADDRESS_DESC;
@@ -10,7 +11,7 @@ import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_PHONE_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.NRIC_DESC_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.NRIC_DESC_AMI;
 import static seedu.address.logic.commands.CommandTestUtil.NRIC_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_BOB;
@@ -33,7 +34,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_SEX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STATUS;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static seedu.address.testutil.TypicalPersons.AMY;
+import static seedu.address.testutil.TypicalPersons.AMI;
 import static seedu.address.testutil.TypicalPersons.BOB;
 
 import org.junit.jupiter.api.Test;
@@ -54,17 +55,8 @@ public class CreateCommandParserTest {
         Person expectedPerson = new PersonBuilder(BOB).build();
 
         // whitespace only preamble
-        assertParseSuccess(parser, PREAMBLE_WHITESPACE + NRIC_DESC_BOB + NAME_DESC_BOB + PHONE_DESC_BOB
-                + ADDRESS_DESC_BOB + DATEOFBIRTH_DESC_BOB + SEX_DESC_BOB + STATUS_DESC_BOB,
-                new CreateCommand(expectedPerson));
+        assertParseSuccess(parser, PREAMBLE_WHITESPACE + ALL_FIELDS_DESC_BOB, new CreateCommand(expectedPerson));
         //TODO: after implementing optional fields for person builder
-        // multiple tags - all accepted
-        Person expectedPersonMultipleTags = new PersonBuilder(BOB)
-                .build();
-        assertParseSuccess(parser,
-                NRIC_DESC_BOB + NAME_DESC_BOB + PHONE_DESC_BOB + ADDRESS_DESC_BOB
-                        + DATEOFBIRTH_DESC_BOB + SEX_DESC_BOB + STATUS_DESC_BOB,
-                new CreateCommand(expectedPersonMultipleTags));
     }
 
 
@@ -146,8 +138,8 @@ public class CreateCommandParserTest {
     @Test
     public void parse_optionalFieldsMissing_success() {
         // zero tags
-        Person expectedPerson = new PersonBuilder(AMY).build();
-        assertParseSuccess(parser, NRIC_DESC_AMY + NAME_DESC_AMY + PHONE_DESC_AMY + ADDRESS_DESC_AMY
+        Person expectedPerson = new PersonBuilder(AMI).build();
+        assertParseSuccess(parser, NRIC_DESC_AMI + NAME_DESC_AMY + PHONE_DESC_AMY + ADDRESS_DESC_AMY
                 + DATEOFBIRTH_DESC_AMY + SEX_DESC_AMY + STATUS_DESC_AMY,
                 new CreateCommand(expectedPerson));
     }

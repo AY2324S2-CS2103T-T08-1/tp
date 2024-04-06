@@ -1,7 +1,6 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NRIC;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import seedu.address.commons.util.ToStringBuilder;
@@ -19,14 +18,13 @@ public class ReadCommand extends Command {
 
     public static final String COMMAND_WORD = "read";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Reads the details of the person identified "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ":\nReads the details of the person identified "
             + "by the NRIC specified. "
-            + "Example: " + COMMAND_WORD
-            + PREFIX_NRIC + "T0123456A";
+            + "\nParameters: NRIC"
+            + "\nExample: " + COMMAND_WORD
+            + " S0123456A";
 
-    public static final String MESSAGE_READ_PERSON_SUCCESS = "Read Person: %1$s";
-    public static final String MESSAGE_NO_PERSON = "There is no such person with this NRIC.";
-    public static final String MESSAGE_NOT_READ = "NRIC to be specified.";
+    public static final String MESSAGE_READ_PERSON_SUCCESS = "Read Person ->\n%1$s";
     private final Nric nric;
 
     /**
@@ -41,8 +39,9 @@ public class ReadCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        if (model.hasPerson(Person.createPersonWithNric(nric))) {
-            throw new CommandException(MESSAGE_NO_PERSON);
+
+        if (!model.hasPerson(Person.createPersonWithNric(nric))) {
+            throw new CommandException(Messages.MESSAGE_PERSON_NOT_FOUND);
         }
 
         model.updateFilteredPersonList(new NricContainsKeywordsPredicate(nric.toString()));

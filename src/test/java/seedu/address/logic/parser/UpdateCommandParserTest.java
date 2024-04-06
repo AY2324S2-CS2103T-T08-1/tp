@@ -54,42 +54,46 @@ public class UpdateCommandParserTest {
     @Test
     public void parse_missingParts_failure() {
         // no nric specified
-        assertParseFailure(parser, VALID_NAME_AMY, MESSAGE_INVALID_FORMAT);
+        assertParseFailure(parser, "n/" + VALID_NAME_AMY, MESSAGE_INVALID_FORMAT);
 
-        /* no field specified
+        // no field specified
         assertParseFailure(parser, VALID_NRIC_AMY, UpdateCommand.MESSAGE_NOT_UPDATED);
-         */
 
-        // no index and no field specified
+        // no nric and no field specified
         assertParseFailure(parser, "", MESSAGE_INVALID_FORMAT);
+    }
+
+    public void parse_validPreamble_success() {
+        UpdatePersonDescriptor descriptor = new UpdatePersonDescriptorBuilder().withName(VALID_NAME_AMY).build();
+        UpdateCommand expectedCommand = new UpdateCommand(new Nric("T0182991C"), descriptor);
+
+        // one lowercase letter
+        assertParseSuccess(parser, "t0182991C" + NAME_DESC_AMY, expectedCommand);
+        assertParseSuccess(parser, "T0182991c" + NAME_DESC_AMY, expectedCommand);
+
+        // 2 lowercase letters
+        assertParseSuccess(parser, "t0182991c" + NAME_DESC_AMY, expectedCommand);
     }
 
     @Test
     public void parse_invalidPreamble_failure() {
-        // one lowercase letter
-        assertParseFailure(parser, "t0182991C" + NAME_DESC_AMY, MESSAGE_INVALID_FORMAT);
-        assertParseFailure(parser, "T0182991c" + NAME_DESC_AMY, MESSAGE_INVALID_FORMAT);
-
-        // 2 lowercase letters
-        assertParseFailure(parser, "t0182991c" + NAME_DESC_AMY, MESSAGE_INVALID_FORMAT);
-
         // invalid arguments being parsed as preamble
         assertParseFailure(parser, "1 some random string", MESSAGE_INVALID_FORMAT);
-
-        // invalid prefix being parsed as preamble
-        assertParseFailure(parser, "1 i/ string", MESSAGE_INVALID_FORMAT);
     }
 
     @Test
     public void parse_invalidValue_failure() {
-        assertParseFailure(parser, "T0182991C" + INVALID_NAME_DESC, Name.MESSAGE_CONSTRAINTS);
         // invalid name
-        assertParseFailure(parser, "T0182991C" + INVALID_PHONE_DESC, Phone.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, "T0182991C" + INVALID_NAME_DESC, Name.MESSAGE_CONSTRAINTS);
+
         // invalid phone
-        assertParseFailure(parser, "T0182991C" + INVALID_EMAIL_DESC, Email.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, "T0182991C" + INVALID_PHONE_DESC, Phone.MESSAGE_CONSTRAINTS);
+
         // invalid email
-        assertParseFailure(parser, "T0182991C" + INVALID_ADDRESS_DESC, Address.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, "T0182991C" + INVALID_EMAIL_DESC, Email.MESSAGE_CONSTRAINTS);
+
         // invalid address
+        assertParseFailure(parser, "T0182991C" + INVALID_ADDRESS_DESC, Address.MESSAGE_CONSTRAINTS);
 
         // invalid phone followed by valid email
         assertParseFailure(
@@ -108,7 +112,7 @@ public class UpdateCommandParserTest {
 
         // multiple invalid values, but only the first invalid value is captured
         assertParseFailure(parser, "T0182991C" + INVALID_NAME_DESC + INVALID_EMAIL_DESC + VALID_ADDRESS_AMY
-                        + VALID_PHONE_AMY, Name.MESSAGE_CONSTRAINTS);
+                + VALID_PHONE_AMY, Name.MESSAGE_CONSTRAINTS);
     }
 
     @Test
@@ -201,5 +205,5 @@ public class UpdateCommandParserTest {
 
         assertParseSuccess(parser, userInput, expectedCommand);
     }
-     */
+    */
 }

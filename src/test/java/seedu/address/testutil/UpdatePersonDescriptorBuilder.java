@@ -42,7 +42,6 @@ public class UpdatePersonDescriptorBuilder {
         descriptor.setDateOfBirth(person.getDateOfBirth());
         descriptor.setSex(person.getSex());
         descriptor.setStatus(person.getStatus());
-        /*
         descriptor.setTags(person.getTags());
         descriptor.setEmail(person.getEmail());
         descriptor.setCountry(person.getCountry());
@@ -53,7 +52,6 @@ public class UpdatePersonDescriptorBuilder {
         descriptor.setDateOfAdmission(person.getDateOfAdmission());
         descriptor.setDiagnosis(person.getDiagnosis());
         descriptor.setSymptom(person.getSymptom());
-        */
     }
 
     /**

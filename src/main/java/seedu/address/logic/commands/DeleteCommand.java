@@ -18,11 +18,11 @@ public class DeleteCommand extends Command {
     public static final String COMMAND_WORD = "delete";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Deletes the person identified by the NRIC.\n"
+            + ":\nDeletes the person identified by the NRIC.\n"
             + "Parameters: NRIC\n"
-            + "Example: " + COMMAND_WORD + " S1234567B";
+            + "Example: " + COMMAND_WORD + " S0123456A";
 
-    public static final String MESSAGE_DELETE_PERSON_SUCCESS = "Deleted Patient: %1$s";
+    public static final String MESSAGE_DELETE_PERSON_SUCCESS = "Deleted Person ->\n%1$s";
 
     private final Nric targetNric;
     //TODO test cases
