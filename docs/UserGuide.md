@@ -63,6 +63,21 @@ As communities grow, information management might prove complex for General Prac
 * If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
 </div>
 
+Specification for format of fields:
+* `NRIC`: 9 characters. First character is an alphabet, any of S, T (for citizens) F, G, M (for foreigners), followed by 7 digits, and the last character is an alphabet. NRIC is case-insensitive, which means `S1234567A` is the same as `s1234567a`.
+* `Name`: Any string containing only alphabets and spaces.
+* `Phone Number`: 8 digits.
+* `Date of birth`/`date of admission`/`Date of Visit`: `yyyy-MM-dd` format.
+* `Sex`: `M` or `F`.
+* `Status`: `PENDING`, `UNWELL`, `HEALTHY`.
+* `Address`: Any string.
+* `Email`: Any valid email address of the form `local-part@domain`.
+* `Country of Nationality`: Any string.
+* `Allergies`/`Condition`/`Symptom`/`Diagnosis`: Any string.
+* `Blood type`: `A+`, `A-`, `B+`, `B-`, `AB+`, `AB-`, `O+`, `O-`.
+* `Cluster Size`: Any integer.
+* `Location`: Any string.
+
 ### Viewing help : `help`
 
 Shows a message explaining how to access the help page.
@@ -80,7 +95,7 @@ Format: `create ic/<NRIC> n/<Patient_Name> hp/<Phone_Number> a/<Address> dob/<Da
 
 Examples:
 * `create ic/S1234567A n/John Doe hp/98765432 a/311, Clementi Ave 2, #02-25 dob/1990-01-01 s/M st/PENDING`
-* `create ic/S0123456A n/Jane Doe hp/87654321 a/311, Clementi Ave 2, #02-25 dob/01-01-1990 s/F st/PENDING e/janed@example.com bt/A+`
+* `create ic/S0123456A n/Jane Doe hp/87654321 a/311, Clementi Ave 2, #02-25 dob/1990-01-01 s/F st/PENDING e/janed@example.com bt/A+`
 
 ### Listing all patients : `list`
 
