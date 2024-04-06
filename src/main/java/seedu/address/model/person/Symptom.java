@@ -1,14 +1,29 @@
 package seedu.address.model.person;
 
+import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.AppUtil.checkArgument;
+
 /**
  * Represents a Person's symptom in the address book.
  * Guarantees: immutable;
  */
 public class Symptom {
+    public static final String VALIDATION_REGEX = "[^\\s].*";
+    public static final String MESSAGE_CONSTRAINTS = "Symptom can take any values, and it should not be blank";
     private final String symptom;
 
+    /**
+     * Constructs a {@code Symptom}.
+     *
+     * @param symptom A valid symptom.
+     */
     public Symptom(String symptom) {
+        requireNonNull(symptom);
+        checkArgument(isValidSymptom(symptom), MESSAGE_CONSTRAINTS);
         this.symptom = symptom;
+    }
+    public static boolean isValidSymptom(String test) {
+        return test.matches(VALIDATION_REGEX);
     }
 
     public String getSymptom() {
