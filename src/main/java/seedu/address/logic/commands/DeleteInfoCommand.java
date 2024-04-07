@@ -23,7 +23,7 @@ public class DeleteInfoCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ":\nDeletes the information of the person identified by NRIC.\n"
             + "Parameters: NRIC, fields to be deleted\n"
-            + "Example: " + COMMAND_WORD + " S1234567B " + PREFIX_EMAIL
+            + "Example: " + COMMAND_WORD + " S1234567B " + PREFIX_EMAIL + "\n"
             + "List of deletable fields: email (e/), allergies (al/), bloodtype(bt/), date of admission(doa/), "
             + "country(c/), condition(con/), symptom(sym/), diagnosis(d/)";
     public static final String MESSAGE_INVALID_FIELDS = "Invalid field(s) to be deleted: "
