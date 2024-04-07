@@ -1,6 +1,9 @@
 package seedu.address.model.person;
 
+import static java.util.Objects.requireNonNull;
+
 import java.time.LocalDate;
+
 
 /**
  * Represents a Person's date of admission in the address book.
@@ -19,6 +22,7 @@ public class DateOfAdmission {
      * @param dateOfAdmission A valid date of admission.
      */
     public DateOfAdmission(String dateOfAdmission) {
+        requireNonNull(dateOfAdmission);
         if (!isValidDateOfAdmission(dateOfAdmission)) {
             throw new IllegalArgumentException(MESSAGE_CONSTRAINTS);
         }

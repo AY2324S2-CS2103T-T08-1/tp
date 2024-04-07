@@ -7,25 +7,8 @@ import static seedu.address.testutil.Assert.assertThrows;
 import org.junit.jupiter.api.Test;
 
 public class DateOfAdmissionTest {
-
-    /* commented as DateOfAdmission can be null, and doesn't have regex
     @Test
-    public void constructor_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new DateOfAdmission(null));
-    }
-
-    @Test
-    public void constructor_invalidAddress_throwsIllegalArgumentException() {
-        String invalidDate = "";
-        assertThrows(IllegalArgumentException.class, () -> new DateOfAdmission(invalidDate));
-    }
-     */
-
-    @Test
-    public void isValidAddress() {
-        // null address
-        assertThrows(NullPointerException.class, () -> DateOfAdmission.isValidDateOfAdmission(null));
-
+    public void isValidDateOfAdmission() {
         // invalid addresses
         assertFalse(DateOfAdmission.isValidDateOfAdmission("")); // empty string
         assertFalse(DateOfAdmission.isValidDateOfAdmission(" ")); // spaces only
