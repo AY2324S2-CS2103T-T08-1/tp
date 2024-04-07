@@ -1,9 +1,13 @@
 package seedu.address.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.NON_EXISTENT_NRIC;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NRIC_AMI;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
@@ -21,6 +25,16 @@ import seedu.address.testutil.PersonBuilder;
 public class DeleteInfoCommandTest {
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
 
+    @Test
+    public void constructor_emptyInput_throwsException() {
+        Nric targetNric = new Nric(VALID_NRIC_AMI);
+        boolean[] fieldsToDelete = {}; //empty array
+        boolean[] fieldsToDelete2 = {true, true, true, true, true, true, true, true, true}; //too many fields
+        assertThrows(AssertionError.class, () -> new DeleteInfoCommand(targetNric, fieldsToDelete));
+        assertThrows(AssertionError.class, () -> new DeleteInfoCommand(targetNric, fieldsToDelete2));
+        assertThrows(NullPointerException.class, () -> new DeleteInfoCommand(null, fieldsToDelete));
+        assertThrows(NullPointerException.class, () -> new DeleteInfoCommand(targetNric, null));
+    }
     @Test
     public void execute_deleteInfo_success() {
         Person personToDeleteInfo = new PersonBuilder(ALICE).withNric("T0278967B").build();
@@ -45,7 +59,6 @@ public class DeleteInfoCommandTest {
         assertEquals(expectedPerson, personToDeleteInfo);
     }
 
-
     @Test
     public void execute_invalidNric_throwsCommandException() {
         Nric targetNric = new Nric(NON_EXISTENT_NRIC);
@@ -53,5 +66,42 @@ public class DeleteInfoCommandTest {
         DeleteInfoCommand deleteInfoCommand = new DeleteInfoCommand(targetNric, fieldsToDelete);
 
         assertCommandFailure(deleteInfoCommand, model, Messages.MESSAGE_PERSON_NOT_FOUND);
+    }
+
+    @Test
+    public void equals_equalInput_true() {
+        Nric targetNric = new Nric(VALID_NRIC_AMI);
+        boolean[] fieldsToDelete = {true, true, true, true, true, true, true, true};
+        DeleteInfoCommand deleteInfoCommand = new DeleteInfoCommand(targetNric, fieldsToDelete);
+        DeleteInfoCommand deleteInfoCommandCopy = new DeleteInfoCommand(targetNric, fieldsToDelete);
+
+        assertTrue(deleteInfoCommand.equals(deleteInfoCommandCopy)); //equivalent objects
+        assertTrue(deleteInfoCommand.equals(deleteInfoCommand)); //same objects
+    }
+
+    @Test
+    public void equals_unequalInput_false() {
+        Nric targetNric = new Nric(VALID_NRIC_AMI);
+        boolean[] fieldsToDelete = {true, true, true, true, true, true, true, true};
+        boolean[] otherFieldsToDelete = {true, true, true, true, true, true, true, false};
+        DeleteInfoCommand deleteInfoCommand = new DeleteInfoCommand(targetNric, fieldsToDelete);
+        DeleteInfoCommand otherDeleteInfoCommand = new DeleteInfoCommand(targetNric, otherFieldsToDelete);
+
+        assertFalse(deleteInfoCommand.equals(otherDeleteInfoCommand)); //other values
+        assertFalse(deleteInfoCommand.equals(null)); //null
+        assertFalse(deleteInfoCommand.equals(new CreateCommand(ALICE))); //different class
+        assertFalse(deleteInfoCommand.equals(new DeleteInfoCommand(new Nric("T0123456A"), fieldsToDelete)));
+        //different NRIC
+    }
+
+    @Test
+    public void toStringTest() {
+        Nric targetNric = new Nric(VALID_NRIC_AMI);
+        boolean[] fieldsToDelete = {true, true, true, true, true, true, true, true};
+        DeleteInfoCommand deleteInfoCommand = new DeleteInfoCommand(targetNric, fieldsToDelete);
+        String expected = DeleteInfoCommand.class.getCanonicalName() + "{targetNric=" + VALID_NRIC_AMI
+                + ", fieldsToDelete=" + "EMAIL, ALLERGIES, BLOODTYPE, DATEOFADMISSION, "
+                + "COUNTRY, CONDITION, SYMPTOM, DIAGNOSIS, }";
+        assertEquals(expected, deleteInfoCommand.toString());
     }
 }

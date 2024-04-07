@@ -63,21 +63,6 @@ As communities grow, information management might prove complex for General Prac
 * If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
 </div>
 
-Specification for format of fields:
-* `NRIC`: 9 characters. First character is an alphabet, any of S, T (for citizens) F, G, M (for foreigners), followed by 7 digits, and the last character is an alphabet. NRIC is case-insensitive, which means `S1234567A` is the same as `s1234567a`.
-* `Name`: Any string containing only alphabets and spaces.
-* `Phone Number`: 8 digits.
-* `Date of birth`/`date of admission`/`Date of Visit`: `yyyy-MM-dd` format.
-* `Sex`: `M` or `F`.
-* `Status`: `PENDING`, `UNWELL`, `HEALTHY`.
-* `Address`: Any string.
-* `Email`: Any valid email address of the form `local-part@domain`.
-* `Country of Nationality`: Any string.
-* `Allergies`/`Condition`/`Symptom`/`Diagnosis`: Any string.
-* `Blood type`: `A+`, `A-`, `B+`, `B-`, `AB+`, `AB-`, `O+`, `O-`.
-* `Cluster Size`: Any integer.
-* `Location`: Any string.
-
 ### Viewing help : `help`
 
 Shows a message explaining how to access the help page.
@@ -97,6 +82,7 @@ Examples:
 * `create ic/S1234567A n/John Doe hp/98765432 a/311, Clementi Ave 2, #02-25 dob/1990-01-01 s/M st/PENDING`
 * `create ic/S0123456A n/Jane Doe hp/87654321 a/311, Clementi Ave 2, #02-25 dob/1990-01-01 s/F st/PENDING e/janed@example.com bt/A+`
 
+For specification of each field, refer to the [Field summary](#field-summary) at the end of this User Guide.
 ### Listing all patients : `list`
 
 Shows a list of all patients in ImmuniMate.
@@ -216,7 +202,7 @@ Format: `addvisit ic/<NRIC> dov/<Date_of_Visit> sym/<Symptoms> d/<Diagnosis> st/
 Examples:
 * `addvisit ic/S1234567A dov/2024-01-01 sym/Cough d/Covid st/UNWELL` adds a visit to history of patient uniquely identified by NRIC S1234567A. During this visit on 2024-01-01, the patient had cough and was diagnosed with Covid.
 * `addvisit ic/S0123456A dov/2024-02-02 sym/Fever,Rashes d/Dengue st/PENDING` adds a visit to history of patient uniquely identified by NRIC S0123456A. During this visit on 2024-02-02, the patient had fever and rashes, and was diagnosed with Dengue.
-
+Date of visit: `yyyy-MM-dd` format.
 ### Check patient history : `check`
 
 Checks all visits in patient history. 
@@ -310,20 +296,20 @@ Furthermore, certain edits can cause ImmuniMate to behave in unexpected ways (e.
 
 ## Field summary 
 
-| Field                      | Prefix |
-|----------------------------|--------|
-| **Name**                   | `n/`   |
-| **NRIC**                   | `ic/`  |
-| **Phone Number**           | `hp/`  |
-| **Address**                | `a/`   |
-| **Date of birth**          | `dob/` |
-| **Sex**                    | `s/`   |
-| **Status**                 | `st/`  |
-| **Email**                  | `e/`   |
-| **Country of nationality** | `c/`   |
-| **Date of admission**      | `doa/` |
-| **Blood type**             | `bt/`  |
-| **Allergies**              | `al/`  |
-| **Condition**              | `con/` |
-| **Symptom**                | `sym/` |
-| **Diagnosis**              | `d/`   |
+| Field                      | Prefix | Format                                                                                                                                                                                                                              | Mandatory |
+|----------------------------|--------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------|
+| **Name**                   | `n/`   | Any string containing only alphabets and spaces.                                                                                                                                                                                    | Yes       |
+| **NRIC**                   | `ic/`  | 9 characters.First character can be any of S, T (for citizens) F, G, M (for foreigners), followed by 7 digits, and the last character is an alphabet. NRIC is case-insensitive, which means `S1234567A` is the same as `s1234567a`. | Yes       |
+| **Phone Number**           | `hp/`  | 8 digits.                                                                                                                                                                                                                           | Yes       |
+| **Address**                | `a/`   | Any text. Blank or empty text is not accepted.                                                                                                                                                                                      | Yes       |
+| **Date of birth**          | `dob/` | `yyyy-MM-dd` format.                                                                                                                                                                                                                | Yes       |
+| **Sex**                    | `s/`   | `M` or `F`                                                                                                                                                                                                                          | Yes       |
+| **Status**                 | `st/`  | `PENDING`, `UNWELL`or `HEALTHY`                                                                                                                                                                                                     | Yes       |
+| **Email**                  | `e/`   | Any valid email address of the form `local-part@domain`.                                                                                                                                                                            | No        |
+| **Country of nationality** | `c/`   | Any text. Blank or empty text is not accepted.                                                                                                                                                                                      | No        |
+| **Date of admission**      | `doa/` | `yyyy-MM-dd` format.                                                                                                                                                                                                                | No        |
+| **Blood type**             | `bt/`  | `A+`, `A-`, `B+`, `B-`, `AB+`, `AB-`, `O+`, `O-`                                                                                                                                                                                    | No        |
+| **Allergies**              | `al/`  | Any text. Blank or empty text is not accepted.                                                                                                                                                                                      | No        |
+| **Condition**              | `con/` | Any text. Blank or empty text is not accepted.                                                                                                                                                                                      | No        |
+| **Symptom**                | `sym/` | Any text. Blank or empty text is not accepted.                                                                                                                                                                                      | No        |
+| **Diagnosis**              | `d/`   | Any text. Blank or empty text is not accepted.                                                                                                                                                                                      | No        |
