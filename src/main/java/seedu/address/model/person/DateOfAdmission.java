@@ -8,9 +8,8 @@ import java.time.LocalDate;
  */
 public class DateOfAdmission {
     public static final String MESSAGE_CONSTRAINTS =
-            "Date of admission should be in the format of YYYY-MM-DD, and it should not be blank.";
-
-    public static final String VALIDATION_REGEX = "^\\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$";
+            "Date of admission should be in the format of YYYY-MM-DD. It should be a valid date,"
+                    + " and it should not be blank.";
 
     private final LocalDate dateOfAdmission;
 
@@ -20,6 +19,9 @@ public class DateOfAdmission {
      * @param dateOfAdmission A valid date of admission.
      */
     public DateOfAdmission(String dateOfAdmission) {
+        if (!isValidDateOfAdmission(dateOfAdmission)) {
+            throw new IllegalArgumentException(MESSAGE_CONSTRAINTS);
+        }
         this.dateOfAdmission = LocalDate.parse(dateOfAdmission);
     }
 
@@ -27,7 +29,12 @@ public class DateOfAdmission {
      * Returns true if a given string is a valid date of admission.
      */
     public static boolean isValidDateOfAdmission(String test) {
-        return test.matches(VALIDATION_REGEX);
+        try {
+            LocalDate.parse(test);
+        } catch (Exception e) {
+            return false;
+        }
+        return true;
     }
 
     /**
