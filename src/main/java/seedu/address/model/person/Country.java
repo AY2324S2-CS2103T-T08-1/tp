@@ -13,7 +13,8 @@ public class Country {
      * otherwise " " (a blank string) becomes a valid input.
      */
     public static final String VALIDATION_REGEX = "[^\\s].*";
-    public static final String MESSAGE_CONSTRAINTS = "Countries can take any values, and it should not be blank";
+    public static final String MESSAGE_CONSTRAINTS = "Countries can take any values, and it should not be blank."
+            + " It is case insensitive.";
     private final String country;
 
     /**
@@ -25,7 +26,7 @@ public class Country {
     public Country(String country) {
         requireNonNull(country);
         checkArgument(isValidCountry(country), MESSAGE_CONSTRAINTS);
-        this.country = country;
+        this.country = country.toUpperCase();
     }
 
     public static boolean isValidCountry(String test) {
