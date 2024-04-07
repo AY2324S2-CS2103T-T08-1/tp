@@ -75,6 +75,7 @@ public class UpdateCommand extends Command {
             + "[" + PREFIX_DATEOFADMISSION + "DATEOFADMISSION] "
             + "[" + PREFIX_DIAGNOSIS + "DIAGNOSIS] "
             + "[" + PREFIX_SYMPTOM + "SYMPTOM] "
+            + "\nNRIC cannot be updated."
             + "\nExample: " + COMMAND_WORD + " S0123456A "
             + PREFIX_PHONE + "91234567 "
             + PREFIX_EMAIL + "johndoe@example.com";

@@ -78,6 +78,9 @@ Creates a patient profile in ImmuniMate.
 
 Format: `create ic/<NRIC> n/<Patient_Name> hp/<Phone_Number> a/<Address> dob/<Date_of_birth> s/<Sex> st/<Status> [e/Email] [c/Country_of_Nationality] [doa/Date_of_Admission] [bt/Blood type] [al/Allergies] [con/Condition] [sym/Symptom] [d/diagnosis]`
 
+* All mandatory fields must be provided.
+* The unique identifier for each patient is the NRIC. The new NRIC must not already exist in the system.
+
 Examples:
 * `create ic/S1234567A n/John Doe hp/98765432 a/311, Clementi Ave 2, #02-25 dob/1990-01-01 s/M st/PENDING`
 * `create ic/S0123456A n/Jane Doe hp/87654321 a/311, Clementi Ave 2, #02-25 dob/1990-01-01 s/F st/PENDING e/janed@example.com bt/A+`
@@ -107,6 +110,7 @@ Format: `update <NRIC> <Field>/CONTENT`
 * Updates the patient of corresponding NRIC. 
 * At least one of the fields must be provided.
 * Existing values will be updated to the input values.
+* NRIC cannot be updated, while all other values can be updated.
 
 Examples:
 *  `update S1234567A hp/91234567 e/jd123@example.com` Updates the phone number and email address of the corresponding patient to be `91234567` and `jd123@example.com` respectively.
