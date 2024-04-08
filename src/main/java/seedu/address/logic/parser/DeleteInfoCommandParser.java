@@ -73,7 +73,7 @@ public class DeleteInfoCommandParser implements Parser<DeleteInfoCommand> {
             PREFIX_SEX, PREFIX_STATUS};
         if (Arrays.stream(mandatoryPrefixes).anyMatch(argMultimap::contains)) {
             throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteInfoCommand.MESSAGE_INVALID_FIELDS));
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteInfoCommand.MESSAGE_ONLY_OPTIONAL_FIELDS));
         }
 
         //Check for optional fields & any extra invalid input

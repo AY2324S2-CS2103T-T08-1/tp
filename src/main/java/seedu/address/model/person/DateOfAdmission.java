@@ -10,6 +10,7 @@ import java.time.LocalDate;
  * Guarantees: immutable;
  */
 public class DateOfAdmission {
+    //Changed validity check for date format to disallow invalid dates, as not doing so results in parser errors
     public static final String MESSAGE_CONSTRAINTS =
             "Date of admission should be in the format of YYYY-MM-DD. It should be a valid date,"
                     + " and it should not be blank.";

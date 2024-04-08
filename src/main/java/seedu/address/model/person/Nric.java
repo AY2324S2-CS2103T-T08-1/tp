@@ -11,14 +11,14 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class Nric {
     public static final String MESSAGE_CONSTRAINTS =
-            "NRIC/FIN number should contain a prefix of S, T, F, G or M, followed by 7 digits, and end with a letter. "
-                    + "NRIC/FIN is case-insensitive, and there should not be blank.";
+            "NRIC number should contain a prefix of S or T, followed by 7 digits, and end with a letter. "
+                    + "There should not be blank.";
 
     /**
      * The first character of the address must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
-    public static final String VALIDATION_REGEX = "^(?i)[STFGM]\\d{7}[A-Z]$";
+    public static final String VALIDATION_REGEX = "^[ST]\\d{7}[A-Z]$";
 
     private final String nric;
 
@@ -30,6 +30,7 @@ public class Nric {
     public Nric(String nric) {
         requireNonNull(nric);
         checkArgument(isValidNric(nric), MESSAGE_CONSTRAINTS);
+        //TODO: is this a bug?
         this.nric = nric.toUpperCase();
     }
 

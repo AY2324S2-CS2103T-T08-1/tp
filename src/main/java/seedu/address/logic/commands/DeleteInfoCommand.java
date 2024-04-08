@@ -23,13 +23,8 @@ public class DeleteInfoCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ":\nDeletes the information of the person identified by NRIC.\n"
             + "Parameters: NRIC, fields to be deleted\n"
-            + "Example: " + COMMAND_WORD + " S1234567B " + PREFIX_EMAIL + "\n"
-            + "List of deletable fields: email (e/), allergies (al/), bloodtype(bt/), date of admission(doa/), "
-            + "country(c/), condition(con/), symptom(sym/), diagnosis(d/)";
-    public static final String MESSAGE_INVALID_FIELDS = "Invalid field(s) to be deleted: "
-            + "only optional fields can be deleted."
-            + "List of deletable fields: email (e/), allergies (al/), bloodtype(bt/), date of admission(doa/), "
-            + "country(c/), condition(con/), symptom(sym/), diagnosis(d/)";
+            + "Example: " + COMMAND_WORD + " S1234567B" + PREFIX_EMAIL;
+    public static final String MESSAGE_ONLY_OPTIONAL_FIELDS = "Only optional fields can be deleted.";
     /**
      * The correspondance of optional field with their position in fieldstoDelete array.
      */
@@ -38,8 +33,6 @@ public class DeleteInfoCommand extends Command {
     }
     public static final String MESSAGE_DELETE_PERSON_INFORMATION_SUCCESS = "Deleted Patient info: %1$s";
     public static final int NUM_FIELDS = 8;
-    public static final String MESSAGE_INVALID_LENGTH_OF_FIELDSTODELETE = "Invalid length of fields to delete: expected"
-            + NUM_FIELDS + " fields, got %d fields";
 
     private final Nric targetNric;
     //{email, allergies, bloodtype, date of admission, country, condition, symptom, diagnosis}
@@ -54,8 +47,6 @@ public class DeleteInfoCommand extends Command {
         requireNonNull(targetNric);
         requireNonNull(fieldsToDelete);
         this.targetNric = targetNric;
-        int length = fieldsToDelete.length;
-        assert fieldsToDelete.length == NUM_FIELDS;
         this.fieldsToDelete = fieldsToDelete;
     }
     @Override
@@ -127,7 +118,7 @@ public class DeleteInfoCommand extends Command {
         StringBuilder fields = new StringBuilder();
         for (int i = 0; i < NUM_FIELDS; i++) {
             if (fieldsToDelete[i]) {
-                fields.append(Fields.values()[i].toString()).append(", ");
+                fields.append(Fields.values()[i].toString()).append(",");
             }
         }
         return new ToStringBuilder(this)

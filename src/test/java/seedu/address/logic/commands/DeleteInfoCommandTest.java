@@ -100,8 +100,8 @@ public class DeleteInfoCommandTest {
         boolean[] fieldsToDelete = {true, true, true, true, true, true, true, true};
         DeleteInfoCommand deleteInfoCommand = new DeleteInfoCommand(targetNric, fieldsToDelete);
         String expected = DeleteInfoCommand.class.getCanonicalName() + "{targetNric=" + VALID_NRIC_AMI
-                + ", fieldsToDelete=" + "EMAIL, ALLERGIES, BLOODTYPE, DATEOFADMISSION, "
-                + "COUNTRY, CONDITION, SYMPTOM, DIAGNOSIS, }";
+                + ", fieldsToDelete=" + "EMAIL,ALLERGIES,BLOODTYPE,DATEOFADMISSION,"
+                + "COUNTRY,CONDITION,SYMPTOM,DIAGNOSIS,}";
         assertEquals(expected, deleteInfoCommand.toString());
     }
 }

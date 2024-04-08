@@ -8,6 +8,8 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  * Guarantees: immutable;
  */
 public class Symptom {
+    //making string non-empty because empty input is already represented by null,
+    //and if allowed, can cause storage problems
     public static final String VALIDATION_REGEX = "[^\\s].*";
     public static final String MESSAGE_CONSTRAINTS = "Symptom can take any values, and it should not be blank";
     private final String symptom;

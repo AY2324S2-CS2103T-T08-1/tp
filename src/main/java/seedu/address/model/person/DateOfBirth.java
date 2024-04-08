@@ -10,6 +10,7 @@ import java.time.LocalDate;
  * Guarantees: immutable;
  */
 public class DateOfBirth {
+    //Changed validity check for date format to disallow invalid dates, as not doing so results in parser error
     public static final String MESSAGE_CONSTRAINTS =
             "Date of birth should be in the format of YYYY-MM-DD. It should be a valid date,"
                     + " and it should not be blank.";

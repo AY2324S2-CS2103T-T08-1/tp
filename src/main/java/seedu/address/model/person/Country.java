@@ -8,10 +8,8 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  * Guarantees: immutable;
  */
 public class Country {
-    /*
-     * The first character of the address must not be a whitespace,
-     * otherwise " " (a blank string) becomes a valid input.
-     */
+    //making string non-empty because empty input is already represented by null,
+    //and if allowed, can cause storage problems
     public static final String VALIDATION_REGEX = "[^\\s].*";
     public static final String MESSAGE_CONSTRAINTS = "Countries can take any values, and it should not be blank."
             + " It is case insensitive.";
@@ -26,7 +24,7 @@ public class Country {
     public Country(String country) {
         requireNonNull(country);
         checkArgument(isValidCountry(country), MESSAGE_CONSTRAINTS);
-        this.country = country.toUpperCase();
+        this.country = country;
     }
 
     public static boolean isValidCountry(String test) {
