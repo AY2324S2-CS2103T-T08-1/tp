@@ -37,9 +37,6 @@ public class DeleteInfoCommand extends Command {
     private final Nric targetNric;
     //{email, allergies, bloodtype, date of admission, country, condition, symptom, diagnosis}
     private boolean[] fieldsToDelete = new boolean[NUM_FIELDS];
-
-
-    //TODO test cases
     /**
      * Creates a DeleteInfoCommand to delete the specified {@code Person}'s information
      */

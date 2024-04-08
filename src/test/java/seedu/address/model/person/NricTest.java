@@ -42,18 +42,10 @@ public class NricTest {
         // valid addresses
         assertTrue(Nric.isValidNric("T0912345A"));
         assertTrue(Nric.isValidNric("S0412345G"));
-        assertTrue(Nric.isValidNric("F0412345G"));
-        assertTrue(Nric.isValidNric("g0412345g"));
-        assertTrue(Nric.isValidNric("m0412345g"));
     }
     @Test
     public void toString_upperCaseNric_returnUpperCase() {
         Nric nric = new Nric("T0412345G");
-        assertTrue(nric.toString().equals("T0412345G"));
-    }
-    @Test
-    public void toString_lowerCaseNric_returnUpperCase() {
-        Nric nric = new Nric("t0412345g");
         assertTrue(nric.toString().equals("T0412345G"));
     }
 

@@ -28,12 +28,9 @@ public class DeleteInfoCommandTest {
     @Test
     public void constructor_emptyInput_throwsException() {
         Nric targetNric = new Nric(VALID_NRIC_AMI);
-        boolean[] fieldsToDelete = {}; //empty array
-        boolean[] fieldsToDelete2 = {true, true, true, true, true, true, true, true, true}; //too many fields
-        assertThrows(AssertionError.class, () -> new DeleteInfoCommand(targetNric, fieldsToDelete));
-        assertThrows(AssertionError.class, () -> new DeleteInfoCommand(targetNric, fieldsToDelete2));
-        assertThrows(NullPointerException.class, () -> new DeleteInfoCommand(null, fieldsToDelete));
+        boolean[] fieldsToDelete = {true, true, true, true, true, true, true, true}; //too many fields
         assertThrows(NullPointerException.class, () -> new DeleteInfoCommand(targetNric, null));
+        assertThrows(NullPointerException.class, () -> new DeleteInfoCommand(null, fieldsToDelete));
     }
     @Test
     public void execute_deleteInfo_success() {

@@ -51,7 +51,7 @@ public class DeleteInfoCommandParserTest {
             }
         }
         assertParseFailure(parser, BOB.getNric() + stringBuilder.toString() + " " + PREFIX_NRIC.getPrefix(),
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteInfoCommand.MESSAGE_INVALID_FIELDS));
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteInfoCommand.MESSAGE_ONLY_OPTIONAL_FIELDS));
     }
 
     @Test
