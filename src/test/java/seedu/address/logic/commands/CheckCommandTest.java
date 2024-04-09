@@ -3,10 +3,10 @@ package seedu.address.logic.commands;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.logic.commands.CheckCommand.MESSAGE_READ_PERSON_SUCCESS;
 import static seedu.address.logic.commands.CommandTestUtil.NON_EXISTENT_NRIC;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.logic.commands.ReadCommand.MESSAGE_READ_PERSON_SUCCESS;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
@@ -19,14 +19,25 @@ import seedu.address.model.UserPrefs;
 import seedu.address.model.person.Nric;
 import seedu.address.model.person.NricContainsKeywordsPredicate;
 
-public class ReadCommandTest {
+public class CheckCommandTest {
 
     private final Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
     private final Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+
+    /*@Test
+    void execute_validVisitNric_success() {
+        String expectedMessage = String.format(MESSAGE_READ_PERSON_SUCCESS, Messages.formatCheck(ALICE));
+        CheckCommand command = new CheckCommand(ALICE.getNric());
+        expectedModel.updateFilteredPersonList(new NricContainsKeywordsPredicate(ALICE.getNric().toString()));
+        assertCommandSuccess(command, model, expectedMessage, expectedModel);
+    }*/
+
     @Test
-    void execute_validNric_success() {
-        String expectedMessage = String.format(MESSAGE_READ_PERSON_SUCCESS, Messages.format(ALICE));
-        ReadCommand command = new ReadCommand(ALICE.getNric());
+    void execute_invalidVisitNric_success() {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(ALICE.getName()).append(" (NRIC: ").append(ALICE.getNric()).append("):\n");
+        String expectedMessage = String.format(MESSAGE_READ_PERSON_SUCCESS, stringBuilder);
+        CheckCommand command = new CheckCommand(ALICE.getNric());
         expectedModel.updateFilteredPersonList(new NricContainsKeywordsPredicate(ALICE.getNric().toString()));
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
     }
@@ -38,31 +49,31 @@ public class ReadCommandTest {
 
     @Test
     void equals() {
-        ReadCommand readFirstCommand = new ReadCommand(ALICE.getNric());
-        ReadCommand readSecondCommand = new ReadCommand(new Nric(NON_EXISTENT_NRIC));
+        CheckCommand checkFirstCommand = new CheckCommand(ALICE.getNric());
+        CheckCommand checkSecondCommand = new CheckCommand(new Nric(NON_EXISTENT_NRIC));
 
         // same object -> returns true
-        assertTrue(readFirstCommand.equals(readFirstCommand));
+        assertTrue(checkFirstCommand.equals(checkFirstCommand));
 
         // same values -> returns true
-        ReadCommand readFirstCommandCopy = new ReadCommand(ALICE.getNric());
-        assertTrue(readFirstCommand.equals(readFirstCommandCopy));
+        CheckCommand checkFirstCommandCopy = new CheckCommand(ALICE.getNric());
+        assertTrue(checkFirstCommand.equals(checkFirstCommandCopy));
 
         // different types -> returns false
-        assertFalse(readFirstCommand.equals(1));
+        assertFalse(checkFirstCommand.equals(1));
 
         // null -> returns false
-        assertFalse(readFirstCommand.equals(null));
+        assertFalse(checkFirstCommand.equals(null));
 
         // different person -> returns false
-        assertFalse(readFirstCommand.equals(readSecondCommand));
+        assertFalse(checkFirstCommand.equals(checkSecondCommand));
     }
 
     @Test
     void testToString() {
-        ReadCommand readCommand = new ReadCommand(ALICE.getNric());
-        String expected = ReadCommand.class.getCanonicalName() + "{nric=" + ALICE.getNric() + "}";
-        assertEquals(expected, readCommand.toString());
+        CheckCommand checkCommand = new CheckCommand(ALICE.getNric());
+        String expected = CheckCommand.class.getCanonicalName() + "{nric=" + ALICE.getNric() + "}";
+        assertEquals(expected, checkCommand.toString());
     }
 
 }
