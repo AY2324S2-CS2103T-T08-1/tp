@@ -18,7 +18,7 @@ public class ClusterCommand extends Command {
     public static final String COMMAND_WORD = "cluster";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ":\nDetects if there is a cluster of the size given,"
-            + " at the location given, of the disease given, and shows the details of all there with the disease."
+            + " at the location given, of the disease given, and shows the details of all there with the disease "
             + "by the respective NRIC in the displayed person list. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: [CLUSTER SIZE] "

@@ -163,7 +163,7 @@ Format: `find con/[CONDITION], [CONDITION], [CONDITION], ...`
 * Only the condition is searched.
 * Partial words will be matched e.g. `Cov` will match `Covid`
 * Patients matching at least one keyword will be returned (i.e. `OR` search).
-  e.g. `Covid Dengue` will return patients with address containing `Covid` or `Dengue`.
+  e.g. `Covid Dengue` will return patients with address containing `Covid` or `Dengue`
 * Conditions must be separated by commas, and whitespaces before and after each condition will be ignored
 
 Examples:
@@ -213,7 +213,7 @@ Example:
 
 ### Cluster finding : `cluster`
 
-Finds cluster in location specified. 
+Provided an integer, location, and illness, returns whether or not the number of people unwell with that illness (diagnosis in profile) in that area is at least that integer, and lists those people. 
 
 Format: `cluster [CLUSTER SIZE] a/[LOCATION] d/[DIAGNOSIS]`
 
@@ -224,7 +224,7 @@ Format: `cluster [CLUSTER SIZE] a/[LOCATION] d/[DIAGNOSIS]`
 * Partial words will be matched e.g. `Clem` will match `Clementi`, `deng` will match `dengue`
 
 Example: 
-* `cluster 3 a/Serangoon d/dengue` finds dengue clusters of at least 3 patients in the Serangoon vicinity. 
+* `cluster 3 a/Serangoon d/dengue` finds dengue clusters of at least 3 in locations with the substring "Serangoon" 
 
 ### Clearing all entries : `clear`
 
@@ -287,7 +287,7 @@ Furthermore, certain edits can cause ImmuniMate to behave in unexpected ways (e.
 | **Delete Information** | `deleteinfo <NRIC> <Field>` <br> e.g., `deleteinfo S1234567A e/`                                                                                                                                                                                                                                                                                                      |
 | **Add Visit**          | `addvisit ic/<NRIC> dov/<Date_of_Visit> sym/<Symptoms> d/<Diagnosis> st/<Status>` <br> e.g., `addvisit ic/S1234567A dov/2024-01-01 sym/Cough d/Covid st/UNWELL`                                                                                                                                                                                                       |
 | **Check**              | `check <NRIC>` <br> e.g., `check S1234567A`                                                                                                                                                                                                                                                                                                                           |
-| **Find Cluster**       | `cluster <cluster size> a/<Location> d/diagnosis` <br> e.g. `cluster a/Serangoon d/dengue`                                                                                                                                                                                                                                                                            |
+| **Find Cluster**       | `cluster <cluster size> a/<Location> d/diagnosis` <br> e.g. `cluster 3 a/Serangoon d/dengue`                                                                                                                                                                                                                                                                          |
 | **Clear**              | `clear`                                                                                                                                                                                                                                                                                                                                                               |
 | **List**               | `list`                                                                                                                                                                                                                                                                                                                                                                |
 | **Help**               | `help`                                                                                                                                                                                                                                                                                                                                                                |
