@@ -24,7 +24,12 @@ public class CheckCommandParser implements Parser<CheckCommand> {
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, CheckCommand.MESSAGE_USAGE));
         }
 
-        return new CheckCommand(new Nric(trimmedArg));
+        try {
+            return new CheckCommand(new Nric(trimmedArg));
+        } catch (IllegalArgumentException e) {
+            throw new ParseException(
+                    String.format("%s", e.getMessage()));
+        }
     }
 }
 

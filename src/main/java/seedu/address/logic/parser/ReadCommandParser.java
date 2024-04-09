@@ -24,7 +24,12 @@ public class ReadCommandParser implements Parser<ReadCommand> {
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, ReadCommand.MESSAGE_USAGE));
         }
 
-        return new ReadCommand(new Nric(trimmedArg));
+        try {
+            return new ReadCommand(new Nric(trimmedArg));
+        } catch (IllegalArgumentException e) {
+            throw new ParseException(
+                    String.format("%s", e.getMessage()));
+        }
     }
 }
 
