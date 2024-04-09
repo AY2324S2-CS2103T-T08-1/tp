@@ -1,7 +1,6 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
@@ -46,7 +45,6 @@ public class ReadCommand extends Command {
 
         model.updateFilteredPersonList(new NricContainsKeywordsPredicate(nric.toString()));
         Person readPerson = model.getFilteredPersonList().get(0);
-        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
 
         return new CommandResult(String.format(MESSAGE_READ_PERSON_SUCCESS, Messages.format(readPerson)));
     }
