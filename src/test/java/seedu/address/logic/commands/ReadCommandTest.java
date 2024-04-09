@@ -33,8 +33,7 @@ public class ReadCommandTest {
 
     @Test
     void execute_nonExistentNric_failure() {
-        Nric nonexistentNric = new Nric("S1234567A");
-        assertCommandFailure(new ReadCommand(nonexistentNric), model, Messages.MESSAGE_PERSON_NOT_FOUND);
+        assertCommandFailure(new ReadCommand(new Nric(NON_EXISTENT_NRIC)), model, Messages.MESSAGE_PERSON_NOT_FOUND);
     }
 
     @Test

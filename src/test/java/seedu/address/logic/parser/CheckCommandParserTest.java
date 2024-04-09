@@ -8,15 +8,15 @@ import static seedu.address.testutil.TypicalPersons.ALICE;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.logic.commands.ReadCommand;
+import seedu.address.logic.commands.CheckCommand;
 import seedu.address.model.person.Nric;
 
-public class ReadCommandParserTest {
-    private ReadCommandParser parser = new ReadCommandParser();
+public class CheckCommandParserTest {
+    private CheckCommandParser parser = new CheckCommandParser();
     @Test
     public void parse_emptyArg_throwsParseException() {
         assertParseFailure(parser, " ",
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, ReadCommand.MESSAGE_USAGE));
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, CheckCommand.MESSAGE_USAGE));
     }
 
     @Test
@@ -27,10 +27,10 @@ public class ReadCommandParserTest {
 
 
     @Test
-    public void parse_validArg_returnsReadCommand() {
-        ReadCommand expectedReadCommand =
-                new ReadCommand(ALICE.getNric());
-        assertParseSuccess(parser, "T0139571B", expectedReadCommand);
+    public void parse_validArg_returnsCheckCommand() {
+        CheckCommand expectedCheckCommand =
+                new CheckCommand(ALICE.getNric());
+        assertParseSuccess(parser, "T0139571B", expectedCheckCommand);
     }
 
 }
