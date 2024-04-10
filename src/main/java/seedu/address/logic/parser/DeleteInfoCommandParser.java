@@ -57,7 +57,7 @@ public class DeleteInfoCommandParser implements Parser<DeleteInfoCommand> {
         //Check for NRIC
         Nric nric;
         try {
-            nric = ParserUtil.parseNric(argMultimap.getPreamble().toUpperCase());
+            nric = ParserUtil.parseNric(argMultimap.getPreamble());
         } catch (ParseException pe) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteInfoCommand.MESSAGE_USAGE), pe);
