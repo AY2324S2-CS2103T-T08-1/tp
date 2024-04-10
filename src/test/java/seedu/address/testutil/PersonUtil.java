@@ -57,7 +57,6 @@ public class PersonUtil {
      */
     public static String getEditPersonDescriptorDetails(UpdatePersonDescriptor descriptor) {
         StringBuilder sb = new StringBuilder();
-        sb.append(PREFIX_NRIC).append(descriptor.getNric()).append(" ");
         assert descriptor.getName().isPresent() && descriptor.getPhone().isPresent()
                 && descriptor.getAddress().isPresent() && descriptor.getDateOfBirth().isPresent()
                 && descriptor.getSex().isPresent() && descriptor.getStatus().isPresent();

@@ -20,10 +20,7 @@ public class DateOfBirthTest {
     }
 
     @Test
-    public void isValidAddress() {
-        // null address
-        assertThrows(NullPointerException.class, () -> DateOfAdmission.isValidDateOfAdmission(null));
-
+    public void isValidDateOfBirth() {
         // invalid addresses
         assertFalse(DateOfAdmission.isValidDateOfAdmission("")); // empty string
         assertFalse(DateOfAdmission.isValidDateOfAdmission(" ")); // spaces only

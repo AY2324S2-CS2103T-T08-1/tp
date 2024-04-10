@@ -75,5 +75,4 @@ public class CheckCommandTest {
         String expected = CheckCommand.class.getCanonicalName() + "{nric=" + ALICE.getNric() + "}";
         assertEquals(expected, checkCommand.toString());
     }
-
 }

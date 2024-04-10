@@ -33,12 +33,10 @@ public class DeleteInfoCommand extends Command {
     }
     public static final String MESSAGE_DELETE_PERSON_INFORMATION_SUCCESS = "Deleted Patient info: %1$s";
     public static final int NUM_FIELDS = 8;
+
     private final Nric targetNric;
     //{email, allergies, bloodtype, date of admission, country, condition, symptom, diagnosis}
     private boolean[] fieldsToDelete = new boolean[NUM_FIELDS];
-
-
-    //TODO test cases
     /**
      * Creates a DeleteInfoCommand to delete the specified {@code Person}'s information
      */
@@ -51,7 +49,6 @@ public class DeleteInfoCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-
         ObservableList<Person> persons = model.getFilteredPersonList();
         if (!model.hasPerson(Person.createPersonWithNric(targetNric))) {
             throw new CommandException(Messages.MESSAGE_PERSON_NOT_FOUND);
@@ -98,7 +95,6 @@ public class DeleteInfoCommand extends Command {
         }
         return true;
     }
-
     @Override
     public boolean equals(Object other) {
         if (other == this) {
@@ -114,8 +110,6 @@ public class DeleteInfoCommand extends Command {
         return targetNric.equals(otherDeleteCommand.targetNric)
                 && fieldsToDeleteEquals(otherDeleteCommand.fieldsToDelete);
     }
-
-    //TODO test cases
     @Override
     public String toString() {
         StringBuilder fields = new StringBuilder();

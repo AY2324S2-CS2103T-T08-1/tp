@@ -1,24 +1,40 @@
 package seedu.address.model.person;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
 public class CountryTest {
 
-    /* commented as Allergies can be null, and doesn't have regex
     @Test
     public void constructor_null_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> new Country(null));
     }
 
     @Test
-    public void constructor_invalidAddress_throwsIllegalArgumentException() {
-        String invalidCountry = "";
-        assertThrows(IllegalArgumentException.class, () -> new Condition(invalidCountry));
+    public void constructor_invalidCountry_throwsIllegalArgumentException() {
+        assertThrows(IllegalArgumentException.class, () -> new Country(""));
+        assertThrows(IllegalArgumentException.class, () -> new Country(" "));
     }
-     */
+
+    @Test
+    public void isValidCountry_invalidCountry_returnsFalse() {
+        // null address
+        assertThrows(NullPointerException.class, () -> Country.isValidCountry(null));
+        // invalid addresses
+        assertFalse(Country.isValidCountry("")); // empty string
+        assertFalse(Country.isValidCountry(" ")); // spaces only
+    }
+
+    @Test
+    public void isValidCountry_validCountry_returnsTrue() {
+        // valid addresses
+        assertTrue(Country.isValidCountry("Singapore"));
+        assertTrue(Country.isValidCountry("-")); // one character
+        assertTrue(Country.isValidCountry("United States of America")); // long country
+    }
 
     @Test
     public void equals() {

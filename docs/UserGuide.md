@@ -78,10 +78,14 @@ Creates a patient profile in ImmuniMate.
 
 Format: `create ic/<NRIC> n/<Patient_Name> hp/<Phone_Number> a/<Address> dob/<Date_of_birth> s/<Sex> st/<Status> [e/Email] [c/Country_of_Nationality] [doa/Date_of_Admission] [bt/Blood type] [al/Allergies] [con/Condition] [sym/Symptom] [d/diagnosis]`
 
+* All mandatory fields must be provided.
+* The unique identifier for each patient is the NRIC. The new NRIC must not already exist in the system.
+
 Examples:
 * `create ic/S1234567A n/John Doe hp/98765432 a/311, Clementi Ave 2, #02-25 dob/1990-01-01 s/M st/PENDING`
-* `create ic/S0123456A n/Jane Doe hp/87654321 a/311, Clementi Ave 2, #02-25 dob/01-01-1990 s/F st/PENDING e/janed@example.com bt/A+`
+* `create ic/S0123456A n/Jane Doe hp/87654321 a/311, Clementi Ave 2, #02-25 dob/1990-01-01 s/F st/PENDING e/janed@example.com bt/A+`
 
+For specification of each field, refer to the [Field summary](#field-summary) at the end of this User Guide.
 ### Listing all patients : `list`
 
 Shows a list of all patients in ImmuniMate.
@@ -106,6 +110,7 @@ Format: `update <NRIC> <Field>/CONTENT`
 * Updates the patient of corresponding NRIC. 
 * At least one of the fields must be provided.
 * Existing values will be updated to the input values.
+* NRIC cannot be updated, while all other values can be updated.
 
 Examples:
 *  `update S1234567A hp/91234567 e/jd123@example.com` Updates the phone number and email address of the corresponding patient to be `91234567` and `jd123@example.com` respectively.
@@ -201,7 +206,7 @@ Format: `addvisit ic/<NRIC> dov/<Date_of_Visit> sym/<Symptoms> d/<Diagnosis> st/
 Examples:
 * `addvisit ic/S1234567A dov/2024-01-01 sym/Cough d/Covid st/UNWELL` adds a visit to history of patient uniquely identified by NRIC S1234567A. During this visit on 2024-01-01, the patient had cough and was diagnosed with Covid.
 * `addvisit ic/S0123456A dov/2024-02-02 sym/Fever,Rashes d/Dengue st/PENDING` adds a visit to history of patient uniquely identified by NRIC S0123456A. During this visit on 2024-02-02, the patient had fever and rashes, and was diagnosed with Dengue.
-
+Date of visit: `yyyy-MM-dd` format.
 ### Check patient history : `check`
 
 Checks all visits in patient history. 
@@ -295,20 +300,20 @@ Furthermore, certain edits can cause ImmuniMate to behave in unexpected ways (e.
 
 ## Field summary 
 
-| Field                      | Prefix |
-|----------------------------|--------|
-| **Name**                   | `n/`   |
-| **NRIC**                   | `ic/`  |
-| **Phone Number**           | `hp/`  |
-| **Address**                | `a/`   |
-| **Date of birth**          | `dob/` |
-| **Sex**                    | `s/`   |
-| **Status**                 | `st/`  |
-| **Email**                  | `e/`   |
-| **Country of nationality** | `c/`   |
-| **Date of admission**      | `doa/` |
-| **Blood type**             | `bt/`  |
-| **Allergies**              | `al/`  |
-| **Condition**              | `con/` |
-| **Symptom**                | `sym/` |
-| **Diagnosis**              | `d/`   |
+| Field                      | Prefix | Format                                                                                                                                  | Mandatory |
+|----------------------------|--------|-----------------------------------------------------------------------------------------------------------------------------------------|-----------|
+| **Name**                   | `n/`   | Any string containing only alphabets and spaces.                                                                                        | Yes       |
+| **NRIC**                   | `ic/`  | 9 characters. First character can be any of S, T, followed by 7 digits, and the last character is an alphabet. Only upper-case allowed. | Yes       |
+| **Phone Number**           | `hp/`  | 8 digits.                                                                                                                               | Yes       |
+| **Address**                | `a/`   | Any text. Blank or empty text is not accepted.                                                                                          | Yes       |
+| **Date of birth**          | `dob/` | `yyyy-MM-dd` format.                                                                                                                    | Yes       |
+| **Sex**                    | `s/`   | `M` or `F`                                                                                                                              | Yes       |
+| **Status**                 | `st/`  | `PENDING`, `UNWELL`or `HEALTHY`                                                                                                         | Yes       |
+| **Email**                  | `e/`   | Any valid email address of the form `local-part@domain`.                                                                                | No        |
+| **Country of nationality** | `c/`   | Any text. Blank or empty text is not accepted.                                                                                          | No        |
+| **Date of admission**      | `doa/` | `yyyy-MM-dd` format.                                                                                                                    | No        |
+| **Blood type**             | `bt/`  | `A+`, `A-`, `B+`, `B-`, `AB+`, `AB-`, `O+`, `O-`                                                                                        | No        |
+| **Allergies**              | `al/`  | Any text. Blank or empty text is not accepted.                                                                                          | No        |
+| **Condition**              | `con/` | Any text. Blank or empty text is not accepted.                                                                                          | No        |
+| **Symptom**                | `sym/` | Any text. Blank or empty text is not accepted.                                                                                          | No        |
+| **Diagnosis**              | `d/`   | Any text. Blank or empty text is not accepted.                                                                                          | No        |
