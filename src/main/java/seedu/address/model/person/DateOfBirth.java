@@ -1,16 +1,19 @@
 package seedu.address.model.person;
 
+import static java.util.Objects.requireNonNull;
+
 import java.time.LocalDate;
+
 
 /**
  * Represents a Person's date of admission in the address book.
  * Guarantees: immutable;
  */
 public class DateOfBirth {
+    //Changed validity check for date format to disallow invalid dates, as not doing so results in parser error
     public static final String MESSAGE_CONSTRAINTS =
-            "Date of birth should be in the format of YYYY-MM-DD, and it should not be blank.";
-
-    public static final String VALIDATION_REGEX = "^\\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])";
+            "Date of birth should be in the format of YYYY-MM-DD. It should be a valid date,"
+                    + " and it should not be blank.";
 
     private final LocalDate dateOfBirth;
 
@@ -20,6 +23,7 @@ public class DateOfBirth {
      * @param dateOfBirth A valid date of birth.
      */
     public DateOfBirth(String dateOfBirth) {
+        requireNonNull(dateOfBirth);
         if (!isValidDateOfBirth(dateOfBirth)) {
             throw new IllegalArgumentException(MESSAGE_CONSTRAINTS);
         }
@@ -30,7 +34,12 @@ public class DateOfBirth {
      * Returns true if a given string is a valid date of birth.
      */
     public static boolean isValidDateOfBirth(String test) {
-        return test.matches(VALIDATION_REGEX);
+        try {
+            LocalDate.parse(test);
+        } catch (Exception e) {
+            return false;
+        }
+        return true;
     }
 
     @Override

@@ -1,5 +1,7 @@
 package seedu.address.model.visit;
 
+import static java.util.Objects.requireNonNull;
+
 import java.time.LocalDate;
 
 /**
@@ -7,10 +9,10 @@ import java.time.LocalDate;
  * Guarantees: immutable;
  */
 public class DateOfVisit {
+    //Changed validity check for date format to disallow invalid dates, as not doing so results in parser error
     public static final String MESSAGE_CONSTRAINTS =
-            "Date of Visit should be in the format of YYYY-MM-DD, and it should not be blank.";
-
-    public static final String VALIDATION_REGEX = "^\\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])";
+            "Date of visit should be in the format of YYYY-MM-DD. It should be a valid date,"
+                    + " and it should not be blank.";
 
     private final LocalDate dateOfVisit;
 
@@ -20,6 +22,7 @@ public class DateOfVisit {
      * @param dateOfBirth A valid date of birth.
      */
     public DateOfVisit(String dateOfBirth) {
+        requireNonNull(dateOfBirth);
         if (!isValidDateOfVisit(dateOfBirth)) {
             throw new IllegalArgumentException(MESSAGE_CONSTRAINTS);
         }
@@ -30,7 +33,12 @@ public class DateOfVisit {
      * Returns true if a given string is a valid date of birth.
      */
     public static boolean isValidDateOfVisit(String test) {
-        return test.matches(VALIDATION_REGEX);
+        try {
+            LocalDate.parse(test);
+        } catch (Exception e) {
+            return false;
+        }
+        return true;
     }
 
     @Override

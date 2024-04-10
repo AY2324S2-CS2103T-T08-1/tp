@@ -1,16 +1,35 @@
 package seedu.address.model.person;
 
 
+import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.AppUtil.checkArgument;
+
 /**
  * Represents a Person's condition in the address book.
  * Guarantees: immutable;
  */
 public class Condition {
+    public static final String VALIDATION_REGEX = "[^\\s].*";
+    public static final String MESSAGE_CONSTRAINTS = "Conditions can take any values, and it should not be blank";
     private final String condition;
 
+    /**
+     * Constructs an {@code Condition}.
+     *
+     * @param condition A valid condition.
+     */
     public Condition(String condition) {
+        requireNonNull(condition);
+        checkArgument(isValidCondition(condition), MESSAGE_CONSTRAINTS);
         this.condition = condition;
     }
+    /**
+     * Returns true if a given string is a valid condition.
+     */
+    public static boolean isValidCondition(String test) {
+        return test.matches(VALIDATION_REGEX);
+    }
+
 
     public String getCondition() {
         return condition;

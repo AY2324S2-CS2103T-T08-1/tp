@@ -83,9 +83,11 @@ public class DeleteInfoCommandParser implements Parser<DeleteInfoCommand> {
             PREFIX_BLOODTYPE, PREFIX_DATEOFADMISSION, PREFIX_COUNTRY,
             PREFIX_CONDITION, PREFIX_SYMPTOM, PREFIX_DIAGNOSIS};
         for (int i = 0; i < optionalPrefixes.length; i++) {
+            //prefix is not mentioned
             if (argMultimap.getValue(optionalPrefixes[i]).isEmpty()) {
                 continue;
             }
+            //prefix is mentioned but value is not empty
             if (!argMultimap.getValue(optionalPrefixes[i]).get().isEmpty()) {
                 throw new ParseException(
                         String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteInfoCommand.MESSAGE_USAGE));

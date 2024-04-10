@@ -2,23 +2,36 @@ package seedu.address.model.person;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.testutil.Assert.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
 public class DiagnosisTest {
-
-    /* commented as DateOfAdmission can be null, and doesn't have regex
     @Test
     public void constructor_null_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> new Diagnosis(null));
     }
 
     @Test
-    public void constructor_invalidAddress_throwsIllegalArgumentException() {
-        String invalidDiagnosis = "";
-        assertThrows(IllegalArgumentException.class, () -> new Diagnosis(invalidDiagnosis));
+    public void constructor_invalidSymptom_throwsIllegalArgumentException() {
+        assertThrows(IllegalArgumentException.class, () -> new Diagnosis(""));
+        assertThrows(IllegalArgumentException.class, () -> new Diagnosis(" "));
     }
-     */
+    @Test
+    public void isValidDiagnosis_invalidDiagnosis_returnsFalse() {
+        // null diagnosis
+        assertThrows(NullPointerException.class, () -> Diagnosis.isValidDiagnosis(null));
+        // invalid diagnoses
+        assertFalse(Diagnosis.isValidDiagnosis("")); // empty string
+        assertFalse(Diagnosis.isValidDiagnosis(" ")); // spaces only
+    }
+    @Test
+    public void isValidDiagnosis_validDiagnosis_returnsTrue() {
+        // valid diagnoses
+        assertTrue(Diagnosis.isValidDiagnosis("Valid Diagnosis"));
+        assertTrue(Diagnosis.isValidDiagnosis("-")); // one character
+        assertTrue(Diagnosis.isValidDiagnosis("Longggggggggggg Didagnosis")); // long diagnosis
+    }
 
     @Test
     public void equals() {

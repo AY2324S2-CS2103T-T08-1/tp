@@ -20,14 +20,15 @@ public class AddressTest {
     }
 
     @Test
-    public void isValidAddress() {
+    public void isValidAddress_invalidAddress_returnsFalse() {
         // null address
         assertThrows(NullPointerException.class, () -> Address.isValidAddress(null));
-
         // invalid addresses
         assertFalse(Address.isValidAddress("")); // empty string
         assertFalse(Address.isValidAddress(" ")); // spaces only
-
+    }
+    @Test
+    public void isValidAddress_validAddress_returnsTrue() {
         // valid addresses
         assertTrue(Address.isValidAddress("Blk 456, Den Road, #01-355"));
         assertTrue(Address.isValidAddress("-")); // one character

@@ -30,7 +30,8 @@ public class Nric {
     public Nric(String nric) {
         requireNonNull(nric);
         checkArgument(isValidNric(nric), MESSAGE_CONSTRAINTS);
-        this.nric = nric;
+        //TODO: is this a bug?
+        this.nric = nric.toUpperCase();
     }
 
     /**

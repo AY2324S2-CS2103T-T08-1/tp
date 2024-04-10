@@ -1,15 +1,32 @@
 package seedu.address.model.person;
 
 
+import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.AppUtil.checkArgument;
+
 /**
  * Represents a Person's diagnosis in the address book.
  * Guarantees: immutable;
  */
 public class Diagnosis {
+    //making string non-empty because empty input is already represented by null,
+    //and if allowed, can cause storage problems
+    public static final String VALIDATION_REGEX = "[^\\s].*";
+    public static final String MESSAGE_CONSTRAINTS = "Diagnosis can take any values, and it should not be blank";
     private final String diagnosis;
 
+    /**
+     * Constructs a {@code Diagnosis}.
+     *
+     * @param diagnosis A valid diagnosis.
+     */
     public Diagnosis(String diagnosis) {
+        requireNonNull(diagnosis);
+        checkArgument(isValidDiagnosis(diagnosis), MESSAGE_CONSTRAINTS);
         this.diagnosis = diagnosis;
+    }
+    public static boolean isValidDiagnosis(String test) {
+        return test.matches(VALIDATION_REGEX);
     }
 
     public String getDiagnosis() {
