@@ -7,7 +7,6 @@ import static seedu.address.logic.commands.CommandTestUtil.NON_EXISTENT_NRIC;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.ReadCommand.MESSAGE_READ_PERSON_SUCCESS;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
@@ -18,6 +17,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.person.Nric;
+import seedu.address.model.person.NricContainsKeywordsPredicate;
 
 public class ReadCommandTest {
 
@@ -27,14 +27,13 @@ public class ReadCommandTest {
     void execute_validNric_success() {
         String expectedMessage = String.format(MESSAGE_READ_PERSON_SUCCESS, Messages.format(ALICE));
         ReadCommand command = new ReadCommand(ALICE.getNric());
-        expectedModel.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        expectedModel.updateFilteredPersonList(new NricContainsKeywordsPredicate(ALICE.getNric().toString()));
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
     }
 
     @Test
     void execute_nonExistentNric_failure() {
-        Nric nonexistentNric = new Nric("S1234567A");
-        assertCommandFailure(new ReadCommand(nonexistentNric), model, Messages.MESSAGE_PERSON_NOT_FOUND);
+        assertCommandFailure(new ReadCommand(new Nric(NON_EXISTENT_NRIC)), model, Messages.MESSAGE_PERSON_NOT_FOUND);
     }
 
     @Test
