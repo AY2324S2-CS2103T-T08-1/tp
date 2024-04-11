@@ -319,26 +319,28 @@ _{more aspects and alternatives to be added}_
 ### User stories
 
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
-| Priority | As a …​                          | I want to …​                                    | So that I can…​                                                        |
-|----------|----------------------------------|-------------------------------------------------|------------------------------------------------------------------------|
-| `* * *`  | New user                         | see usage instructions                          | refer to instructions when I forget how to use the App                 |
-| `* * *`  | Healthcare Worker                | add a new patient                               |                                                                        |
-| `* * *`  | Healthcare Worker                | delete a patient                                | emove wrong or obselete information of a patient from the database     |
-| `* * *`  | Healthcare Worker                | find a person by NRIC                           | locate details of persons without having to go through the entire list |
-| `* * *`  | Healthcare Worker                | update a person's details                       | keep the details up to date                                            |
-| `* * *`  | Healthcare Worker                | find a patient by matching criteria             | Find a list of patients who I need                                     |
-| `* * *`  | Healthcare Worker                | Delete patient's information                    | remove patient information that is no longer correct                   |
-| `* *`    | Healthcare Worker                | hide private contact details                    | minimize chance of someone else seeing them by accident                |
-| `* *`    | Healthcare Worker                | highlight contradicting information and entries | minimize the mistakes in entries                                       |
-| `* *`    | Healthcare Worker                | be able to resolve duplicate information        | correct wrong inputs                                                   |
-| `* *`    | Healthcare Worker                | see the history of changes made to a patient    | understand the changes made to a patient                               |
-| `* *`    | Healthcare Worker                | be able to tap different contact methods        | make sure important information is sent                                |
-| `* *`    | Healthcare Worker                | see the close contacts of a patient             | see the links between infected patients                                |
-| `* *`    | Healthcare Worker                | status of infection of a patient                | take follow-up actions                                                 |
-| `* *`    | Healthcare Worker                | see clusters of infected patients               | understand which areas are at high risk of infection                   |
-| `*`      | Healthcare Worker                | find the person who first spread the disease    | better understand the disease                                          |
-| `*`      | Healthcare Worker                | sort persons by name                            | locate a person easily                                                 |
 
+| Priority | As a …​           | I want to …​                                    | So that I can…​                                                              |
+|---------|-------------------|-------------------------------------------------|------------------------------------------------------------------------------|
+| `* * *` | New user          | see usage instructions                          | refer to instructions when I forget how to use the App                       |
+| `* * *` | Healthcare Worker | create a new patient record                     |                                                                              |
+| `* * *` | Healthcare Worker | delete a patient                                | remove wrong or obselete patient record from the database                    |
+| `* * *` | Healthcare Worker | delete patient's information                    | remove patient information that is known to be incorrect                     |
+| `* * *` | Healthcare Worker | read a patient's information by NRIC            | locate details of persons without having to go through the entire list       |
+| `* * *` | Healthcare Worker | update a person's details                       | keep the details up to date                                                  |
+| `* * *` | Healthcare Worker | find a patient by matching criteria             | Find a list of patients from with a certain conditio or address              |
+| `* * *` | Healthcare Worker | find a patient by name                          | find a patient in the situation when their NRIC is not immediately available |
+| `* * *` | Healthcare Worker | record visits made by patients                  | record the change in health condition of the patients across time            |
+| `* *`   | Healthcare Worker | highlight contradicting information and entries | minimize the mistakes in entries                                             |
+| `* *`   | Healthcare Worker | see the history of visits made by a patient     | understand the past health condition of a patient                            |
+| `* *`   | Healthcare Worker | be able to tap different contact methods        | make sure important information is sent                                      |
+| `* *`   | Healthcare Worker | status of health of a patient                   | give appropriate treatment                                                   |
+| `* *`   | Healthcare Worker | see clusters of infected patients               | understand which areas are at high risk of infection                         |
+| `*`     | Healthcare Worker | find the person who first spread the disease    | better understand the disease                                                |
+| `*`     | Healthcare Worker | sort persons by name                            | locate a person easily                                                       |
+| `*`     | Healthcare Worker | hide private contact details                    | minimize chance of someone else seeing them by accident                      |
+| `*`     | Healthcare Worker | be able to resolve duplicate information        | correct wrong inputs                                                         |
+| `*`     | Healthcare Worker | see the close contacts of a patient             | see the links between infected patients                                      |
 ### Use cases
 
 (For all use cases below, the **System** is the `AddressBook` and the **Actor** is the `user`, unless specified otherwise)
@@ -510,29 +512,27 @@ Quality requirements:
 
 ### Glossary
 
-1. **Patient Name**: The name of the patient. Case insensitive alphabetical characters with spaces, capped at 30 characters.
-2. **NRIC**: National Registration Identity Card number, follows Singapore NRIC format.
+1. **Name**: The name of the patient. Case-sensitive alphabetical characters with spaces, capped at 2,000,000,000 characters.
+2. **NRIC**: National Registration Identity Card number, follows Singapore NRIC format. 9 characters. First character can be any of S, T, followed by 7 digits, and the last character is an alphabet. NRIC is case-insensitive.
 3. **Date of Birth (DOB)**: The patient's date of birth, in the format `yyyy-MM-dd`.
-4. **Sex**: The biological sex of the patient, limited to Male/Female.
-5. **Phone Number**: The contact number of the patient, numbers with a plus sign.
-6. **Address**: The home address of the patient, alphanumerical characters with spaces.
-7. **Email**: The email address of the patient, follows a valid format: `<a-zA-Z0-9>@<a-zA-Z0-9>.com`.
-8. **Country of Nationality**: The country name of the patient's nationality, alphabetical characters with spaces.
-9. **Date of Admission (DOA)**: The date when the patient was admitted for the current visit, in the format `yyyy-MM-dd`.
-10. **Blood Type**: The blood type of the patient, accepts A/B/AB/O (+ or -).
-11. **Allergies**: Any allergies the patient may have, alphanumerical characters with spaces.
-12. **Conditions**: Any prior medical conditions of the patient.
-13. **Symptoms**: The latest symptoms experienced by the patient.
-14. **Diagnosis**: The latest diagnosis of the patient's condition.
-15. **Status**: The current infectious status of the patient, can be healthy (green), at risk (yellow), or infected (red).
-16. **Location**: A specific area or zone, which can be a neighbourhood or an institution (school).
-17. **Cluster ID**: Unique identifier for a cluster of related cases.
-18. **Fields**: The fields of the patient's information, such as name, status, contact.
-19. **Infection Source**: The source of infection if known.
-20. **Cluster Members**: Patients who are part of the cluster.
-21. **Cluster Location**: Location associated with the cluster.
-22. **Date of First Infection**: The date when the first infection within the cluster occurred.
-23. **Cluster Status**: The current status of the cluster, such as active, under observation, resolved, etc.
+4. **Sex**: The biological sex of the patient, limited to `M` or `F`.
+5. **Phone Number**: The contact number of the patient, limited to 8 digits.
+6. **Address**: The home address of the patient. Any text except blank and empty text is accepted.
+7. **Email**: The email address of the patient, follows a valid format: `<a-zA-Z0-9>@<a-zA-Z0-9>.com`. Case-sensitive.
+8. **Country of Nationality**: The country name of the patient's nationality. Any text except blank and empty text is accepted.
+9. **Date of Admission (DOA)**: The date when the patient was admitted for the first visit, in the format `yyyy-MM-dd`.
+10. **Blood Type**: The blood type of the patient. accepts any of `A+`, `A-`, `B+`, `B-`, `AB+`, `AB-`, `O+`, `O-`.
+11. **Allergies**: Any allergies the patient may have. Any text except blank and empty text is accepted.
+12. **Conditions**: Any prior medical conditions of the patient. Any text except blank and empty text is accepted.
+13. **Symptoms**: The latest symptoms experienced by the patient. Any text except blank and empty text is accepted.
+14. **Diagnosis**: The latest diagnosis of the patient's condition. Any text except blank and empty text is accepted.
+15. **Status**: The current health status of the patient, can be `HEALTHY` (green), `PENDING` (yellow), or `UNHEALTHY` (red). `PENDING` means the patient still need upcoming diagnosis to determine the current health status.
+16. **Date of Visit**: The date of the patient's current visit, in the format `yyyy-MM-dd`.
+17. **Fields**: The fields of the patient's information, such as name, status, contact.
+17. **Cluster**: A group of patients who are infected by the same disease.
+18. **Patient Visit**: A record of a patient's one specific visit to the clinic, including the date of visit, symptoms, diagnosis, and status.
+19. **Patient History**: A collection of all the visits by a patient.
+20. **Patient Record**: A collection of all the information about a patient, including the patient's name, NRIC, phone number, address, email, country.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -549,18 +549,16 @@ testers are expected to do more *exploratory* testing.
 
 1. Initial launch
 
-   1. Download the jar file and copy into an empty folder
+   1.1 Download the jar file and copy into an empty folder
 
-   1. Double-click the jar file Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+   1.2 Double-click the jar file Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
 
-1. Saving window preferences
+2. Saving window preferences
 
-   1. Resize the window to an optimum size. Move the window to a different location. Close the window.
+   2.1 Resize the window to an optimum size. Move the window to a different location. Close the window.
 
-   1. Re-launch the app by double-clicking the jar file.<br>
+   2.2 Re-launch the app by double-clicking the jar file.<br>
        Expected: The most recent window size and location is retained.
-
-1. _{ more test cases …​ }_
 
 ### Deleting a person
 
@@ -587,3 +585,7 @@ testers are expected to do more *exploratory* testing.
 
 1. _{ more test cases …​ }_
 
+## Planned enhancements
+**Include FIN as accepted values for field `NRIC`**: The field `NRIC` should accept `F`, `M` and `G` as valid values, as they are valid first characters for foreigners' FIN (foreign identification number).
+**Make `email` case-insensitive**: The field `Email` should be case-insensitive, as emails are not case-sensitive in practice.
+**Limit `country` to a list of valid countries**: The field `country` should be limited to a list of countries, to prevent invalid entries.

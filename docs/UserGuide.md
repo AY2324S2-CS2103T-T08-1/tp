@@ -320,7 +320,9 @@ Furthermore, certain edits can cause ImmuniMate to behave in unexpected ways (e.
 ## Known issues
 
 1. **When using multiple screens**, if you move the application to a secondary screen, and later switch to using only the primary screen, the GUI will open off-screen. The remedy is to delete the `preferences.json` file created by the application before running the application again.
-2. **When using the `cluster` command**, search is purely pased on text, which means inputting "ave" will find all patients whose addresses contain"ave", although they do not form a cluster. We suggest users to input text indicative of location, such as "Hougang".
+2. **When using the `cluster` command**, search is purely based on text, which means inputting "ave" will find all patients whose addresses contain"ave", although they do not form a cluster. We suggest users to input text indicative of location, such as "Hougang".
+3. **The `email` field** is case-sensitive, but in practical usage, email is case-insensitive.
+4. **The `country` field** does not limit the input to alphabetical characters and is case-sensitive, which may lead to incorrect data entry.
 --------------------------------------------------------------------------------------------------------------------
 
 ## Command summary
@@ -343,20 +345,21 @@ Furthermore, certain edits can cause ImmuniMate to behave in unexpected ways (e.
 
 ## Field summary 
 
-| Field                      | Prefix | Format                                                                                                                                  | Mandatory |
-|----------------------------|--------|-----------------------------------------------------------------------------------------------------------------------------------------|-----------|
-| **Name**                   | `n/`   | Any string containing only alphabets and spaces.                                                                                        | Yes       |
-| **NRIC**                   | `ic/`  | 9 characters. First character can be any of S, T, followed by 7 digits, and the last character is an alphabet. Only upper-case allowed. | Yes       |
-| **Phone Number**           | `hp/`  | 8 digits.                                                                                                                               | Yes       |
-| **Address**                | `a/`   | Any text. Blank or empty text is not accepted.                                                                                          | Yes       |
-| **Date of birth**          | `dob/` | `yyyy-MM-dd` format.                                                                                                                    | Yes       |
-| **Sex**                    | `s/`   | `M` or `F`                                                                                                                              | Yes       |
-| **Status**                 | `st/`  | `PENDING`, `UNWELL`or `HEALTHY`                                                                                                         | Yes       |
-| **Email**                  | `e/`   | Any valid email address of the form `local-part@domain`.                                                                                | No        |
-| **Country of nationality** | `c/`   | Any text. Blank or empty text is not accepted.                                                                                          | No        |
-| **Date of admission**      | `doa/` | `yyyy-MM-dd` format.                                                                                                                    | No        |
-| **Blood type**             | `bt/`  | `A+`, `A-`, `B+`, `B-`, `AB+`, `AB-`, `O+`, `O-`                                                                                        | No        |
-| **Allergies**              | `al/`  | Any text. Blank or empty text is not accepted.                                                                                          | No        |
-| **Condition**              | `con/` | Any text. Blank or empty text is not accepted.                                                                                          | No        |
-| **Symptom**                | `sym/` | Any text. Blank or empty text is not accepted.                                                                                          | No        |
-| **Diagnosis**              | `d/`   | Any text. Blank or empty text is not accepted.                                                                                          | No        |
+| Field                      | Prefix | Format                                                                                                                                                                  | Mandatory |
+|----------------------------|--------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------|
+| **Name**                   | `n/`   | The name of the patient. Case-sensitive alphabetical characters with spaces, capped at 2,000,000,000 characters.                                                        | Yes  |
+| **NRIC**                   | `ic/`  | Follows Singapore NRIC format. 9 characters. First character can be any of S, T, followed by 7 digits, and the last character is an alphabet. NRIC is case-insensitive. | Yes  |
+| **Phone Number**           | `hp/`  | 8 digits.                                                                                                                                                               | Yes  |
+| **Address**                | `a/`   | Any text. Blank or empty text is not accepted.                                                                                                                          | Yes  |
+| **Date of birth**          | `dob/` | `yyyy-MM-dd` format.                                                                                                                                                    | Yes  |
+| **Sex**                    | `s/`   | `M` or `F`                                                                                                                                                              | Yes  |
+| **Status**                 | `st/`  | `PENDING`, `UNWELL`or `HEALTHY`. Status is case-insensitive.                                                                                                            | Yes  |
+| **Email**                  | `e/`   | Any valid email address of the form `local-part@domain`. Case-sensitive.                                                                                                | No   |
+| **Country of nationality** | `c/`   | Any text. Blank or empty text is not accepted.                                                                                                                          | No   |
+| **Date of admission**      | `doa/` | `yyyy-MM-dd` format.                                                                                                                                                    | No   |
+| **Blood type**             | `bt/`  | Any of `A+`, `A-`, `B+`, `B-`, `AB+`, `AB-`, `O+`, `O-`                                                                                                                 | No   |
+| **Allergies**              | `al/`  | Any text. Blank or empty text is not accepted.                                                                                                                          | No   |
+| **Condition**              | `con/` | Any text. Blank or empty text is not accepted.                                                                                                                          | No   |
+| **Symptom**                | `sym/` | Any text. Blank or empty text is not accepted.                                                                                                                          | No   |
+| **Diagnosis**              | `d/`   | Any text. Blank or empty text is not accepted.                                                                                                                          | No   |
+| **Date of visit**          | `dov/` | `yyyy-MM-dd` format.                                                                                                                                                    | No   |
