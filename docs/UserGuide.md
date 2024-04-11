@@ -272,6 +272,17 @@ Furthermore, certain edits can cause ImmuniMate to behave in unexpected ways (e.
 **Q**: I entered a command and don't want to type it again, how can I go back to it? <br>
 **A**: Use the arrow pad on the keyboard to navigate your Command History. 
 
+**Q**: I added a new Patient Visit to my patient, but it doesn't seem to update the Patient information. Is something wrong? <br>
+**A**: No, this is intended behaviour as we want to afford more flexibility to GPs. Automatically updating the patient field based
+on recent visits might result in accidentally overriding intended data. 
+
+**Q**: My name has dashes, slashes, or apostrophes, I can't input my name in the create command. <br>
+**A**: This is intended behaviour, our name field aims to adhere to Singapore NRIC standards according to
+ICA guidelines. If your name has any special characters, kindly input a valid name. For example, "Lee Chi-Geng, Bryan" can be changed into "Lee Chi Geng Bryan".
+
+**Q**: Help, I can't add multiple patient visits a day!<br>
+**A**: This is intended behaviour. Patients are assumed to only have a single visit a day.
+
 --------------------------------------------------------------------------------------------------------------------
 
 ## Known issues
