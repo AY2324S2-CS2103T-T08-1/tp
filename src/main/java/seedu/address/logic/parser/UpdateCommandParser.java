@@ -64,11 +64,6 @@ public class UpdateCommandParser implements Parser<UpdateCommand> {
         UpdatePersonDescriptor updatePersonDescriptor = new UpdatePersonDescriptor();
         updatePersonDescriptor.setNric(nric);
 
-        /* unsure if allowed
-        if (argMultimap.getValue(PREFIX_NRIC).isPresent()) {
-            throw new ParseException(UpdateCommand.MESSAGE_NRIC_NOT_UPDATED);
-        } */
-
         // Mandatory fields
         if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
             updatePersonDescriptor.setName(ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get()));
