@@ -276,6 +276,13 @@ Furthermore, certain edits can cause ImmuniMate to behave in unexpected ways (e.
 **A**: No, this is intended behaviour as we want to afford more flexibility to GPs. Automatically updating the patient field based
 on recent visits might result in accidentally overriding intended data. 
 
+**Q**: My name has dashes, slashes, or apostrophes, I can't input my name in the create command. <br>
+**A**: This is intended behaviour, our name field aims to adhere to Singapore NRIC standards according to
+ICA guidelines. If your name has any special characters, kindly input a valid name. For example, "Lee Chi-Geng, Bryan" can be changed into "Lee Chi Geng Bryan".
+
+**Q**: Help, I can't add multiple patient visits a day!<br>
+**A**: This is intended behaviour. Patients are assumed to only have a single visit a day.
+
 --------------------------------------------------------------------------------------------------------------------
 
 ## Known issues
