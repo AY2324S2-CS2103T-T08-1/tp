@@ -58,7 +58,8 @@ public class ParserUtil {
     //TODO test cases
     public static Nric parseNric(String nric) throws ParseException {
         requireNonNull(nric);
-        String trimmedNric = nric.trim();
+        //Correct implementation for case-insensitive NRIC
+        String trimmedNric = nric.trim().toUpperCase();
         if (!Nric.isValidNric(trimmedNric)) {
             throw new ParseException(Nric.MESSAGE_CONSTRAINTS);
         }

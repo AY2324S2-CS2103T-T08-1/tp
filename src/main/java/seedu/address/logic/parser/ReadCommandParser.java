@@ -18,7 +18,7 @@ public class ReadCommandParser implements Parser<ReadCommand> {
      */
     public ReadCommand parse(String args) throws ParseException {
         requireNonNull(args);
-        String trimmedArg = args.trim().toUpperCase();
+        String trimmedArg = args.trim();
         if (trimmedArg.isEmpty()) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, ReadCommand.MESSAGE_USAGE));
