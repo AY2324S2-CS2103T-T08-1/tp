@@ -272,6 +272,10 @@ Furthermore, certain edits can cause ImmuniMate to behave in unexpected ways (e.
 **Q**: I entered a command and don't want to type it again, how can I go back to it? <br>
 **A**: Use the arrow pad on the keyboard to navigate your Command History. 
 
+**Q**: I added a new Patient Visit to my patient, but it doesn't seem to update the Patient information. Is something wrong? <br>
+**A**: No, this is intended behaviour as we want to afford more flexibility to GPs. Automatically updating the patient field based
+on recent visits might result in accidentally overriding intended data. 
+
 --------------------------------------------------------------------------------------------------------------------
 
 ## Known issues
