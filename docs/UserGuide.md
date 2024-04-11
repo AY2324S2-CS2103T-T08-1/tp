@@ -78,14 +78,16 @@ Creates a patient profile in ImmuniMate.
 
 Format: `create ic/<NRIC> n/<Patient_Name> hp/<Phone_Number> a/<Address> dob/<Date_of_birth> s/<Sex> st/<Status> [e/Email] [c/Country_of_Nationality] [doa/Date_of_Admission] [bt/Blood type] [al/Allergies] [con/Condition] [sym/Symptom] [d/diagnosis]`
 
-* All mandatory fields must be provided.
+* All mandatory fields must be provided. Refer to the [Field summary](#field-summary) at the end of this User Guide for list of mandatory and optional fields, and their formats.
 * The unique identifier for each patient is the NRIC. The new NRIC must not already exist in the system.
 
 Examples:
 * `create ic/S1234567A n/John Doe hp/98765432 a/311, Clementi Ave 2, #02-25 dob/1990-01-01 s/M st/PENDING`
-* `create ic/S0123456A n/Jane Doe hp/87654321 a/311, Clementi Ave 2, #02-25 dob/1990-01-01 s/F st/PENDING e/janed@example.com bt/A+`
+* `create ic/S0123456A hp/87654321 a/311, Clementi Ave 2, #02-25 dob/1990-01-01 s/F st/PENDING e/janed@example.com bt/A+ n/Jane Doe`, 
+Common mistakes:
+* `create n/John Doe hp/98765432 a/311, Clementi Ave 2, #02-25 dob/1990-01-01 s/M st/PENDING` (missing NRIC)
+* `create ic/S1234567A n/John Doe hp/98765432 a/311, Clementi Ave 2, #02-25 dob/1990-2-30 s/M st/PENDING` (Wrong date format)
 
-For specification of each field, refer to the [Field summary](#field-summary) at the end of this User Guide.
 ### Listing all patients : `list`
 
 Shows a list of all patients in ImmuniMate.
@@ -97,6 +99,7 @@ Format: `list`
 Shows corresponding patient profile.
 
 Format: `read <NRIC>`
+* The NRIC must follow the correct format as specified in [Field summary](#field-summary).
 
 Examples:
 * `read S1234567A`
@@ -111,10 +114,16 @@ Format: `update <NRIC> <Field>/CONTENT`
 * At least one of the fields must be provided.
 * Existing values will be updated to the input values.
 * NRIC cannot be updated, while all other values can be updated.
+* Refer to the [Field summary](#field-summary) at the end of this User Guide for list of fields and their formats.
 
 Examples:
-*  `update S1234567A hp/91234567 e/jd123@example.com` Updates the phone number and email address of the corresponding patient to be `91234567` and `jd123@example.com` respectively.
-*  `update S0123456A a/123 Serangoon Road` Updates the address of the corresponding person to be `123 Serangoon Road`
+*  `update S1234567A hp/91234567 e/jd123@example.com`
+  * Updates the phone number and email address of the corresponding patient to be `91234567` and `jd123@example.com` respectively.
+*  `update S0123456A a/123 Serangoon Road`
+  * Updates the address of the corresponding person to be `123 Serangoon Road`.
+Common mistakes:
+* `update S1234567A ic/91234567` (NRIC cannot be updated)
+* `update S1234567A` (no field specified)
 
 ### Locating patients by name: `find`
 
@@ -122,18 +131,20 @@ Finds patients whose name contain any of the given keywords.
 
 Format: `find n/[NAME] [NAME] [NAME] ...`
 
-* The search is case-insensitive. e.g. `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
+* The search is case-insensitive. e.g. `hans` will match `Hans`.
+* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`.
 * Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
+* Only full words will be matched e.g. `Han` will not match `Hans`.
 * Patients matching at least one keyword will be returned (i.e. `OR` search).
-  e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
-* Names can be separated with any number of spaces
+  e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`.
+* Names can be separated with any number of spaces.
 
 Examples:
-* `find n/John` returns `john` and `John Doe`
-* `find n/alex david` returns `Alex Yeoh`, `David Li`<br>
-  <img src="images/findAlexDavid.png" alt="result for 'find alex david'" width="800"/>
+* `find n/John`
+  * Returns `john` and `John Doe`.
+* `find n/alex david`
+  * Returns `Alex Yeoh`, `David Li`.<br>
+    <img src="images/findAlexDavid.png" alt="result for 'find alex david'" width="800"/>
 
 
 ### Locating patients by address: `find`
@@ -142,19 +153,22 @@ Finds patients whose address contain any of the given keywords.
 
 Format: `find a/[LOCATION], [LOCATION], [LOCATION], ...`
 
-* The search is case-insensitive. e.g. `serangoon` will match `Serangoon`
-* The order of the keywords does matter. e.g. `Clementi Ave` will not match `Ave Clementi`
+* The search is case-insensitive. e.g. `serangoon` will match `Serangoon`.
+* The order of the keywords does matter. e.g. `Clementi Ave` will not match `Ave Clementi`.
 * Only the address is searched.
-* Partial words will be matched e.g. `Clem` will match `Clementi`
+* Partial words will be matched e.g. `Clem` will match `Clementi`.
 * Patients matching at least one keyword will be returned (i.e. `OR` search). 
   e.g. `Clementi, Serangoon` will return patients with address containing `Serangoon` or `Clementi`.
-* Locations must be separated by commas, and whitespaces before and after each location will be ignored
+* Locations must be separated by commas, and whitespaces before and after each location will be ignored.
 
 Examples:
-* `find a/Geylang` returns `Alex Yeoh`
-* `find a/Serangoon` returns `Bernice Yu`, `David Li`
-* `find a/geylang, serangoon, choa chu kang` returns `Alex Yeoh`, `Bernice Yu`, `David Li`<br>
-  <img src="images/findSerangoon.png" alt="result for 'find serangoon'" width="800"/>
+* `find a/Geylang`
+  * Returns `Alex Yeoh`.
+* `find a/Serangoon`
+  * Returns `Bernice Yu`, `David Li`.
+* `find a/geylang, serangoon, choa chu kang`
+  * Returns `Alex Yeoh`, `Bernice Yu`, `David Li`.<br>
+    <img src="images/findSerangoon.png" alt="result for 'find serangoon'" width="800"/>
 
 
 ### Locating patients by condition: `find`
@@ -163,16 +177,19 @@ Finds patients whose condition contain any of the given keywords.
 
 Format: `find con/[CONDITION], [CONDITION], [CONDITION], ...`
 
-* The search is case-insensitive. e.g. `covid` will match `Covid`
-* The order of the keywords does matter. e.g. `Stomach FLu` will not match `Flu Stomach`
+* The search is case-insensitive. e.g. `covid` will match `Covid`.
+* The order of the keywords does matter. e.g. `Stomach FLu` will not match `Flu Stomach`.
 * Only the condition is searched.
-* Partial words will be matched e.g. `Cov` will match `Covid`
+* Partial words will be matched e.g. `Cov` will match `Covid`.
 * Patients matching at least one keyword will be returned (i.e. `OR` search).
   e.g. `Covid Dengue` will return patients with address containing `Covid` or `Dengue`.
-* Conditions must be separated by commas, and whitespaces before and after each condition will be ignored
+* Conditions must be separated by commas, and whitespaces before and after each condition will be ignored.
 
 Examples:
-* `find con/covid, dengue, ebola `
+* `find con/covid, dengue, ebola`
+Common mistakes:
+* `find ic/S1234567X` (only condition, name and address can be searched with find)
+  * If you would like to find a person with NRIC, use the [read](#read-specific-patients--read) command instead.
 
 ### Deleting a patient : `delete`
 
@@ -181,9 +198,13 @@ Deletes the specified patient from ImmuniMate.
 Format: `delete <NRIC>`
 
 * Deletes the patient with corresponding NRIC.
+* The NRIC must follow the correct format as specified in [Field summary](#field-summary).
 
 Examples:
 * `delete S1234567A` deletes patient uniquely identified by NRIC S1234567A.
+Common mistakes:
+* `delete S12345678` (NRIC must be in the correct format)
+* `delete` (NRIC must be provided)
 
 ### Deleting information of a patient : `deleteinfo`
 
@@ -192,29 +213,46 @@ Deletes specified optional information from the specified person from ImmuniMate
 Format: `deleteinfo <NRIC> <Field>`
 
 * Deletes specified information of the patient with corresponding NRIC.
+* The NRIC must follow the correct format as specified in [Field summary](#field-summary).
+* The fields must be the optional fields specified in the [Field summary](#field-summary).
 
 Examples:
-* `deleteinfo S1234567A e/` deletes the email of patient uniquely identified by NRIC S1234567A.
-* `deleteinfo S0123456A e/ bt/ c/` deletes the email, blood type and country of nationality of patient uniquely identified by NRIC S0123456A.
+* `deleteinfo S1234567A e/`
+  * Deletes the email of patient uniquely identified by NRIC S1234567A.
+* `deleteinfo S0123456A e/ bt/ c/`
+  * Deletes the email, blood type and country of nationality of patient uniquely identified by NRIC S0123456A.
+Common mistakes:
+* `deleteinfo S1234567A abc/` (a valid optional field from the [Field summary](#field-summary) must be provided)
+* `deleteinfo S1234567A` (a field must be provided)
+* `deleteinfo S1234567A ic/` (mandatory fields cannot be deleted)
 
 ### Add patient's visit to history : `addvisit`
 
 Adds visit to patient history. 
 
 Format: `addvisit ic/<NRIC> dov/<Date_of_Visit> sym/<Symptoms> d/<Diagnosis> st/<Status>`
-
+Format for date of visit: `yyyy-MM-dd`
+* Refer to the [Field summary](#field-summary) at the end of this User Guide for specification for symptoms, diagnosis and status format.
 Examples:
-* `addvisit ic/S1234567A dov/2024-01-01 sym/Cough d/Covid st/UNWELL` adds a visit to history of patient uniquely identified by NRIC S1234567A. During this visit on 2024-01-01, the patient had cough and was diagnosed with Covid.
-* `addvisit ic/S0123456A dov/2024-02-02 sym/Fever,Rashes d/Dengue st/PENDING` adds a visit to history of patient uniquely identified by NRIC S0123456A. During this visit on 2024-02-02, the patient had fever and rashes, and was diagnosed with Dengue.
-Date of visit: `yyyy-MM-dd` format.
+* `addvisit ic/S1234567A dov/2024-01-01 sym/Cough d/Covid st/UNWELL`
+  * Adds a visit to history of patient uniquely identified by NRIC S1234567A. During this visit on 2024-01-01, the patient had cough and was diagnosed with Covid.
+* `addvisit ic/S0123456A dov/2024-02-02 sym/Fever,Rashes d/Dengue st/PENDING`
+  * Adds a visit to history of patient uniquely identified by NRIC S0123456A. During this visit on 2024-02-02, the patient had fever and rashes, and was diagnosed with Dengue.
+Common mistakes:
+* `addvisit ic/S7654321X dov/2024-01-01 sym/Cough d/Covid st/` (NRIC must belong to a person existing in the system)
+* `addvisit ic/S1234567A a/#101 Hougang Ave` (fields other than date of visit, symptoms, diagnosis and status cannot be added)
 ### Check patient history : `check`
 
-Checks all visits in patient history. 
+Checks all visits in patient history.
 
 Format: `check <NRIC>`
+* The NRIC must follow the correct format as specified in [Field summary](#field-summary).
 
 Example:
-* `check S1234567A`displays all visits in history of patient uniquely identified by NRIC S1234567A.
+* `check S1234567A`
+  * Displays all visits in history of patient uniquely identified by NRIC S1234567A.
+Common mistakes:
+* `check S12345678` (NRIC must be in the correct format, and must exist in the system)
 
 ### Cluster finding : `cluster`
 
@@ -222,14 +260,19 @@ Finds cluster in location specified.
 
 Format: `cluster [CLUSTER SIZE] a/[LOCATION] d/[DIAGNOSIS]`
 
-* The search is case-insensitive. e.g. `serangoon` will match `Serangoon`
-* Only one location and diagnosis is searched
-* Location and diagnosis cannot be empty
-* Cluster size must be between 1 and 2,000,000,000
-* Partial words will be matched e.g. `Clem` will match `Clementi`, `deng` will match `dengue`
+* The search is case-insensitive. e.g. `serangoon` will match `Serangoon`.
+* Only one location and diagnosis is searched.
+* Location and diagnosis cannot be empty.
+* Cluster size must be between 1 and 2,000,000,000.
+* Partial words will be matched e.g. `Clem` will match `Clementi`, `deng` will match `dengue`.
 
 Example: 
-* `cluster 3 a/Serangoon d/dengue` finds dengue clusters of at least 3 patients in the Serangoon vicinity. 
+* `cluster 3 a/Serangoon d/dengue`
+  * Finds dengue clusters of at least 3 patients in the Serangoon vicinity. 
+Common mistakes:
+* `cluster 3 a/S d/dengue` (address should be a meaningful word indicative of location in Singapore)
+* `cluster 3 a/Serangoon` (diagnosis must be provided)
+* `cluster 0 a/Serangoon d/` (a positive cluster size must be provided)
 
 ### Clearing all entries : `clear`
 
@@ -277,7 +320,7 @@ Furthermore, certain edits can cause ImmuniMate to behave in unexpected ways (e.
 ## Known issues
 
 1. **When using multiple screens**, if you move the application to a secondary screen, and later switch to using only the primary screen, the GUI will open off-screen. The remedy is to delete the `preferences.json` file created by the application before running the application again.
-
+2. **When using the `cluster` command**, search is purely pased on text, which means inputting "ave" will find all patients whose addresses contain"ave", although they do not form a cluster. We suggest users to input text indicative of location, such as "Hougang".
 --------------------------------------------------------------------------------------------------------------------
 
 ## Command summary
