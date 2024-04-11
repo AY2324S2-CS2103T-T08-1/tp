@@ -256,6 +256,15 @@ If your changes to the data file makes its format invalid, ImmuniMate will disca
 Furthermore, certain edits can cause ImmuniMate to behave in unexpected ways (e.g., if a value entered is outside of the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
 </div>
 
+### Command History
+ImmuniMate allows you to navigate through your previous commands so you can easily input multiple commands without having to
+retype the entire command. To navigate through the Command History, use the Up Arrow Key to view a previous command, use the Down
+Arrow Key to view the next command. The Up and Down Arrow Keys can be found on the Arrow Keys.
+
+**Notes:**
+1. The Command History only saves valid commands, it does not save commands that were unsuccessful
+2. The Command History is temporary and will not be stored in between sessions. When you close an instance of ImmuniMate, your Command History is cleared.
+
 ### Archiving data files `[coming in v2.0]`
 
 ### Update patient's visit in history `[coming in v2.0]`
