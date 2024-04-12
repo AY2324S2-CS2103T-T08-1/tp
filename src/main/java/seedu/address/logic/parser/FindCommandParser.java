@@ -32,23 +32,41 @@ public class FindCommandParser implements Parser<FindCommand> {
         }
 
         if (trimmedArgs.startsWith(PREFIX_NAME.getPrefix())) {
-            String[] nameKeywords = trimmedArgs.substring(2).trim().split("\\s+");
-            List<String> list = Arrays.asList(nameKeywords);
+            String nameKeywords = trimmedArgs.substring(2);
+            if (nameKeywords.isEmpty()) {
+                throw new ParseException(
+                        String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
+            }
+            List<String> list = Arrays.asList(nameKeywords.trim().split("\\s+"));
             return new FindCommand(new NameContainsKeywordsPredicate(list));
         } else if (trimmedArgs.startsWith(PREFIX_ADDRESS.getPrefix())) {
-            String[] addressKeywords = trimmedArgs.substring(2).trim().split(",");
+            String doubleTrimmedArgs = trimmedArgs.substring(2);
+            if (doubleTrimmedArgs.isEmpty()) {
+                throw new ParseException(
+                        String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
+            }
+
+            String[] addressKeywords = doubleTrimmedArgs.trim().split(",");
             int len = addressKeywords.length;
             for (int i = 0; i < len; i++) {
                 addressKeywords[i] = addressKeywords[i].trim();
             }
+
             List<String> list = Arrays.asList(addressKeywords);
             return new FindCommand(new AddressContainsKeywordsPredicate(list));
         } else if (trimmedArgs.startsWith(PREFIX_CONDITION.getPrefix())) {
-            String[] conditionKeywords = trimmedArgs.substring(4).trim().split(",");
+            String doubleTrimmedArgs = trimmedArgs.substring(4);
+            if (doubleTrimmedArgs.isEmpty()) {
+                throw new ParseException(
+                        String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
+            }
+
+            String[] conditionKeywords = doubleTrimmedArgs.trim().split(",");
             int len = conditionKeywords.length;
             for (int i = 0; i < len; i++) {
                 conditionKeywords[i] = conditionKeywords[i].trim();
             }
+
             List<String> list = Arrays.asList(conditionKeywords);
             return new FindCommand(new ConditionContainsKeywordsPredicate(list));
         } else {

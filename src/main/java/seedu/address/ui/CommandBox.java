@@ -22,6 +22,7 @@ public class CommandBox extends UiPart<Region> {
     private final CommandExecutor commandExecutor;
     private final LinkedList<String> commandHistory = new LinkedList<>();
     private int historyIndex = 0;
+    private boolean isFirstPress = true;
 
     @FXML
     private TextField commandTextField;
@@ -54,22 +55,32 @@ public class CommandBox extends UiPart<Region> {
 
 
     private void navigateCommandHistory(int direction) {
+
+        // Guard Clause when no commands yet
         if (commandHistory.isEmpty()) {
-            return; // No history to navigate
+            return;
         }
 
+        // Guard Clause for initial key input. Shows first command without skipping it.
+        if (historyIndex == 0 && isFirstPress) {
+            commandTextField.setText(commandHistory.get(historyIndex));
+            System.out.println("HistoryIndex: " + historyIndex + " NextCommand: " + commandHistory.get(historyIndex));
+            isFirstPress = false;
+            return;
+        }
         // Adjust the history index based on the direction
         historyIndex += direction;
 
         // Boundary checks
         if (historyIndex < 0) {
             historyIndex = 0;
-        } else if (historyIndex >= commandHistory.size()) {
-            historyIndex = commandHistory.size();
+            isFirstPress = true;
             commandTextField.setText(""); // Clear the text field if we're past the last command
             return;
+        } else if (historyIndex >= commandHistory.size()) {
+            historyIndex = commandHistory.size();
         }
-
+        System.out.println("HistoryIndex: " + historyIndex + " NextCommand: " + commandHistory.get(historyIndex));
         // Set the commandTextField's text to the command at the new history index
         commandTextField.setText(commandHistory.get(historyIndex));
     }
@@ -89,6 +100,7 @@ public class CommandBox extends UiPart<Region> {
             commandHistory.addFirst(commandText);
             historyIndex = 0;
             commandTextField.setText("");
+            isFirstPress = true;
         } catch (CommandException | ParseException e) {
             setStyleToIndicateCommandFailure();
         }
