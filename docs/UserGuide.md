@@ -178,7 +178,7 @@ Finds patients whose condition contain any of the given keywords.
 Format: `find con/[CONDITION], [CONDITION], [CONDITION], ...`
 
 * The search is case-insensitive. e.g. `covid` will match `Covid`.
-* The order of the keywords does matter. e.g. `Stomach FLu` will not match `Flu Stomach`.
+* The order of the keywords does matter. e.g. `Stomach Flu` will not match `Flu Stomach`.
 * Only the condition is searched.
 * Partial words will be matched e.g. `Cov` will match `Covid`.
 * Patients matching at least one keyword will be returned (i.e. `OR` search).
