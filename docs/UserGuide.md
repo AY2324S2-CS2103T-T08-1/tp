@@ -262,7 +262,7 @@ Common mistakes:
 
 ### Cluster finding : `cluster`
 
-Finds cluster in location specified. 
+Provided an integer, location, and illness, returns whether or not the number of people unwell with that illness (diagnosis in profile) in that area is at least that integer, and lists those people. 
 
 Format: `cluster [CLUSTER SIZE] a/[LOCATION] d/[DIAGNOSIS]`
 
@@ -272,9 +272,9 @@ Format: `cluster [CLUSTER SIZE] a/[LOCATION] d/[DIAGNOSIS]`
 * Cluster size must be between 1 and 2,000,000,000.
 * Partial words will be matched e.g. `Clem` will match `Clementi`, `deng` will match `dengue`.
 
-Example: 
+Example:
 * `cluster 3 a/Serangoon d/dengue`
-  * Finds dengue clusters of at least 3 patients in the Serangoon vicinity. 
+  * Finds dengue clusters of at least 3 in locations with the substring "Serangoon". 
 Common mistakes:
 * `cluster 3 a/S d/dengue` (address should be a meaningful word indicative of location in Singapore)
 * `cluster 3 a/Serangoon` (diagnosis must be provided)
@@ -363,7 +363,7 @@ ICA guidelines. If your name has any special characters, kindly input a valid na
 | **Delete Information** | `deleteinfo <NRIC> <Field>` <br> e.g., `deleteinfo S1234567A e/`                                                                                                                                                                                                                                                                                                      |
 | **Add Visit**          | `addvisit ic/<NRIC> dov/<Date_of_Visit> sym/<Symptoms> d/<Diagnosis> st/<Status>` <br> e.g., `addvisit ic/S1234567A dov/2024-01-01 sym/Cough d/Covid st/UNWELL`                                                                                                                                                                                                       |
 | **Check**              | `check <NRIC>` <br> e.g., `check S1234567A`                                                                                                                                                                                                                                                                                                                           |
-| **Find Cluster**       | `cluster <cluster size> a/<Location> d/diagnosis` <br> e.g. `cluster a/Serangoon d/dengue`                                                                                                                                                                                                                                                                            |
+| **Find Cluster**       | `cluster <cluster size> a/<Location> d/diagnosis` <br> e.g. `cluster 3 a/Serangoon d/dengue`                                                                                                                                                                                                                                                                          |
 | **Clear**              | `clear`                                                                                                                                                                                                                                                                                                                                                               |
 | **List**               | `list`                                                                                                                                                                                                                                                                                                                                                                |
 | **Help**               | `help`                                                                                                                                                                                                                                                                                                                                                                |
