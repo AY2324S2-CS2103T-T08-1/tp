@@ -19,7 +19,7 @@ As communities grow, information management might prove complex for General Prac
 3. Copy the file to the folder you want to use as the _home folder_ for your ImmuniMate.
 
 4. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar immuniMate.jar` command to run the application.<br>
-   A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
+   A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data. The colored circle on the right of each patient's name is the status indicator. For more information about the status indicator, see [create](#creating-a-patient-profile-create).<br>
    ![Ui](images/GUI.png)
 
 5. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
@@ -80,6 +80,7 @@ Format: `create ic/<NRIC> n/<Patient_Name> hp/<Phone_Number> a/<Address> dob/<Da
 
 * All mandatory fields must be provided. Refer to the [Field summary](#field-summary) at the end of this User Guide for list of mandatory and optional fields, and their formats.
 * The unique identifier for each patient is the NRIC. The new NRIC must not already exist in the system.
+* The status of the patient is indicated by a colored circle on the right of the patient's name. The color of the circle corresponds to the status of the patient. The status can be `PENDING` (yellow), `UNWELL`(red) or `HEALTHY`(green).
 
 Examples:
 * `create ic/S1234567A n/John Doe hp/98765432 a/311, Clementi Ave 2, #02-25 dob/1990-01-01 s/M st/PENDING`
