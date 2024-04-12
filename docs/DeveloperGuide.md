@@ -149,6 +149,29 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
+### List all patients
+#### Proposed Implementation
+
+The `list` feature allows users to view all patients in the system through the `list` command. This patient data is then displayed in the system for the user to have an overview of all patients.
+The `list` command is facilitated by `ListCommand` which extends the `Command` classes, listing all instances in the `Model`.
+
+* `ListCommand#execute` is responsible for executing the command and listing all patients in the system.
+* `Model#updateFilteredPersonList()` is called to make the UI display all patients in the system.
+
+Step 1. `ListCommand#execute` is called by the `LogicManager`. The `ListCommand` calls `model.updateFilteredPersonList()` to update the filtered list of patients in the system.
+Step 2. `Model#updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS)` is called to update the filtered list such that it shows all patients in the system. 
+Step 3. The `ListCommand` returns the appropriate `CommandResult` to indicate the success of the operation.
+
+### Help
+#### Proposed Implementation
+
+The `help` feature allows users to view the link to User Guide. This command is facilitated by `HelpCommand` which extends the `Command` classes.
+
+* `HelpCommand#execute` is responsible for executing the command and listing the link to the User Guide.
+
+Step 1. Parser interprets the user's input and creates a new `HelpCommand` instance.
+Step 2. `HelpCommand#execute` is called by the `LogicManager`. The `HelpCommand` returns the appropriate `CommandResult`, which signals the UI to display the help window .
+
 ### Create new patient
 #### Proposed Implementation
 
@@ -231,6 +254,9 @@ Step 5: After the field of information is removed, the `DeleteInfoCommand` retur
 #### Proposed Implementation
 
 ### Check for clusters
+#### Proposed Implementation
+
+### Exit the app
 #### Proposed Implementation
 
 
