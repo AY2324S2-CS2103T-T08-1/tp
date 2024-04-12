@@ -63,7 +63,7 @@ public class ParserUtil {
         if (!Nric.isValidNric(trimmedNric)) {
             throw new ParseException(Nric.MESSAGE_CONSTRAINTS);
         }
-        return new Nric(trimmedNric);
+        return new Nric(trimmedNric.toUpperCase());
     }
 
     /**
