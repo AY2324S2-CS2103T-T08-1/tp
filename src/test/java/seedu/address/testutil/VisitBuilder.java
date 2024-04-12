@@ -89,6 +89,6 @@ public class VisitBuilder {
      * Returns a Person object with fields initialised to that of PersonBuilder object.
      */
     public Visit build() {
-      return new Visit(nric, dateOfVisit, symptom, diagnosis, status);
+        return new Visit(nric, dateOfVisit, symptom, diagnosis, status);
     }
 }
