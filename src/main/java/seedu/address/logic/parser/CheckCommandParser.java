@@ -18,6 +18,7 @@ public class CheckCommandParser implements Parser<CheckCommand> {
      */
     public CheckCommand parse(String args) throws ParseException {
         requireNonNull(args);
+        //ToUpperCase to be correctly implemented in model
         String trimmedArg = args.trim();
         if (trimmedArg.isEmpty()) {
             throw new ParseException(

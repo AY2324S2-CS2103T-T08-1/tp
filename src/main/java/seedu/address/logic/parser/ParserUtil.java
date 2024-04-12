@@ -58,11 +58,12 @@ public class ParserUtil {
     //TODO test cases
     public static Nric parseNric(String nric) throws ParseException {
         requireNonNull(nric);
-        String trimmedNric = nric.trim();
+        //Correct implementation for case-insensitive NRIC
+        String trimmedNric = nric.trim().toUpperCase();
         if (!Nric.isValidNric(trimmedNric)) {
             throw new ParseException(Nric.MESSAGE_CONSTRAINTS);
         }
-        return new Nric(trimmedNric);
+        return new Nric(trimmedNric.toUpperCase());
     }
 
     /**
@@ -156,7 +157,7 @@ public class ParserUtil {
         if (!Sex.isValidSex(trimmedSex)) {
             throw new ParseException(Sex.MESSAGE_CONSTRAINTS);
         }
-        return new Sex(sex);
+        return new Sex(trimmedSex);
     }
 
     /**
@@ -172,7 +173,7 @@ public class ParserUtil {
         if (!Status.isValidStatus(trimmedStatus)) {
             throw new ParseException(Status.MESSAGE_CONSTRAINTS);
         }
-        return new Status(status);
+        return new Status(trimmedStatus);
     }
     /**
      * Parses a {@code String country} into an {@code Country country}.
@@ -182,8 +183,10 @@ public class ParserUtil {
     //TODO test cases
     public static Country parseCountry(String country) throws ParseException {
         requireNonNull(country);
-        //TODO: Implement country validation & standardisation
         String trimmedCountry = country.trim();
+        if (!Country.isValidCountry(trimmedCountry)) {
+            throw new ParseException(Country.MESSAGE_CONSTRAINTS);
+        }
         return new Country(trimmedCountry);
     }
     /**
@@ -225,6 +228,9 @@ public class ParserUtil {
     public static Allergies parseAllergies(String allergies) throws ParseException {
         requireNonNull(allergies);
         String trimmedAllergies = allergies.trim();
+        if (!Allergies.isValidAllergies(trimmedAllergies)) {
+            throw new ParseException(Allergies.MESSAGE_CONSTRAINTS);
+        }
         return new Allergies(trimmedAllergies);
     }
     /**
@@ -233,11 +239,12 @@ public class ParserUtil {
      *
      * @throws ParseException if the given {@code condition} is invalid.
      */
-    //TODO test cases
     public static Condition parseCondition(String condition) throws ParseException {
         requireNonNull(condition);
         String trimmedCondition = condition.trim();
-        //TODO: Implement condition validation & standardisation
+        if (!Condition.isValidCondition(trimmedCondition)) {
+            throw new ParseException(Condition.MESSAGE_CONSTRAINTS);
+        }
         return new Condition(trimmedCondition);
     }
     /**
@@ -250,6 +257,9 @@ public class ParserUtil {
     public static Symptom parseSymptom(String symptom) throws ParseException {
         requireNonNull(symptom);
         String trimmedSymptom = symptom.trim();
+        if (!Symptom.isValidSymptom(trimmedSymptom)) {
+            throw new ParseException(Symptom.MESSAGE_CONSTRAINTS);
+        }
         return new Symptom(trimmedSymptom);
     }
     /**
@@ -262,6 +272,9 @@ public class ParserUtil {
     public static Diagnosis parseDiagnosis(String diagnosis) throws ParseException {
         requireNonNull(diagnosis);
         String trimmedDiagnosis = diagnosis.trim();
+        if (!Diagnosis.isValidDiagnosis(trimmedDiagnosis)) {
+            throw new ParseException(Diagnosis.MESSAGE_CONSTRAINTS);
+        }
         return new Diagnosis(trimmedDiagnosis);
     }
 

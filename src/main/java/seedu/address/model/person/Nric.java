@@ -12,7 +12,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class Nric {
     public static final String MESSAGE_CONSTRAINTS =
             "NRIC number should contain a prefix of S or T, followed by 7 digits, and end with a letter. "
-                    + "There should not be blank.";
+                    + "There should not be blanks.";
 
     /**
      * The first character of the address must not be a whitespace,
@@ -30,7 +30,6 @@ public class Nric {
     public Nric(String nric) {
         requireNonNull(nric);
         checkArgument(isValidNric(nric), MESSAGE_CONSTRAINTS);
-        //TODO: is this a bug?
         this.nric = nric.toUpperCase();
     }
 
