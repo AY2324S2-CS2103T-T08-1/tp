@@ -38,12 +38,12 @@ public class ConditionContainsKeywordsPredicateTest {
         // null -> returns false
         assertFalse(firstPredicate.equals(null));
 
-        // different person -> returns false
+        // different condition -> returns false
         assertFalse(firstPredicate.equals(secondPredicate));
     }
 
     @Test
-    public void test_nameContainsKeywords_returnsTrue() {
+    public void test_conditionContainsKeywords_returnsTrue() {
         // One keyword
         ConditionContainsKeywordsPredicate predicate =
                 new ConditionContainsKeywordsPredicate(Collections.singletonList("runny nose"));
@@ -63,7 +63,7 @@ public class ConditionContainsKeywordsPredicateTest {
     }
 
     @Test
-    public void test_nameDoesNotContainKeywords_returnsFalse() {
+    public void test_conditionDoesNotContainKeywords_returnsFalse() {
         // Zero keywords
         ConditionContainsKeywordsPredicate predicate = new ConditionContainsKeywordsPredicate(Collections.emptyList());
         assertFalse(predicate.test(new PersonBuilder().withCondition("myopia").build()));
