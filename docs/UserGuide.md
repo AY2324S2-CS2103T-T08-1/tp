@@ -104,11 +104,6 @@ Format: `read <NRIC>`
 
 Examples:
 * `read S1234567A`
-  * Displays profile of patient uniquely identified by NRIC S1234567A. 
-
-Common mistakes:
-* `read S12345678` (NRIC must be in the correct format, and must exist in the system)
-
 
 ### Updating a patient's profile : `update`
 
