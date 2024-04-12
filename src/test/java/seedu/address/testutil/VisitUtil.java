@@ -1,12 +1,13 @@
 package seedu.address.testutil;
 
-import seedu.address.logic.commands.AddVisitCommand;
-import seedu.address.logic.commands.CreateCommand;
-import seedu.address.logic.commands.UpdateCommand.UpdatePersonDescriptor;
-import seedu.address.model.person.Person;
-import seedu.address.model.visit.Visit;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DATEOFVISIT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DIAGNOSIS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NRIC;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_STATUS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_SYMPTOM;
 
-import static seedu.address.logic.parser.CliSyntax.*;
+import seedu.address.logic.commands.AddVisitCommand;
+import seedu.address.model.visit.Visit;
 
 /**
  * A utility class for Visit.
