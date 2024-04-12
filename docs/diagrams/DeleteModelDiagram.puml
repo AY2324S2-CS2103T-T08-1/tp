@@ -1,0 +1,76 @@
+@startuml
+!include style.puml
+skinparam ArrowFontStyle plain
+box Logic LOGIC_COLOR_T1
+participant "l:Logic" as Logic LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":ModelManager" as ModelManager MODEL_COLOR
+participant ":ImmuniMate" as ImmuniMate MODEL_COLOR
+participant ":UniquePersonList" as UniquePersonList MODEL_COLOR
+participant "internalList: ObservableList<Person>" as internalList MODEL_COLOR
+participant "p:Person" as p MODEL_COLOR
+end box
+
+[-> Logic : execute()
+activate Logic
+
+Logic -> ModelManager : hasPerson(p)
+activate ModelManager
+
+ModelManager -> ImmuniMate: hasPerson(p)
+activate ImmuniMate
+
+ImmuniMate --> UniquePersonList : contains(p)
+activate UniquePersonList
+
+UniquePersonList -> internalList : stream().anyMatch(p::isSamePerson)
+activate internalList
+
+internalList -> p : isSamePerson(p)
+activate p
+
+p --> internalList
+deactivate p
+
+internalList --> UniquePersonList
+deactivate internalList
+
+UniquePersonList --> ImmuniMate
+deactivate UniquePersonList
+
+ImmuniMate --> ModelManager
+deactivate ImmuniMate
+
+ModelManager --> Logic
+deactivate ModelManager
+
+Logic -> ModelManager : deletePerson(p)
+activate ModelManager
+
+ModelManager -> ImmuniMate: deletePerson(p)
+activate ImmuniMate
+
+ImmuniMate -> UniquePersonList : remove(p)
+activate UniquePersonList
+
+UniquePersonList -> internalList : remove(p)
+activate internalList
+
+internalList --> UniquePersonList
+deactivate internalList
+
+UniquePersonList --> ImmuniMate
+deactivate UniquePersonList
+
+ImmuniMate --> ModelManager
+deactivate ImmuniMate
+
+ModelManager --> Logic
+deactivate ModelManager
+
+[<--Logic
+deactivate Logic
+
+@enduml

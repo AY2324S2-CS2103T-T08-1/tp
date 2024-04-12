@@ -1,0 +1,63 @@
+@startuml
+!include style.puml
+skinparam ArrowFontStyle plain
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":ImmuniMateParser" as ImmuniMateParser LOGIC_COLOR
+participant ":CreateCommandParser" as CreateCommandParser LOGIC_COLOR
+participant "c:CreateCommand" as CreateCommand LOGIC_COLOR
+participant "r:CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant "m:Model" as Model MODEL_COLOR
+end box
+
+[-> LogicManager : execute("create ...")
+activate LogicManager
+LogicManager -> ImmuniMateParser : parseCommand("create ...")
+activate ImmuniMateParser
+
+create CreateCommandParser
+ImmuniMateParser -> CreateCommandParser
+activate CreateCommandParser
+CreateCommandParser --> ImmuniMateParser
+deactivate CreateCommandParser
+ImmuniMateParser -> CreateCommandParser : parse("...")
+activate CreateCommandParser
+
+create CreateCommand
+CreateCommandParser -> CreateCommand
+activate CreateCommand
+CreateCommand --> CreateCommandParser
+deactivate CreateCommand
+CreateCommandParser --> ImmuniMateParser : c
+deactivate CreateCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+CreateCommandParser -[hidden]-> ImmuniMateParser
+destroy CreateCommandParser
+ImmuniMateParser --> LogicManager : c
+deactivate ImmuniMateParser
+LogicManager -> CreateCommand : execute()
+activate CreateCommand
+CreateCommand -> Model : hasPerson(...)
+activate Model
+Model --> CreateCommand : false
+deactivate Model
+CreateCommand -> Model : addPerson(...)
+activate Model
+Model --> CreateCommand : add person in the model
+deactivate Model
+
+create CommandResult
+CreateCommand -> CommandResult
+activate CommandResult
+CommandResult --> CreateCommand
+deactivate
+CreateCommand --> LogicManager : r
+deactivate CreateCommand
+
+[<--LogicManager : r
+deactivate LogicManager
+@enduml

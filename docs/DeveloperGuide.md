@@ -198,8 +198,9 @@ Step 3. If there is no duplicate, the patient is added to the system by calling 
 
 Step 4: After the patient is added, the `CreateCommand` returns the appropriate `CommandResult` to indicate the success of the operation.
 The following sequence diagram shows how a create operation goes through the Logic component:
+![CreateState1](images/CreateCommandLogic.png)
 Similarly, the following sequence diagram shows how a create operation goes through the Model component:
-![CreateState1](images/CreateCommand.png)
+![CreateState1](images/CreateCommandModel.png)
 
 ### Delete patient
 #### Proposed Implementation
@@ -219,6 +220,10 @@ Step 1. `DeleteCommandParser` interprets the user's input for NRIC, and creates 
 Step 2. The `DeleteCommand#execute` is called by the `LogicManager`. The `DeleteCommand` checks if the patient exists in the system by calling `model.hasPerson(person)`.
 Step 3. If the patient exists, the patient is removed from the system by calling `model.deletePerson(person)`.
 Step 4: After the patient is removed, the `DeleteCommand` returns the appropriate `CommandResult` to indicate the success of the operation.
+
+The following sequence diagram shows how a delete operation goes through the Logic component:
+![DeleteState1](images/DeleteSequenceDiagram.png)
+How a delete operation goes through the Model component is very similar to that of the create operation, therefore the sequence diagram is omitted.
 
 ### Delete patient information
 #### Proposed Implementation
