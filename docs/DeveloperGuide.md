@@ -246,6 +246,30 @@ Step 5: After the field of information is removed, the `DeleteInfoCommand` retur
 
 ### Update patient fields
 #### Proposed Implementation
+Given below is an example usage scenario and how the update mechanism behaves at each step.
+
+Step 1. The user launches the application for the first time.
+
+Step 2. The user types `update T0123456A a/35 Bishan Road, #10-40 con/myopia` command to update the address and condition fields in the profile of the person with `Nric` T0123456A in the address book. This calls `immuniMateParser.parseCommand()`, which separates the user input into the command `update` and the rest of the arguments.
+
+Step 3. As the command `update` matches `UpdateCommand.COMMAND_WORD`, `UpdateCommandParser().parse()` is called, taking in the rest of the arguments. Here, the arguments are checked if they are null values, then passed into `ArgumentTokenizer.tokenize()`, where they are separated into `Nric` and other provided fields by finding their respective prefixes, and stored in an `ArgumentMultimap`.
+
+Step 4. Still in `UpdateCommandParser().parse()`, checks are then done to verify the validity of the `Nric` and that no duplicate prefixes are found. A new `UpdatePersonDescriptor` object is then created to store the fields present in `ArgumentMultimap`.
+
+Step 5. At the end of `UpdateCommandParser().parse()`, a new `UpdateCommand` instance is created with the `Nric` and `UpdatePersonDescriptor` as arguments. `UpdateCommand.execute()` is then called, taking in the ImmuniMate `model` as an argument.
+
+Step 6. `model.getFilteredPersonsList()` retrieves the list of `Person`s stored, and a check is done to see if ImmuniMate has a `Person` with the given `Nric`.  This `Person` is then retrieved from the list, while a new `Person`  object is instantiated, with the `Person` and `UpdatePersonDescriptor` as arguments, representing the retrieved `Person` object with fields updated.
+
+Step 7. `model.setPerson()` then replaces the retrieved `Person` object with the new `Person` object with fields updated, taking in both `Person` objects as arguments. The `model` is then saved into `storage`.
+
+#### Design considerations:
+
+* **Alternative 1 (current choice):** Identify patient by `Nric`.
+    * Pros: More user convenience, as user just needs to type NRIC patients provide
+
+* **Alternative 2:** Identify patient by given `Index`.
+    * Pros: Easier to implement.
+    * Cons: Less user convenience, as user has to first know patient `Index` to find patient.
 
 ### Record patient visit
 #### Proposed Implementation
