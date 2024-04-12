@@ -42,10 +42,6 @@ public class ClusterCommandParser implements Parser<ClusterCommand> {
 
         String address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get()).toString();
         String disease = ParserUtil.parseDiagnosis(argMultimap.getValue(PREFIX_DIAGNOSIS).get()).toString();
-        if (address.isEmpty() || disease.isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ClusterCommand.MESSAGE_USAGE));
-        }
-
         return new ClusterCommand(clusterSize,
                 new AddressDiagnosisStatusPredicate(address, disease, "UNWELL"));
     }
