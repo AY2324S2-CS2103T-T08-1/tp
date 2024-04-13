@@ -11,6 +11,8 @@ import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.person.Nric;
+import seedu.address.model.person.Person;
 import seedu.address.model.visit.Visit;
 
 /**
@@ -34,7 +36,8 @@ public class AddVisitCommand extends Command {
             + PREFIX_STATUS + "PENDING";
 
     public static final String MESSAGE_SUCCESS = "New Visit added: %1$s";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This visit already exists in the system";
+    public static final String MESSAGE_DUPLICATE_VISIT = "This visit already exists in the system";
+    public static final String MESSAGE_INVALID_VISIT = "The NRIC supplied does not link to any existing Patient";
 
     private final Visit toAdd;
 
@@ -50,9 +53,14 @@ public class AddVisitCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-
+        Nric patientNric = toAdd.getNric();
+        Person patient = Person.createPersonWithNric(patientNric);
+        // Guard clauses to ensure NRIC is valid and Visit is not duplicate
+        if (!model.hasPerson(patient)) {
+            throw new CommandException(MESSAGE_INVALID_VISIT);
+        }
         if (model.hasVisit(toAdd)) {
-            throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+            throw new CommandException(MESSAGE_DUPLICATE_VISIT);
         }
         //TODO: Update patient symptom and diagnosis to reflect latest visit!
         model.addVisit(toAdd);

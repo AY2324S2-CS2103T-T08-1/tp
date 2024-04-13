@@ -48,6 +48,7 @@ public class LogicManager implements Logic {
 
         CommandResult commandResult;
         model.updateFilteredPersonList(Model.PREDICATE_SHOW_ALL_PERSONS);
+        model.updateFilteredVisitList(Model.PREDICATE_SHOW_ALL_VISITS);
         Command command = immuniMateParser.parseCommand(commandText);
         commandResult = command.execute(model);
 

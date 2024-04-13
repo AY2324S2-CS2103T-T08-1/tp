@@ -62,9 +62,8 @@ public class CommandBox extends UiPart<Region> {
         }
 
         // Guard Clause for initial key input. Shows first command without skipping it.
-        if (historyIndex == 0 && isFirstPress) {
+        if (historyIndex == 0 && isFirstPress && direction == 1) {
             commandTextField.setText(commandHistory.get(historyIndex));
-            System.out.println("HistoryIndex: " + historyIndex + " NextCommand: " + commandHistory.get(historyIndex));
             isFirstPress = false;
             return;
         }
@@ -80,7 +79,6 @@ public class CommandBox extends UiPart<Region> {
         } else if (historyIndex >= commandHistory.size()) {
             historyIndex = commandHistory.size();
         }
-        System.out.println("HistoryIndex: " + historyIndex + " NextCommand: " + commandHistory.get(historyIndex));
         // Set the commandTextField's text to the command at the new history index
         commandTextField.setText(commandHistory.get(historyIndex));
     }

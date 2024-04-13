@@ -52,18 +52,6 @@ public class Visit {
     }
 
     /**
-     * Returns true if both persons have the same nric.
-     * This defines a weaker notion of equality between two persons.
-     */
-    public boolean isSamePerson(Visit otherPerson) {
-        if (otherPerson == this) {
-            return true;
-        }
-
-        return otherPerson != null && otherPerson.getNric().equals(getNric());
-    }
-
-    /**
      * Returns true if the person has all mandatory fields.
      */
     public static boolean isValidVisit(Visit visit) {

@@ -49,6 +49,8 @@ public class CommandTestUtil {
     public static final String VALID_ADDRESS_BOB = "Block 123, Bobby Street 3";
     public static final String VALID_DATEOFBIRTH_AMY = "2001-01-01";
     public static final String VALID_DATEOFBIRTH_BOB = "2002-02-02";
+    public static final String VALID_DATEOFVISIT_AMY = "2023-12-01";
+    public static final String VALID_DATEOFVISIT_BOB = "2019-08-05";
     public static final String VALID_SEX_AMY = "F";
     public static final String VALID_SEX_BOB = "M";
     public static final String VALID_STATUS_AMY = "HEALTHY";

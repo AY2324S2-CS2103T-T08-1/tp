@@ -42,11 +42,13 @@ public class AddVisitCommandParser implements Parser<AddVisitCommand> {
         argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_NRIC, PREFIX_DATEOFVISIT,
             PREFIX_SYMPTOM, PREFIX_DIAGNOSIS, PREFIX_STATUS);
         Nric nric = ParserUtil.parseNric(argMultimap.getValue(PREFIX_NRIC).get());
+
+
         DateOfVisit dov = ParserUtil.parseDateOfVisit(argMultimap.getValue(PREFIX_DATEOFVISIT).get());
         Symptom symptom = ParserUtil.parseSymptom(argMultimap.getValue(PREFIX_SYMPTOM).get());
         Diagnosis diagnosis = ParserUtil.parseDiagnosis(argMultimap.getValue(PREFIX_DIAGNOSIS).get());
         Status status = ParserUtil.parseStatus(argMultimap.getValue(PREFIX_STATUS).get());
-        //TODO (later): assersion to make sure optional values don't generate errors
+
         Visit visit = new Visit(nric, dov, symptom, diagnosis, status);
 
         return new AddVisitCommand(visit);

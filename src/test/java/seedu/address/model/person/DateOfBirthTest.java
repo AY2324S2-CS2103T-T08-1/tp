@@ -22,16 +22,16 @@ public class DateOfBirthTest {
     @Test
     public void isValidDateOfBirth() {
         // invalid addresses
-        assertFalse(DateOfAdmission.isValidDateOfAdmission("")); // empty string
-        assertFalse(DateOfAdmission.isValidDateOfAdmission(" ")); // spaces only
-        assertFalse(DateOfAdmission.isValidDateOfAdmission("20231213")); // numbers only
-        assertFalse(DateOfAdmission.isValidDateOfAdmission("2023-1213")); // one slash
-        assertFalse(DateOfAdmission.isValidDateOfAdmission("202312-13")); // one slash
-        assertFalse(DateOfAdmission.isValidDateOfAdmission("2023-1-3")); // shortened date and month
-        assertFalse(DateOfAdmission.isValidDateOfAdmission("13-12-2023")); // reverse format
+        assertFalse(DateOfBirth.isValidDateOfBirth("")); // empty string
+        assertFalse(DateOfBirth.isValidDateOfBirth(" ")); // spaces only
+        assertFalse(DateOfBirth.isValidDateOfBirth("20231213")); // numbers only
+        assertFalse(DateOfBirth.isValidDateOfBirth("2023-1213")); // one slash
+        assertFalse(DateOfBirth.isValidDateOfBirth("202312-13")); // one slash
+        assertFalse(DateOfBirth.isValidDateOfBirth("2023-1-3")); // shortened date and month
+        assertFalse(DateOfBirth.isValidDateOfBirth("13-12-2023")); // reverse format
 
         // valid addresses
-        assertTrue(DateOfAdmission.isValidDateOfAdmission("2023-12-13"));
+        assertTrue(DateOfBirth.isValidDateOfBirth("2023-12-13"));
     }
 
     @Test
