@@ -41,11 +41,10 @@ public class TypicalVisits {
         .withSymptom("Fever, Headache, Nausea, Vomiting").withDiagnosis("Dengue").withStatus("UNWELL").build();
     public static final Visit VISIT_ALICE_3 = new VisitBuilder().withNric("T0139571B").withDateOfVisit("2024-03-23")
         .withSymptom("Dark Urine, Joint pain, Pale stool").withDiagnosis("Hepatitis B").withStatus("PENDING").build();
-    public static final Visit VISIT_BENSON_3 =
-        new VisitBuilder().withNric("T0439571C").withDateOfVisit("2023-01-02").withSymptom("Headache")
+    public static final Visit VISIT_BENSON_3 = new VisitBuilder().withNric("T0439571C").withDateOfVisit("2023-01-02").withSymptom("Headache")
             .withDiagnosis("NIL").withStatus("HEALTHY").build();
     public static final Visit VISIT_CARL_3 =
-        new VisitBuilder().withNric("T0284994B").withDateOfVisit("2024-10-24").withSymptom("Slight Headache")
+        new VisitBuilder().withNric("T0284994B").withDateOfVisit("2024-10-29").withSymptom("Slight Headache")
             .withDiagnosis("Recovered").withStatus("HEALTHY").build();
 
     // Manually added - Person's details found in {@code CommandTestUtil}
@@ -62,8 +61,19 @@ public class TypicalVisits {
     /**
      * Returns an {@code AddressBook} with all the typical visits.
      */
-    public static ImmuniMate getTypicalAddressBook() {
+    public ImmuniMate getTypicalAddressBook() {
         ImmuniMate ab = new ImmuniMate();
+        for (Visit visit : getTypicalVisits()) {
+            ab.addVisit(visit);
+        }
+        return ab;
+    }
+
+    /**
+     * Returns an {@code AddressBook} with all the typical visits and typical persons.
+     */
+    public static ImmuniMate getTypicalVisitAddressBook() {
+        ImmuniMate ab = TypicalPersons.getTypicalAddressBook();
         for (Visit visit : getTypicalVisits()) {
             ab.addVisit(visit);
         }
