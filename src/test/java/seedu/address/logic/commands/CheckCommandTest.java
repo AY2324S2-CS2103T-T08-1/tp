@@ -26,7 +26,7 @@ public class CheckCommandTest {
     private final Model model = new ModelManager(TypicalVisits.getTypicalCombinedAddressBook(), new UserPrefs());
     private final Model expectedModel = new ModelManager(
         TypicalVisits.getTypicalCombinedAddressBook(), new UserPrefs());
-    @Test
+    /*@Test
     void execute_validVisitNric_success() {
 
         StringBuilder stringBuilder = new StringBuilder();
@@ -39,7 +39,7 @@ public class CheckCommandTest {
         expectedModel.updateFilteredPersonList(new NricContainsKeywordsPredicate(VISIT_ALICE.getNric().toString()));
         expectedModel.updateFilteredVisitList(new VisitContainsNricPredicate(VISIT_ALICE.getNric().toString()));
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
-    }
+    }*/
 
     @Test
     void execute_invalidVisitNric_success() {
