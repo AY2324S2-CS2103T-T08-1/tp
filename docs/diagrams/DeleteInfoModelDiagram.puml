@@ -11,7 +11,7 @@ participant ":ImmuniMate" as ImmuniMate MODEL_COLOR
 participant ":UniquePersonList" as UniquePersonList MODEL_COLOR
 participant "internalList: ObservableList<Person>" as internalList MODEL_COLOR
 participant "p1:Person" as p1 MODEL_COLOR
-participant "p:Person" as p MODEL_COLOR
+participant "p1:Person" as p MODEL_COLOR
 end box
 
 [-> CreateCommand : execute()
@@ -47,29 +47,28 @@ deactivate ImmuniMate
 ModelManager --> CreateCommand
 deactivate ModelManager
 
-CreateCommand -> ModelManager : addPerson(...)
+CreateCommand -> ModelManager : setEmail(...)
 activate ModelManager
 
-ModelManager -> ImmuniMate: addPerson(...)
+ModelManager -> ImmuniMate: getPerson(...)
 activate ImmuniMate
 
-create p
-ImmuniMate -> p
-activate p
-p --> ImmuniMate
-deactivate p
-
-ImmuniMate -> UniquePersonList : add(p)
+ImmuniMate -> UniquePersonList : get(...)
 activate UniquePersonList
 
-UniquePersonList -> internalList : add(p)
+UniquePersonList -> internalList : get(...)
 activate internalList
 
-internalList --> UniquePersonList
+internalList --> UniquePersonList : p
 deactivate internalList
 
-UniquePersonList --> ImmuniMate
+UniquePersonList --> ImmuniMate : p
 deactivate UniquePersonList
+
+ImmuniMate -> p : setEmail(null)
+activate p
+p --> ImmuniMate : set email to null
+deactivate p
 
 ImmuniMate --> ModelManager
 deactivate ImmuniMate
