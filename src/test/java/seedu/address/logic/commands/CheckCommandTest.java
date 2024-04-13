@@ -18,17 +18,17 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.person.Nric;
 import seedu.address.model.person.NricContainsKeywordsPredicate;
-import seedu.address.model.visit.Visit;
 import seedu.address.model.visit.VisitContainsNricPredicate;
 import seedu.address.testutil.TypicalVisits;
 
 public class CheckCommandTest {
 
-    private final Model model = new ModelManager(TypicalVisits.getTypicalVisitAddressBook(), new UserPrefs());
-    private final Model expectedModel = new ModelManager(TypicalVisits.getTypicalVisitAddressBook(), new UserPrefs());
-
+    private final Model model = new ModelManager(TypicalVisits.getTypicalCombinedAddressBook(), new UserPrefs());
+    private final Model expectedModel = new ModelManager(
+        TypicalVisits.getTypicalCombinedAddressBook(), new UserPrefs());
     @Test
     void execute_validVisitNric_success() {
+
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append(ALICE.getName()).append(" (NRIC: ").append(VISIT_ALICE.getNric()).append("):\n");
         stringBuilder.append(Messages.formatCheck(VISIT_ALICE)).append("\n");

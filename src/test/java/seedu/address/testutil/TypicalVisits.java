@@ -41,8 +41,8 @@ public class TypicalVisits {
         .withSymptom("Fever, Headache, Nausea, Vomiting").withDiagnosis("Dengue").withStatus("UNWELL").build();
     public static final Visit VISIT_ALICE_3 = new VisitBuilder().withNric("T0139571B").withDateOfVisit("2024-03-23")
         .withSymptom("Dark Urine, Joint pain, Pale stool").withDiagnosis("Hepatitis B").withStatus("PENDING").build();
-    public static final Visit VISIT_BENSON_3 = new VisitBuilder().withNric("T0439571C").withDateOfVisit("2023-01-02").withSymptom("Headache")
-            .withDiagnosis("NIL").withStatus("HEALTHY").build();
+    public static final Visit VISIT_BENSON_3 = new VisitBuilder().withNric("T0439571C").withDateOfVisit("2023-01-02")
+        .withSymptom("Headache").withDiagnosis("NIL").withStatus("HEALTHY").build();
     public static final Visit VISIT_CARL_3 =
         new VisitBuilder().withNric("T0284994B").withDateOfVisit("2024-10-29").withSymptom("Slight Headache")
             .withDiagnosis("Recovered").withStatus("HEALTHY").build();
@@ -61,7 +61,7 @@ public class TypicalVisits {
     /**
      * Returns an {@code AddressBook} with all the typical visits.
      */
-    public ImmuniMate getTypicalAddressBook() {
+    public ImmuniMate getTypicalVisitsAddressBook() {
         ImmuniMate ab = new ImmuniMate();
         for (Visit visit : getTypicalVisits()) {
             ab.addVisit(visit);
@@ -72,8 +72,8 @@ public class TypicalVisits {
     /**
      * Returns an {@code AddressBook} with all the typical visits and typical persons.
      */
-    public static ImmuniMate getTypicalVisitAddressBook() {
-        ImmuniMate ab = TypicalPersons.getTypicalAddressBook();
+    public static ImmuniMate getTypicalCombinedAddressBook() {
+        ImmuniMate ab = TypicalPersons.getTypicalPersonsAddressBook();
         for (Visit visit : getTypicalVisits()) {
             ab.addVisit(visit);
         }
@@ -83,6 +83,6 @@ public class TypicalVisits {
     public static List<Visit> getTypicalVisits() {
         return new ArrayList<>(
             Arrays.asList(VISIT_ALICE, VISIT_ALICE_2, VISIT_ALICE_3, VISIT_BENSON, VISIT_BENSON_2, VISIT_BENSON_3,
-                VISIT_CARL, VISIT_CARL_2, VISIT_CARL_3, VISIT_AMY, VISIT_BOB));
+                VISIT_CARL, VISIT_CARL_2, VISIT_CARL_3));
     }
 }
