@@ -30,21 +30,19 @@ public class ClusterCommandTest {
 
     @Test
     public void equals() {
-        int firstClusterSize = 4;
-        AddressDiagnosisStatusPredicate firstPredicate = new AddressDiagnosisStatusPredicate(
-                "Woodlands", "coronavirus", "UNWELL");
-        ClusterCommand clusterFirstCommand = new ClusterCommand(firstClusterSize, firstPredicate);
-
-        int secondClusterSize = 8;
-        AddressDiagnosisStatusPredicate secondPredicate = new AddressDiagnosisStatusPredicate(
-                "Pasir Ris", "dengue", "PENDING");
-        ClusterCommand clusterSecondCommand = new ClusterCommand(secondClusterSize, secondPredicate);
+        int clusterSize = 4;
+        String address = "Woodlands";
+        String disease = "coronavirus";
+        String status = "UNWELL";
+        AddressDiagnosisStatusPredicate firstPredicate =
+                new AddressDiagnosisStatusPredicate(address, disease, status);
+        ClusterCommand clusterFirstCommand = new ClusterCommand(clusterSize, firstPredicate);
 
         // same object -> returns true
         assertEquals(clusterFirstCommand, clusterFirstCommand);
 
         // same values -> returns true
-        ClusterCommand clusterFirstCommandCopy = new ClusterCommand(firstClusterSize, firstPredicate);
+        ClusterCommand clusterFirstCommandCopy = new ClusterCommand(clusterSize, firstPredicate);
         assertEquals(clusterFirstCommand, clusterFirstCommandCopy);
 
         // different types -> returns false
@@ -53,7 +51,24 @@ public class ClusterCommandTest {
         // null -> returns false
         assertNotEquals(null, clusterFirstCommand);
 
-        // different cluster size, address, illness and status -> returns false
+        // different cluster size -> returns false
+        ClusterCommand clusterSecondCommand = new ClusterCommand(8, firstPredicate);
+        assertNotEquals(clusterFirstCommand, clusterSecondCommand);
+
+        // different address -> returns false
+        AddressDiagnosisStatusPredicate secondPredicate =
+                new AddressDiagnosisStatusPredicate("Pasir Ris", disease, status);
+        clusterSecondCommand = new ClusterCommand(clusterSize, secondPredicate);
+        assertNotEquals(clusterFirstCommand, clusterSecondCommand);
+
+        // different illness -> returns false
+        secondPredicate = new AddressDiagnosisStatusPredicate(address, "dengue", status);
+        clusterSecondCommand = new ClusterCommand(clusterSize, secondPredicate);
+        assertNotEquals(clusterFirstCommand, clusterSecondCommand);
+
+        // different status -> return false
+        secondPredicate = new AddressDiagnosisStatusPredicate(address, disease, "PENDING");
+        clusterSecondCommand = new ClusterCommand(clusterSize, secondPredicate);
         assertNotEquals(clusterFirstCommand, clusterSecondCommand);
     }
 
@@ -73,7 +88,7 @@ public class ClusterCommandTest {
     }
 
     @Test
-    public void execute_noClusterFound() {
+    public void execute_clusterNotFound() {
         int clusterSize = 3;
         String address = "clementi";
         String disease = "dengue";
