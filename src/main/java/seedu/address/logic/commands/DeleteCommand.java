@@ -30,7 +30,6 @@ public class DeleteCommand extends Command {
         this.targetNric = targetNric;
     }
 
-    //TODO test cases
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
