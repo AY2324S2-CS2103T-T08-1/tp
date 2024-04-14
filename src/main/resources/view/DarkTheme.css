@@ -326,6 +326,7 @@
     -fx-font-family: "Roboto";
     -fx-font-size: 16pt;
     -fx-text-fill: white;
+    -fx-prompt-text-fill: white;
 }
 
 #filterField, #personListPanel, #personWebpage {

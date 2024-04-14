@@ -234,7 +234,7 @@ This `deleteinfo` command is facilitated by `DeleteInfoCommand` and `DeleteInfoC
 * `DeleteInfoCommandParser#parse` is responsible for parsing the user input and creating a new `DeleteInfoCommand` instance.
 * `DeleteInfoCommand#execute` is responsible for executing the command and removing the field of information from the patient.
 * `Model#setField` where `Field` refers to whichever field specified to be deleted, is responsible for removing the field of information from the patient.
-`DeleteInfoCommand` checks if the patient exists in the system before removing the field of information.
+  `DeleteInfoCommand` checks if the patient exists in the system before removing the field of information.
 * `ModelManager#hasPerson(Person)` is called to check if the patient already exists in the system. It calls `ImmuniMate.hasPerson(Person)` which calls `UniquePersonList#contains(Person)` to check if the patient already exists in the internal list of patients.
 
 Step 1. `DeleteInfoCommandParser` interprets the user's input for NRIC and the fields to be deleted, and creates a new `DeleteInfoCommand` instance.
@@ -250,6 +250,26 @@ The sequence diagram for how the deleteinfo operation goes through the Model Com
 
 ### Read a patient's information
 #### Proposed Implementation
+The `read` feature allows users to read a patient profile by providing NRIC through a command. This patient data is then displayed.
+The `read` command is facilitated by `ReadCommand` and `ReadCommandParser`. They extend the `Command` and `Parser` classes respectively, displaying patient profile from an instance of `Person` from the `UniquePersonList`.
+
+* `ReadCommandParser#parse` is responsible for parsing the user input and creating a new `ReadCommand` instance.
+* `ReadCommand#execute` is responsible for executing the command and displaying the patient profile from the system.
+  `ReadCommand` checks if the patient exists in the system before displaying patient profile.
+* `ModelManager#hasPerson(Person)` is called to check if the patient exists in the system. It calls `ImmuniMate.hasPerson(Person)` which calls `UniquePersonList#contains(Person)` to check if the patient already exists in the internal list of patients.
+* `Model#updateFilteredPersonList(Predicate)` and is called to update the list to be of patient with specified NRIC in the system.
+* `Model#getFilteredPersonList()` is called to get the list of patient with specified NRIC in the system.
+* `Observablelist<Persons>#get(int)` is called to obtain `Person` object of patient with speicified NRIC.  
+Step 1. `ReadCommandParser` interprets the user's input for NRIC, and creates a new `ReadCommand` instance.
+Step 2. The `ReadCommand#execute` is called by the `LogicManager`. The `ReadCommand` checks if the patient exists in the system by calling `model.hasPerson(person)`.
+Step 3. If the patient exists, the patient is obtained from the system by calling `model.updateFilteredPersonList(person)`, followed by calling `model.getFilteredPersonList()` and `Observablelist<Persons>#get(int)`.
+Step 4: After the patient is obtained, the `ReadCommand` formats the patient profile by calling `Messages.format(person)` and returns the appropriate `CommandResult` to indicate the success of the operation.
+
+The following sequence diagram shows how a delete operation goes through the Logic component:
+![ReadState1](images/ReadCommandSequenceDiagram.png)
+How a read operation goes through the Model component is shown below:
+![ReadState2](images/ReadCommandModelDiagram.png)
+
 
 ### Find patient
 #### Proposed Implementation
@@ -286,6 +306,25 @@ Step 7. `model.setPerson()` then replaces the retrieved `Person` object with the
 
 ### Check a patient's visit history
 #### Proposed Implementation
+The `check` feature allows users to check the visit history of a patient by providing NRIC through a command. This patient visit history is then displayed.
+The `check` command is facilitated by `CheckCommand` and `CheckCommandParser`. They extend the `Command` and `Parser` classes respectively, displaying patient visit history from list of `Visit` from the `UniqueVisitList`.
+
+* `CheckCommandParser#parse` is responsible for parsing the user input and creating a new `CheckCommand` instance.
+* `CheckCommand#execute` is responsible for executing the command and displaying the patient visit history from the system.
+  `CheckCommand` checks if the patient exists in the system before displaying patient visit history.
+* `ModelManager#hasPerson(Person)` is called to check if the patient exists in the system. It calls `ImmuniMate.hasPerson(Person)` which calls `UniquePersonList#contains(Person)` to check if the patient already exists in the internal list of patients.
+* `Model#updateFilteredPersonList(Predicate)` is called to get the list of patient with specified NRIC in the system.
+* `Model#updateFilteredVisitList(Predicate)` is called to get the list of visits with specified NRIC in the system.
+  Step 1. `CheckCommandParser` interprets the user's input for NRIC, and creates a new `CheckCommand` instance.
+  Step 2. The `CheckCommand#execute` is called by the `LogicManager`. The `CheckCommand` checks if the patient exists in the system by calling `model.hasPerson(person)`.
+  Step 3. If the patient exists, the patient is obtained from the system by calling `model.updateFilteredPersonList(pred)`, followed by calling `model.getFilteredPersonList()` and `Observablelist<Persons>#get(int)`.
+  Step 4: Patient visit history is obtained from the system by calling `model.updateFilteredVisitList(pred)`, followed by `model.getFilteredVisitList()`.
+  Step 5: After the patient visit history is obtained, the `CheckCommand` formats the patient visit history by calling `Messages.formatCheck(visit)` and returns the appropriate `CommandResult` to indicate the success of the operation.
+
+The following sequence diagram shows how a delete operation goes through the Logic component:
+![ReadState1](images/CheckCommandSequenceDiagram.png)
+How a check operation goes through the Model component is shown below:
+![ReadState2](images/CheckCommandModelDiagram.png)
 
 ### Check for clusters
 #### Proposed Implementation
