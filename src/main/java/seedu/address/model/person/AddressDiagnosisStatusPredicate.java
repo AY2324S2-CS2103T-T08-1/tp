@@ -57,6 +57,7 @@ public class AddressDiagnosisStatusPredicate implements Predicate<Person> {
         AddressDiagnosisStatusPredicate otherAddressAndStatusPredicate =
                 (AddressDiagnosisStatusPredicate) other;
         return address.equals(otherAddressAndStatusPredicate.address)
+                && disease.equals(otherAddressAndStatusPredicate.disease)
                 && status.equals(otherAddressAndStatusPredicate.status);
     }
 
@@ -64,6 +65,7 @@ public class AddressDiagnosisStatusPredicate implements Predicate<Person> {
     public String toString() {
         return new ToStringBuilder(this)
                 .add("address", address)
+                .add("disease", disease)
                 .add("status", status)
                 .toString();
     }
