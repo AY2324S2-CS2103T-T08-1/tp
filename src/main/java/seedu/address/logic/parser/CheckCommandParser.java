@@ -26,7 +26,7 @@ public class CheckCommandParser implements Parser<CheckCommand> {
         }
 
         try {
-            return new CheckCommand(new Nric(trimmedArg));
+            return new CheckCommand(new Nric(trimmedArg.toUpperCase()));
         } catch (IllegalArgumentException e) {
             throw new ParseException(
                     String.format("%s", e.getMessage()));

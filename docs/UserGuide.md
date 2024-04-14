@@ -15,11 +15,14 @@ It's your secure, centralized hub where you can access all your patients' medica
 ImmuniMate is designed for healthcare professionals (doctors, nurses etc.) and healthcare staff (clinic receptionist etc.) longing to leverage the efficiencies of the 21st century, who:
 
 * have basic experience in using computers
-* have a computer with sufficient space (~40 MB)
-* are comfortable with typing on a regular basis
+* have a computer with sufficient space (~50 MB)
+* are comfortable typing on a regular basis
 * have no serious colour vision deficiencies (can differentiate red, yellow and green)
 
-If you ticked all the points above, great! This user guide will equip you with the knowledge to unlock the full potential of ImmuniMate, from guidelines on how to use this guide, to getting started with the app, to tutorials on its comprehensive set of features.
+If you ticked all the points above, great!
+This user guide is here as your helping hand, imparting knowledge to unlock the full potential of ImmuniMate.
+You can start with learning to navigate this guide effectively by viewing guidelines on how to use this guide.
+After that, get started with ImmuniMate by following our step-by-step setup instructions, before really getting involved through short tutorials on its comprehensive set of features.
 Get ready to:
 
 * Enhance Patient Care: Deliver faster, more informed consultations with easy access to vital information.
@@ -55,6 +58,41 @@ The table of contents just before this section breaks down the guide into its co
 6. Known issues
    * descriptions on issues with ImmuniMate that have been spotted, but not fixed
 
+<br>
+
+Navigating a complex document can be time-consuming, and we understand.
+That's why we've placed hyperlinks throughout this article (like [this one](#command-summary), to the command summary), so that any information you need is truly at your fingertips.
+
+Sometimes, certain instructions might sound very new or contain too many technical terms, which is why we also positioned a few "**TIP**" snippets below them, so that you'll never have to fret about the intricacies of ImmuniMate.
+
+<br>
+
+ImmuniMate comes with an abundant set of features, each of which we have taken great care to explain in great detail.
+Below is the formatting you can expect to see for an explanation of each feature:
+
+### (what this feature does) : `(command word)`
+
+(more specific explanation of feature function)
+
+Format: `(exact usage format with command words and fields)`
+* (format detail 1)
+* (format detail 2)
+* ...
+
+Examples:
+* `(correct use case 1)`
+  * (consequence)
+* `(correct use case 2)`
+  * (consequence)
+* ...
+
+Common mistakes:
+* `wrong use case 1` (reason)
+* `wrong use case 2` (reason)
+* ...
+
+<br>
+
 Throughout this guide, there might be some terms that you might not be familiar with, and that's fine.
 Here's a table of some technical terms you'll see further in the guide:
 
@@ -67,6 +105,8 @@ Here's a table of some technical terms you'll see further in the guide:
 | **GUI**              | Short for "Graphical User Interface". The digital interface in which user interact with graphical components, such as icons and buttons.                                                                                                                            |
 | **CLI**              | Short for "Command Line Interface". A software mechanism you use to interact with the application using your keyboard.                                                                                                                                              |
 
+-----------------------------------------------------------------
+
 ## Product Information
 
 ImmuniMate is a desktop application for healthcare professionals and staff to better store and manage their patients' personal and medical information.
@@ -76,25 +116,30 @@ ImmuniMate is compatible with Windows, Linux and MacOS operating systems, and in
 It has an eye-catching GUI to capture your attention, but despite that, all interactions with ImmuniMate happen through the command line interface (CLI).
 This means each feature of ImmuniMate is only accessible through typing a command into the command box in its specified format, and pressing "Enter" to get a response.
 
+Here is a graphic on components of the GUI and their functions:
+<br>
+<br>
+<img src="images/GUIDetailed.png" alt="help message" width="500"/>
+
 The list of commands and their formats are specified below:
 
 ### Command summary
 
-| Action                 | Format, Examples                                                                                                                                                                                                                                                                                                                                                      |
-|------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **Create**             | `create <ic/NRIC> <n/Patient_Name> <hp/Phone_Number> a/<Address> <dob/Date_of_birth> <s/Sex> <st/Status> [e/Email] [c/Country_of_Nationality] [doa/Date_of_Admission] [bt/Blood type] [al/Allergies] [con/Condition] [sym/Symptom] [d/diagnosis]` <br> e.g., `create ic/S1234567A n/John Doe hp/98765432 a/311, Clementi Ave 2, #02-25 dob/1990-01-01 s/M st/PENDING` |
-| **Read**               | `read <NRIC>` <br> e.g., `read S1234567A`                                                                                                                                                                                                                                                                                                                             |
-| **Update**             | `update <NRIC> <Field>/<Content>` <br> e.g., `update S1234567A hp/91234567 e/jd123@example.com`                                                                                                                                                                                                                                                                       |
-| **Find**               | `find n/<Part_of_name> <Part_of_name> <Part_of_name>` <br> e.g., `find n/Alex Bryan Charlie` <br> `find a/<Part_of_Address>, <Part_of_Address>, <Part_of_Address>, ...` <br> e.g., `find a/Serangoon, Geylang` <br> `find con/<Part_of_Condition>, <Part_of_Condition>, <Part_of_Condition>, ...` <br> e.g., `find con/Covid, Ebola`                                  |
-| **Delete Patient**     | `delete <NRIC>`<br> e.g., `delete S1234567A`                                                                                                                                                                                                                                                                                                                          |
-| **Delete Information** | `deleteinfo <NRIC> <Field>` <br> e.g., `deleteinfo S1234567A e/`                                                                                                                                                                                                                                                                                                      |
-| **Add Visit**          | `addvisit ic/<NRIC> dov/<Date_of_Visit> sym/<Symptoms> d/<Diagnosis> st/<Status>` <br> e.g., `addvisit ic/S1234567A dov/2024-01-01 sym/Cough d/Covid st/UNWELL`                                                                                                                                                                                                       |
-| **Check**              | `check <NRIC>` <br> e.g., `check S1234567A`                                                                                                                                                                                                                                                                                                                           |
-| **Find Cluster**       | `cluster <cluster size> a/<Part_of_Address> d/<Diagnosis>` <br> e.g. `cluster 3 a/Serangoon d/dengue`                                                                                                                                                                                                                                                                 |
-| **Clear**              | `clear`                                                                                                                                                                                                                                                                                                                                                               |
-| **List**               | `list`                                                                                                                                                                                                                                                                                                                                                                |
-| **Help**               | `help`                                                                                                                                                                                                                                                                                                                                                                |
-| **Exit**               | `exit`                                                                                                                                                                                                                                                                                                                                                                |
+| Action                                                                  | Format, Examples                                                                                                                                                                                                                                                                                                                                                      |
+|-------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **[Create](#creating-a-patient-profile-create)**                        | `create <ic/NRIC> <n/Patient_Name> <hp/Phone_Number> a/<Address> <dob/Date_of_birth> <s/Sex> <st/Status> [e/Email] [c/Country_of_Nationality] [doa/Date_of_Admission] [bt/Blood type] [al/Allergies] [con/Condition] [sym/Symptom] [d/diagnosis]` <br> e.g., `create ic/S1234567A n/John Doe hp/98765432 a/311, Clementi Ave 2, #02-25 dob/1990-01-01 s/M st/PENDING` |
+| **[Read](#read-specific-patients-read)**                                | `read <NRIC>` <br> e.g., `read S1234567A`                                                                                                                                                                                                                                                                                                                             |
+| **[Update](#updating-a-patient-profile-update)**                        | `update <NRIC> <Field>/<Content>` <br> e.g., `update S1234567A hp/91234567 e/jd123@example.com`                                                                                                                                                                                                                                                                       |
+| **[Find](#finding-patients-by-name-find)**                              | `find n/<Part_of_name> <Part_of_name> <Part_of_name>` <br> e.g., `find n/Alex Bryan Charlie` <br> `find a/<Part_of_Address>, <Part_of_Address>, <Part_of_Address>, ...` <br> e.g., `find a/Serangoon, Geylang` <br> `find con/<Part_of_Condition>, <Part_of_Condition>, <Part_of_Condition>, ...` <br> e.g., `find con/Covid, Ebola`                                  |
+| **[Delete Patient](#deleting-a-patient-delete)**                        | `delete <NRIC>`<br> e.g., `delete S1234567A`                                                                                                                                                                                                                                                                                                                          |
+| **[Delete Information](#deleting-information-of-a-patient-deleteinfo)** | `deleteinfo <NRIC> <Field>` <br> e.g., `deleteinfo S1234567A e/`                                                                                                                                                                                                                                                                                                      |
+| **[Add Visit](#add-patient-visit-to-history-addvisit)**                 | `addvisit ic/<NRIC> dov/<Date_of_Visit> sym/<Symptoms> d/<Diagnosis> st/<Status>` <br> e.g., `addvisit ic/S1234567A dov/2024-01-01 sym/Cough d/Covid st/UNWELL`                                                                                                                                                                                                       |
+| **[Check](#check-patient-history-check)**                               | `check <NRIC>` <br> e.g., `check S1234567A`                                                                                                                                                                                                                                                                                                                           |
+| **[Find Cluster](#cluster-finding-cluster)**                            | `cluster <cluster size> a/<Part_of_Address> d/<Diagnosis>` <br> e.g. `cluster 3 a/Serangoon d/dengue`                                                                                                                                                                                                                                                                 |
+| **[Clear](#clearing-all-entries-clear)**                                | `clear`                                                                                                                                                                                                                                                                                                                                                               |
+| **[List](#listing-all-patients-list)**                                  | `list`                                                                                                                                                                                                                                                                                                                                                                |
+| **[Help](#viewing-help-help)**                                          | `help`                                                                                                                                                                                                                                                                                                                                                                |
+| **[Exit](#exiting-the-program-exit)**                                   | `exit`                                                                                                                                                                                                                                                                                                                                                                |
 
 
 The list of fields and their formats are specified below:
@@ -120,16 +165,26 @@ The list of fields and their formats are specified below:
 | **Diagnosis**              | `d/`   | Any text. Blank or empty text is not accepted.                                                                                                                                     | No   |
 | **Date of visit**          | `dov/` | `yyyy-MM-dd` format.                                                                                                                                                               | No   |
 
+----------------------------------------------------------------
 
 ## Quick start
 
-1. Ensure you have Java `11` or above installed in your Computer. Java can be downloaded from [here](https://www.oracle.com/sg/java/technologies/downloads/).
+1. Ensure you have Java `11` or above installed in your computer.<br>
+**TIP**: Don't worry if you don't have Java 11 installed yet!
+The Java Development Kit (kind of like an installer) can be downloaded from [here](https://www.oracle.com/sg/java/technologies/downloads/#java11).
+Take great care in downloading the one which suits your operating system (Linux, Windows, MacOS etc).
 
-2. Download the latest `immuniMate.jar` from [here](https://github.com/AY2324S2-CS2103T-T08-1/tp/releases).
+![Java website](images/JavaWebsite.png)
+
+2. Download the latest `immuniMate.jar` from [our website](https://github.com/AY2324S2-CS2103T-T08-1/tp/releases).
+
+<img src="images/GithubReleasePage.png" alt="help message" width="500"/>
 
 3. Copy the file to the folder you want to use as the _home folder_ for your ImmuniMate.
 
-4. Open a command terminal, `cd` into the folder you put the jar file in, and type `java -jar immuniMate.jar` and press "Enter" to run the application.<br>
+4. Open a command terminal, and `cd` into the folder you put the jar file in.<br>
+**TIP**: `cd` is a Linux command. New to Linux? You can learn the basics fast from [here](https://ubuntu.com/tutorials/command-line-for-beginners#1-overview).
+5. Type `java -jar immuniMate.jar` and press "Enter" to run the application.<br>
    A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data. The colored circle on the right of each patient's name is the status indicator. For more information about the status indicator, see [create](#creating-a-patient-profile-create).<br>
    ![Ui](images/GUI.png)
 
@@ -140,13 +195,13 @@ The list of fields and their formats are specified below:
 
    * `create ic/S0123456A n/John Doe hp/98765432 e/johnd@example.com a/311, Clementi Ave 2, #02-25 dob/1990-01-01 s/M st/PENDING` : Adds a patient named `John Doe` to ImmuniMate.
 
-   * `delete S0123456A` : Deletes all infromation of the patient with corresponding NRIC.
+   * `delete S0123456A` : Deletes all information of the patient with corresponding NRIC.
 
    * `clear` : Deletes all patients.
 
    * `exit` : Exits the app.
 
-6. Refer to the [Features](#features) below for details of each command.
+**TIP**: Refer to the [Features](#features) section below for details of each command.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -174,7 +229,9 @@ The list of fields and their formats are specified below:
 * If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
 </div>
 
-### Viewing help : `help`
+<br>
+
+### Viewing help: `help`
 
 Shows a message explaining how to access the help page.
 
@@ -182,6 +239,15 @@ Shows a message explaining how to access the help page.
 
 Format: `help`
 
+<br>
+
+### Listing all patients: `list`
+
+Shows all patients in ImmuniMate.
+
+Format: `list`
+
+<br>
 
 ### Creating a patient profile: `create`
 
@@ -195,19 +261,17 @@ Format: `create ic/<NRIC> n/<Patient_Name> hp/<Phone_Number> a/<Address> dob/<Da
 
 Examples:
 * `create ic/S1234567A n/John Doe hp/98765432 a/311, Clementi Ave 2, #02-25 dob/1990-01-01 s/M st/PENDING`
-* `create ic/S0123456A hp/87654321 a/311, Clementi Ave 2, #02-25 dob/1990-01-01 s/F st/PENDING e/janed@example.com bt/A+ n/Jane Doe`, 
+* `create ic/S0123456A hp/87654321 a/311, Clementi Ave 2, #02-25 dob/1990-01-01 s/F st/PENDING e/janed@example.com bt/A+ n/Jane Doe`
+
+![Create Command Result](images/CreateCommandResult.png)
 
 Common mistakes:
 * `create n/John Doe hp/98765432 a/311, Clementi Ave 2, #02-25 dob/1990-01-01 s/M st/PENDING` (missing NRIC)
 * `create ic/S1234567A n/John Doe hp/98765432 a/311, Clementi Ave 2, #02-25 dob/1990-2-30 s/M st/PENDING` (Wrong date format)
 
-### Listing all patients : `list`
+<br>
 
-Shows all patients in ImmuniMate.
-
-Format: `list`
-
-### Read specific patients : `read`
+### Read specific patients: `read`
 
 Shows all profile details of patient with corresponding NRIC.
 
@@ -215,13 +279,16 @@ Format: `read <NRIC>`
 * The NRIC must follow the correct format specified in [Field Summary](#field-summary).
 
 Examples:
-* `read S1234567A`
+* `read t0234567c`
+
+![Read Command Result](images/ReadCommandResult.png)
   
 Common mistakes:
 * `read S12345678` (wrong NRIC format)
 
+<br>
 
-### Updating a patient's profile : `update`
+### Updating a patient profile: `update`
 
 Updates information of a patient with an existing profile in ImmuniMate.
 
@@ -231,7 +298,9 @@ Format: `update <NRIC> <Field>/CONTENT`
 * At least one of the fields must be provided.
 * NRIC cannot be updated, all other values can be updated.
 * Existing values will be updated to the input values.
-* Refer to the [Field Summary](#field-summary) for a list of fields and their formats.
+* Refer to the [Field Summary](#field-summary) for a list of fields and their formats.<br>
+**TIP**: Just finished a consultation with a patient?
+You can update related fields together, like changing the patient's diagnosis to "coronavirus" while changing the status to "UNWELL".
 
 Examples:
 *  `update S1234567A hp/91234567 e/jd123@example.com`
@@ -239,9 +308,13 @@ Examples:
 *  `update S0123456A a/123 Serangoon Road`
     * Updates the address of the corresponding patient to be `123 Serangoon Road`.
 
+<img src="images/UpdateCommandResult.png" alt="result for 'find alex david'" width="800"/>
+
 Common mistakes:
 * `update S1234567A ic/T1234567A` (NRIC cannot be updated)
 * `update S1234567A` (no field specified)
+
+<br>
 
 ### Finding patients by name: `find`
 
@@ -252,6 +325,7 @@ Format: `find n/<NAME> [NAME] [NAME] ...`
 * The search is case-insensitive. e.g. `hans` will match `Hans`.
 * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`.
 * Only the name field in each patient profile is searched.
+* At least one name must be provided.
 * Only full words will be matched e.g. `Han` will not match `Hans`.
 * Patients matching at least one keyword will be returned (i.e. `OR` search).
   e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`.
@@ -259,21 +333,24 @@ Format: `find n/<NAME> [NAME] [NAME] ...`
 
 Examples:
 * `find n/John`
-  * Returns `John Major` and `John Doe`.
+  * Returns `John Dolly` and `John Doe`.
 * `find n/alex david`
   * Returns `Alex Yeoh`, `David Li`.<br>
-    <img src="images/findAlexDavid.png" alt="result for 'find alex david'" width="800"/>
 
+<img src="images/FindNameCommandResult.png" alt="result for 'find alex david'" width="800"/>
+
+<br><br>
 
 ### Finding patients by address: `find`
 
 Finds patients whose addresses contain any of the given keywords.
 
-Format: `find a/[LOCATION], [LOCATION], [LOCATION], ...`
+Format: `find a/<LOCATION>, [LOCATION], [LOCATION], ...`
 
 * The search is case-insensitive. e.g. `serangoon` will match `Serangoon`.
 * The order of the keywords does matter. e.g. `Clementi Ave` will not match `Ave Clementi`.
 * Only the address field in each patient profile is searched.
+* At least one location must be provided.
 * Partial words will be matched e.g. `Clem` will match `Clementi`.
 * Patients matching at least one keyword will be returned (i.e. `OR` search). 
   e.g. `Clementi, Serangoon` will return patients with address containing `Serangoon` or `Clementi`.
@@ -286,38 +363,45 @@ Examples:
   * Returns `Alex Yeoh`, `Bernice Yu`, `David Li`.
 * `find a/Serangoon`
   * Returns `Bernice Yu`, `David Li`.<br>
-    <img src="images/findSerangoon.png" alt="result for 'find serangoon'" width="800"/>
 
+<img src="images/FindAddressCommandResult.png" alt="result for 'find serangoon'" width="800"/>
+
+<br><br>
 
 ### Finding patients by condition: `find`
 
 Finds patients whose conditions contain any of the given keywords.
 
-Format: `find con/[CONDITION], [CONDITION], [CONDITION], ...`
+Format: `find con/<CONDITION>, [CONDITION], [CONDITION], ...`
 
-* The search is case-insensitive. e.g. `covid` will match `Covid`.
+* The search is case-insensitive. e.g. `diabetes` will match `Diabetes`.
 * The order of the keywords does matter. e.g. `Stomach Flu` will not match `Flu Stomach`.
 * Only the condition is searched.
-* Partial words will be matched e.g. `Cov` will match `Covid`.
+* At least one condition must be provided.
+* Partial words will be matched e.g. `diab` will match `Diabetes`.
 * Patients matching at least one keyword will be returned (i.e. `OR` search).
-  e.g. `Covid, Dengue` will return patients with address containing `Covid` or `Dengue`.
+  e.g. `Diabetes, Myopia` will return patients with address containing `Diabetes` or `Myopia`.
 * Conditions must be separated by commas, and whitespaces before and after each condition will be ignored.
 
 Examples:
-* `find con/covid, dengue, ebola`
+* `find con/diabetes, high blood pressure`
+
+<img src="images/FindConditionCommandResult.png" alt="result for 'find serangoon'" width="800"/>
 
 Common mistakes:
-* `find ic/S1234567X` (only condition, name and address can be searched with find)
-  * If you would like to find a person with NRIC, use the `read` command instead.
+* `find ic/S1234567X` (only condition, name and address can be searched with find)<br>
+**TIP**: If you would like to find a person with NRIC, use the `read` command instead.
 
-### Deleting a patient : `delete`
+<br>
+
+### Deleting a patient: `delete`
 
 Deletes the specified patient from ImmuniMate.
 
 Format: `delete <NRIC>`
 
 * Deletes the profile of the patient with the corresponding NRIC.
-* The NRIC must follow the correct format as specified in [Field summary](#field-summary).
+* The NRIC must follow the correct format as specified in [Field Summary](#field-summary).
 
 Examples:
 * `delete S1234567A`
@@ -327,7 +411,9 @@ Common mistakes:
 * `delete S12345678` (NRIC must be in the correct format)
 * `delete` (NRIC must be provided)
 
-### Deleting information of a patient : `deleteinfo`
+<br>
+
+### Deleting information of a patient: `deleteinfo`
 
 Deletes specified optional information from the specified person from ImmuniMate.
 
@@ -347,7 +433,9 @@ Common mistakes:
 * `deleteinfo S1234567A ic/` (mandatory fields cannot be deleted)
   * If mandatory fields are to be changed, the `update` command should be used.
 
-### Add patient's visit to history : `addvisit`
+<br>
+
+### Add patient visit to history: `addvisit`
 
 Adds visit to patient history. 
 
@@ -361,10 +449,15 @@ Examples:
 * `addvisit ic/S0123456A dov/2024-02-02 sym/Fever,Rashes d/Dengue st/PENDING`
   * Adds a visit to history of patient uniquely identified by NRIC S0123456A. During this visit on 2024-02-02, the patient had a fever and rashes. The doctor suspects the patient has dengue, but is unable to come to a conclusion, hence the `PENDING` status.
 
+![Add Visit Result](images/AddVisitCommandResult.png)
+
 Common mistakes:
 * `addvisit ic/S7654321X dov/2024-01-01 sym/Cough d/Covid st/` (NRIC must belong to a person existing in the system)
 * `addvisit ic/S1234567A a/#101 Hougang Ave` (fields other than date of visit, symptoms, diagnosis and status cannot be added)
-### Check patient history : `check`
+
+<br>
+
+### Check patient history: `check`
 
 Checks all visits in patient history.
 
@@ -372,13 +465,17 @@ Format: `check <NRIC>`
 * NRIC must be that of a patient already in ImmuniMate.
 
 Example:
-* `check S1234567A`
+* `check T0234567C`
   * Displays all visits in history of patient uniquely identified by NRIC S1234567A.
+
+![Check Command Result](images/CheckCommandResult.png)
 
 Common mistakes:
 * `check S12345678` (NRIC must be in the correct format, and must exist in the system)
 
-### Cluster finding : `cluster`
+<br>
+
+### Cluster finding: `cluster`
 
 Shows whether or not the number of people **unwell** with the illness given (diagnosis in profile) in the location given is at least the integer given, and lists the people there with the illness. 
 
@@ -392,7 +489,9 @@ Format: `cluster <CLUSTER SIZE> a/<LOCATION> d/<DIAGNOSIS>`
 
 Example:
 * `cluster 3 a/Serangoon d/dengue`
-  * Shows if there are at least 3 people unwell with dengue in locations with the substring "Serangoon". 
+  * Shows if there are at least 3 people unwell with dengue in locations with the substring "Serangoon".
+
+![Cluster Command Result](images/ClusterCommandResult.png)
 
 Common mistakes:
 * `cluster 3 a/S d/dengue` (address should be a meaningful word or phrase indicative of a location in Singapore)
@@ -401,30 +500,42 @@ Common mistakes:
 * `cluster 0 a/Serangoon d/dengue` (a positive cluster size must be provided)
 * `cluster 30.5 a/Serangoon d/dengue` (an integer cluster sizet must be provided)
 
-### Clearing all entries : `clear`
+<br>
+
+### Clearing all entries: `clear`
 
 Clears all profiles from ImmuniMate.
 
 Format: `clear`
 
-### Exiting the program : `exit`
+<br>
+
+### Exiting the program: `exit`
 
 Exits the program.
 
 Format: `exit`
+
+<br>
 
 ### Command History
 ImmuniMate allows you to navigate through your previous commands so you can easily reuse them without having to
 retype them entirely. To navigate through the Command History, use the Up Arrow Key to view a previous command, and use the Down
 Arrow Key to view the next command. The Up and Down Arrow Keys can be found on the Arrow Keys.
 
+![Keyboard Arrow Keys](images/KeyboardArrowKeys.png)
+
 **Notes:**
-1. The Command History only saves valid commands, it does not save commands that were unsuccessful
+1. The Command History only saves valid commands, it does not save commands that were unsuccessful.
 2. The Command History is temporary and will not be stored in between sessions. When you close an instance of ImmuniMate, your Command History is cleared.
+
+<br>
 
 ### Saving the data
 
 ImmuniMate data is saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
+
+<br>
 
 ### Editing the data file
 
@@ -434,6 +545,8 @@ ImmuniMate data are saved automatically as a JSON file `[JAR file location]/data
 If your changes to the data file makes its format invalid, ImmuniMate will discard all data and start with an empty data file at the next run. Hence, it is recommended to take a backup of the file before editing it.<br>
 Furthermore, certain edits can cause ImmuniMate to behave in unexpected ways (e.g., if a value entered is outside of the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
 </div>
+
+<br>
 
 ### Archiving data files `[coming in v2.0]`
 
@@ -462,11 +575,18 @@ If your name has any special characters, kindly remove them for compliance. For 
 **Q**: Help, I can't add multiple patient visits a day!<br>
 **A**: This is intended behaviour. Patients are assumed to only have a single visit a day.
 
+**Q**: Why can I assign multiple patient profiles with the same phone number?<br>
+**A**: This is intended behaviour. We understand there might be some patients (elderly, young children, disabled etc) who might be dependent on their family members or guardians for their day-to-day tasks. These family members and guardians might themselves be patients of the same clinic, hence the flexibility in recording phone numbers.
+
+**Q**: Why is it when I update a patient's diagnosis, his/her status is not automatically updated to "UNWELL"?<br>
+**A**: This is intended behaviour. We wish to leave it to your expertise to determine when a patient has truly contracted a disease, as there are some ambiguous cases which might not necessitate an "UNWELL" status, such as asymptomatic coronavirus cases.
+
 --------------------------------------------------------------------------------------------------------------------
 
 ## Known issues
 
 1. **When using multiple screens**, if you move the application to a secondary screen, and later switch to using only the primary screen, the GUI will open off-screen. The remedy is to delete the `preferences.json` file created by the application before running the application again.
-2. **When using the `cluster` command**, search is purely based on text, which means inputting "ave" will find all patients whose addresses contain"ave", although they do not form a cluster. We suggest users to input text indicative of location, such as "Hougang".
-3. **The `email` field** is case-sensitive, but in practical usage, email is case-insensitive.
-4. **The `country` field** does not limit the input to alphabetical characters and is case-sensitive, which may lead to incorrect data entry.
+2. **When using the `cluster` command**, search is purely based on text, which means inputting "ave" will find all unwell patients whose addresses contain "ave", despite the addresses not necessarily being close to one another. We suggest users to input text indicative of location, such as "Hougang".
+3. **The `country` field** does not limit the input to alphabetical characters and is case-insensitive, which may lead to incorrect data entry.
+4. **The `email` field** is case-sensitive, but in practical usage, email is case-insensitive.
+5. **The `NRIC` field** cannot yet take NRIC numbers starting with F, G or M, which might cause inconvenience to a small segment of the Singapore population.
