@@ -71,6 +71,7 @@ public class ImmuniMate implements ReadOnlyImmuniMate {
         requireNonNull(newData);
 
         setPersons(newData.getPersonList());
+        setVisits(newData.getVisitList());
     }
 
     //// person-level operations

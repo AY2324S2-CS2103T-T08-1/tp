@@ -35,8 +35,9 @@ public class ModelManager implements Model {
 
         this.immuniMate = new ImmuniMate(immuniMate);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredPersons = new FilteredList<>(this.immuniMate.getPersonList());
         filteredVisits = new FilteredList<>(this.immuniMate.getVisitList());
+        filteredPersons = new FilteredList<>(this.immuniMate.getPersonList());
+
     }
 
     public ModelManager() {
