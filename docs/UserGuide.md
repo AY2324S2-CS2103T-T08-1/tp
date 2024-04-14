@@ -417,9 +417,11 @@ Common mistakes:
 
 Deletes specified optional information from the specified person from ImmuniMate.
 
-Format: `deleteinfo <NRIC> <Field>`
+Format: `deleteinfo <NRIC> <Field> [Field] [Field] ...`
 
 * Deletes specified information of the patient with corresponding NRIC.
+* The NRIC must follow the correct format as specified in [Field Summary](#field-summary).
+* Only fields specified as optional in the [Field Summary](#field-summary) can be deleted.
 
 Examples:
 * `deleteinfo S1234567A e/`
@@ -430,8 +432,8 @@ Examples:
 Common mistakes:
 * `deleteinfo S1234567A abc/` (a valid optional field from the [Field Summary](#field-summary) must be provided)
 * `deleteinfo S1234567A` (a field must be provided)
-* `deleteinfo S1234567A ic/` (mandatory fields cannot be deleted)
-  * If mandatory fields are to be changed, the `update` command should be used.
+* `deleteinfo S1234567A ic/` (mandatory fields cannot be deleted)<br>
+**TIP**: If you would like to change mandatory fields, you can use the `update` command instead.
 
 <br>
 
