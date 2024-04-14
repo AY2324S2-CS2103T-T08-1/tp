@@ -17,7 +17,7 @@ end box
 [-> CreateCommand : execute()
 activate CreateCommand
 
-CreateCommand -> ModelManager : hasPerson(p1)
+CreateCommand -> ModelManager : hasPerson(...)
 activate ModelManager
 
 ModelManager -> ImmuniMate: hasPerson(p1)

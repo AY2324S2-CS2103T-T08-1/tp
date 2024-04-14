@@ -53,6 +53,7 @@ DeleteInfoCommand -> Model : hasPerson(...)
 activate Model
 Model --> DeleteInfoCommand : false
 deactivate Model
+
 DeleteInfoCommand -> Model : setEmail(...)
 activate Model
 Model --> DeleteInfoCommand : set email of specified person to null
