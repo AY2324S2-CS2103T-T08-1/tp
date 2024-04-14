@@ -2,8 +2,11 @@
 !include style.puml
 skinparam ArrowFontStyle plain
 
+box Logic LOGIC_COLOR_T1
+participant "l:Logic" as CheckCommand LOGIC_COLOR
+end box
+
 box Model MODEL_COLOR_T1
-participant ":CreateCommand" as CreateCommand MODEL_COLOR
 participant ":ModelManager" as ModelManager MODEL_COLOR
 participant ":ImmuniMate" as ImmuniMate MODEL_COLOR
 participant ":UniquePersonList" as UniquePersonList MODEL_COLOR
@@ -11,10 +14,10 @@ participant "internalList: ObservableList<Person>" as internalList MODEL_COLOR
 participant "p:Person" as p MODEL_COLOR
 end box
 
-[-> CreateCommand : execute()
-activate CreateCommand
+[-> CheckCommand : execute()
+activate CheckCommand
 
-CreateCommand -> ModelManager : hasPerson(p)
+CheckCommand -> ModelManager : hasPerson(p)
 activate ModelManager
 
 ModelManager -> ImmuniMate: hasPerson(p)
@@ -41,9 +44,22 @@ deactivate UniquePersonList
 ImmuniMate --> ModelManager
 deactivate ImmuniMate
 
-ModelManager --> CreateCommand
+ModelManager --> CheckCommand
 deactivate ModelManager
 
-[<--CreateCommand
+CheckCommand -> ModelManager : updateFilteredPersonList(predicate)
+activate ModelManager
+
+ModelManager --> CheckCommand
+deactivate ModelManager
+
+CheckCommand -> ModelManager : updateFilteredVisitList(predicate)
+activate ModelManager
+
+ModelManager --> CheckCommand
+deactivate ModelManager
+
+[<--CheckCommand
+deactivate CheckCommand
 
 @enduml

@@ -1,0 +1,94 @@
+@startuml
+!include style.puml
+skinparam ArrowFontStyle plain
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
+participant ":CheckCommandParser" as CheckCommandParser LOGIC_COLOR
+participant "c:CheckCommand" as CheckCommand LOGIC_COLOR
+participant "r:CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant "m:Model" as Model MODEL_COLOR
+end box
+
+[-> LogicManager : execute("check T0123456A")
+activate LogicManager
+
+LogicManager -> AddressBookParser : parseCommand("check T0123456A")
+activate AddressBookParser
+
+create CheckCommandParser
+AddressBookParser -> CheckCommandParser
+activate CheckCommandParser
+
+CheckCommandParser --> AddressBookParser
+deactivate CheckCommandParser
+
+AddressBookParser -> CheckCommandParser : parse("T0123456A")
+activate CheckCommandParser
+
+create CheckCommand
+CheckCommandParser -> CheckCommand
+activate CheckCommand
+
+CheckCommand --> CheckCommandParser :
+deactivate CheckCommand
+
+CheckCommandParser --> AddressBookParser : c
+deactivate CheckCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+CheckCommandParser -[hidden]-> AddressBookParser
+destroy CheckCommandParser
+
+AddressBookParser --> LogicManager : c
+deactivate AddressBookParser
+
+LogicManager -> CheckCommand : execute(m)
+activate CheckCommand
+
+CheckCommand -> Model : hasPerson(...)
+activate Model
+
+Model --> CheckCommand : false
+deactivate Model
+
+CheckCommand -> Model : updateFilteredPersonList(...)
+activate Model
+
+Model --> CheckCommand : updateFilteredPersonList() successful
+deactivate Model
+
+CheckCommand -> Model : getFilteredPersonList()
+activate Model
+
+Model --> CheckCommand : Filtered person list
+deactivate Model
+
+CheckCommand -> Model : updateFilteredVisitList(...)
+activate Model
+
+Model --> CheckCommand : updateFilteredVisitList() successful
+deactivate Model
+
+CheckCommand -> Model : getFilteredVisitList()
+activate Model
+
+Model --> CheckCommand : Filtered visit list
+deactivate Model
+
+create CommandResult
+CheckCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> CheckCommand
+deactivate CommandResult
+
+CheckCommand --> LogicManager : r
+deactivate CheckCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

@@ -150,7 +150,7 @@ public class PersonBuilder {
     }
 
     /**
-     * Sets the {@code Phone} of the {@code Person} that we are building.
+     * Sets the {@code DateOfBirth} of the {@code DateOfBirth} that we are building.
      */
     public PersonBuilder withDateOfBirth(String dateOfBirth) {
         this.dateOfBirth = new DateOfBirth(dateOfBirth);
@@ -158,7 +158,7 @@ public class PersonBuilder {
     }
 
     /**
-     * Sets the {@code Sex} of the {@code Person} that we are building.
+     * Sets the {@code Sex} of the {@code Sex} that we are building.
      */
     public PersonBuilder withSex(String sex) {
         this.sex = new Sex(sex);
@@ -166,7 +166,7 @@ public class PersonBuilder {
     }
 
     /**
-     * Sets the {@code Status} of the {@code Person} that we are building.
+     * Sets the {@code Status} of the {@code Status} that we are building.
      */
     public PersonBuilder withStatus(String status) {
         this.status = new Status(status);
@@ -174,7 +174,7 @@ public class PersonBuilder {
     }
 
     /**
-     * Sets the {@code Phone} of the {@code Person} that we are building.
+     * Sets the {@code Email} of the {@code Email} that we are building.
      */
     public PersonBuilder withEmail(String email) {
         this.email = new Email(email);
@@ -182,7 +182,7 @@ public class PersonBuilder {
     }
 
     /**
-     * Sets the {@code Phone} of the {@code Person} that we are building.
+     * Sets the {@code Country} of the {@code Country} that we are building.
      */
     public PersonBuilder withCountry(String country) {
         this.country = new Country(country);
@@ -190,7 +190,7 @@ public class PersonBuilder {
     }
 
     /**
-     * Sets the {@code Phone} of the {@code Person} that we are building.
+     * Sets the {@code Allergies} of the {@code Allergies} that we are building.
      */
     public PersonBuilder withAllergies(String allergies) {
         this.allergies = new Allergies(allergies);
@@ -198,7 +198,7 @@ public class PersonBuilder {
     }
 
     /**
-     * Sets the {@code Phone} of the {@code Person} that we are building.
+     * Sets the {@code BloodType} of the {@code BloodType} that we are building.
      */
     public PersonBuilder withBloodType(String bloodType) {
         this.bloodType = new BloodType(bloodType);
@@ -206,7 +206,7 @@ public class PersonBuilder {
     }
 
     /**
-     * Sets the {@code Phone} of the {@code Person} that we are building.
+     * Sets the {@code Condition} of the {@code Condition} that we are building.
      */
     public PersonBuilder withCondition(String condition) {
         this.condition = new Condition(condition);
@@ -214,7 +214,7 @@ public class PersonBuilder {
     }
 
     /**
-     * Sets the {@code Phone} of the {@code Person} that we are building.
+     * Sets the {@code DateOfAdmission} of the {@code DateOfAdmission} that we are building.
      */
     public PersonBuilder withDateOfAdmission(String dateOfAdmission) {
         this.dateOfAdmission = new DateOfAdmission(dateOfAdmission);
@@ -222,7 +222,7 @@ public class PersonBuilder {
     }
 
     /**
-     * Sets the {@code Phone} of the {@code Person} that we are building.
+     * Sets the {@code Diagnosis} of the {@code Diagnosis} that we are building.
      */
     public PersonBuilder withDiagnosis(String diagnosis) {
         this.diagnosis = new Diagnosis(diagnosis);
@@ -230,7 +230,7 @@ public class PersonBuilder {
     }
 
     /**
-     * Sets the {@code Phone} of the {@code Person} that we are building.
+     * Sets the {@code Symptom} of the {@code Symptom} that we are building.
      */
     public PersonBuilder withSymptom(String symptom) {
         this.symptom = new Symptom(symptom);

@@ -96,7 +96,7 @@ public class TypicalPersons {
     /**
      * Returns an {@code AddressBook} with all the typical persons.
      */
-    public static ImmuniMate getTypicalAddressBook() {
+    public static ImmuniMate getTypicalPersonsAddressBook() {
         ImmuniMate ab = new ImmuniMate();
         for (Person person : getTypicalPersons()) {
             ab.addPerson(person);

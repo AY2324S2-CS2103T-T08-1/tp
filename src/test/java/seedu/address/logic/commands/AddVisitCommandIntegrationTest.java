@@ -17,7 +17,7 @@ import seedu.address.testutil.PersonBuilder;
 /**
  * Contains integration tests (interaction with the Model) for {@code AddCommand}.
  */
-public class CreateCommandIntegrationTest {
+public class AddVisitCommandIntegrationTest {
 
     private Model model;
 
@@ -27,7 +27,7 @@ public class CreateCommandIntegrationTest {
     }
 
     @Test
-    public void execute_newPerson_success() {
+    public void execute_newVisit_success() {
         Person validPerson = new PersonBuilder().build();
 
         Model expectedModel = new ModelManager(model.getImmuniMate(), new UserPrefs());

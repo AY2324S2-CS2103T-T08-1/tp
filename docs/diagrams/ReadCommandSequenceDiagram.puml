@@ -7,7 +7,7 @@ participant ":LogicManager" as LogicManager LOGIC_COLOR
 participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
 participant ":ReadCommandParser" as ReadCommandParser LOGIC_COLOR
 participant "r:ReadCommand" as ReadCommand LOGIC_COLOR
-participant "r:CommandResult" as CommandResult LOGIC_COLOR
+participant "c:CommandResult" as CommandResult LOGIC_COLOR
 end box
 
 box Model MODEL_COLOR_T1
@@ -49,10 +49,22 @@ deactivate AddressBookParser
 LogicManager -> ReadCommand : execute(m)
 activate ReadCommand
 
-ReadCommand -> Model
+ReadCommand -> Model : hasPerson(...)
 activate Model
 
-Model --> ReadCommand
+Model --> ReadCommand : false
+deactivate Model
+
+ReadCommand -> Model : updateFilteredPersonList(...)
+activate Model
+
+Model --> ReadCommand : updateFilteredPersonList() successful
+deactivate Model
+
+ReadCommand -> Model : getFilteredPersonList()
+activate Model
+
+Model --> ReadCommand : Filtered person list
 deactivate Model
 
 create CommandResult
@@ -62,7 +74,7 @@ activate CommandResult
 CommandResult --> ReadCommand
 deactivate CommandResult
 
-ReadCommand --> LogicManager :
+ReadCommand --> LogicManager : c
 deactivate ReadCommand
 
 [<--LogicManager

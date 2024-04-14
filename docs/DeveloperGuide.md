@@ -122,16 +122,10 @@ How the parsing works:
 
 The `Model` component,
 
-* stores the address book data i.e., all `Person` objects (which are contained in a `UniquePersonList` object).
+* stores the patient data i.e., all `Person` objects (which are contained in a `UniquePersonList` object).
 * stores the currently 'selected' `Person` objects (e.g., results of a search query) as a separate _filtered_ list which is exposed to outsiders as an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * stores a `UserPref` object that represents the user’s preferences. This is exposed to the outside as a `ReadOnlyUserPref` objects.
 * does not depend on any of the other three components (as the `Model` represents data entities of the domain, they should make sense on their own without depending on other components)
-
-<div markdown="span" class="alert alert-info">:information_source: **Note:** An alternative (arguably, a more OOP) model is given below. It has a `Tag` list in the `AddressBook`, which `Person` references. This allows `AddressBook` to only require one `Tag` object per unique tag, instead of each `Person` needing their own `Tag` objects.<br>
-
-<img src="images/BetterModelClassDiagram.png" width="450" />
-
-</div>
 
 
 ### Storage component
@@ -155,114 +149,129 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
-### \[Proposed\] Undo/redo feature
-
+### List all patients
 #### Proposed Implementation
 
-The proposed undo/redo mechanism is facilitated by `VersionedAddressBook`. It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`. Additionally, it implements the following operations:
+The `list` feature allows users to view all patients in the system through the `list` command. This patient data is then displayed in the system for the user to have an overview of all patients.
+The `list` command is facilitated by `ListCommand` which extends the `Command` classes, listing all instances in the `Model`.
 
-* `VersionedAddressBook#commit()` — Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` — Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` — Restores a previously undone address book state from its history.
+* `ListCommand#execute` is responsible for executing the command and listing all patients in the system.
+* `Model#updateFilteredPersonList()` is called to make the UI display all patients in the system.
 
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
+Step 1. `ListCommand#execute` is called by the `LogicManager`. The `ListCommand` calls `model.updateFilteredPersonList()` to update the filtered list of patients in the system.
+Step 2. `Model#updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS)` is called to update the filtered list such that it shows all patients in the system. 
+Step 3. The `ListCommand` returns the appropriate `CommandResult` to indicate the success of the operation.
 
-Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
+### Help
+#### Proposed Implementation
 
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
+The `help` feature allows users to view the link to User Guide. This command is facilitated by `HelpCommand` which extends the `Command` classes.
 
-![UndoRedoState0](images/UndoRedoState0.png)
+* `HelpCommand#execute` is responsible for executing the command and listing the link to the User Guide.
 
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
-
-![UndoRedoState1](images/UndoRedoState1.png)
-
-Step 3. The user executes `add n/David …​` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
-
-![UndoRedoState2](images/UndoRedoState2.png)
-
-<div markdown="span" class="alert alert-info">:information_source: **Note:** If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
-
-</div>
-
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
-
-![UndoRedoState3](images/UndoRedoState3.png)
-
-<div markdown="span" class="alert alert-info">:information_source: **Note:** If the `currentStatePointer` is at index 0, pointing to the initial AddressBook state, then there are no previous AddressBook states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather
-than attempting to perform the undo.
-
-</div>
-
-The following sequence diagram shows how an undo operation goes through the `Logic` component:
-
-![UndoSequenceDiagram](images/UndoSequenceDiagram-Logic.png)
-
-<div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
-
-</div>
-
-Similarly, how an undo operation goes through the `Model` component is shown below:
-
-![UndoSequenceDiagram](images/UndoSequenceDiagram-Model.png)
-
-The `redo` command does the opposite — it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
-
-<div markdown="span" class="alert alert-info">:information_source: **Note:** If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone AddressBook states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
-
-</div>
-
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
-
-![UndoRedoState4](images/UndoRedoState4.png)
-
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. Reason: It no longer makes sense to redo the `add n/David …​` command. This is the behavior that most modern desktop applications follow.
-
-![UndoRedoState5](images/UndoRedoState5.png)
-
-The following activity diagram summarizes what happens when a user executes a new command:
-
-<img src="images/CommitActivityDiagram.png" width="250" />
-
-#### Design considerations:
-
-**Aspect: How undo & redo executes:**
-
-* **Alternative 1 (current choice):** Saves the entire address book.
-  * Pros: Easy to implement.
-  * Cons: May have performance issues in terms of memory usage.
-
-* **Alternative 2:** Individual command knows how to undo/redo by
-  itself.
-  * Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
-  * Cons: We must ensure that the implementation of each individual command are correct.
-
-_{more aspects and alternatives to be added}_
+Step 1. Parser interprets the user's input and creates a new `HelpCommand` instance.
+Step 2. `HelpCommand#execute` is called by the `LogicManager`. The `HelpCommand` returns the appropriate `CommandResult`, which signals the UI to display the help window .
 
 ### Create new patient
-
-Create new patient feature allows the healthcare workers to add a new patient to ImmuniMate.
-The healthcare worker must specify the patient's name, NRIC, phone, address, date of birth, sex, and status.
-The process of creating a new patient in Model is as follows:
-![CreateState1](images/CreateCommand.png)
-
-### Update patient fields
-
 #### Proposed Implementation
 
-[to change below]
+The `create` feature allows users to create a patient by providing input through a command with specific arguments. This patient data is then stored within the system for future reference.
+The `create` command is facilitated by `CreateCommand` and `CreateCommandParser`. They extend the `Command` and `Parser` classes respectively, storing a new instance of `Person` in the `UniquePersonList`.
+* `CreateCommandParser#parse` is responsible for parsing the user input and creating a new `CreateCommand` instance.
+* `CreateCommand#execute` is responsible for executing the command and adding the new patient to the system.
+* `ImmuniMate#addPerson(Person)` is called to add the patient to the internal list of patients.
+* `UniquePersonList#add(Person)` is used to add the new patient to the system.
+`ModelManager#addPerson(Person)` is called to add the patient to the system. It calls `ImmuniMate.addPerson(Person)` which calls `UniquePersonList#add(Person)` to add the patient to the internal list of patients.
+The command checks for duplicates in the system before adding the new patient.
+* `Person#equals(Object)` is overridden to check if two patients are duplicates.
+* `UniquePersonList#contains(Person)` is used to check if the patient already exists in the system's list of patients.
+* `ImmuniMate#hasPerson(Person)` is used to check if the patient already exists in the system.
+`ModelManager#hasPerson(Person)` is called to check if the patient already exists in the system. It calls `ImmuniMate.hasPerson(Person)` which calls `UniquePersonList#contains(Person)` to check if the patient already exists in the internal list of patients.
 
-The proposed undo/redo mechanism is facilitated by `VersionedAddressBook`. It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`. Additionally, it implements the following operations:
+The creation of `Person` instance also rely on field classes, such as `Name`, `Nric`, `Phone`, `Address`, `DateOfBirth`, `Sex`, and `Status`. Optional field classes include `Email`, `Country`, `DateOfAdmission`, `BloodType`, `Allergies`, `Conditions`, `Symptoms`, and `Diagnosis`.
 
-* `VersionedAddressBook#commit()` — Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` — Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` — Restores a previously undone address book state from its history.
+Step 1. `CreateCommandParser` interprets the user's input, creates instances of fields which matches the input, and creates a new `CreateCommand` instance.
 
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
+Step 2. The `CreateCommand#execute` is called by the `LogicManager`. The `CreateCommand` checks if the patient already exists in the system by calling `model.hasPerson(person)`.
 
-[to change above]
+Step 3. If there is no duplicate, the patient is added to the system by calling `model.addPerson(person)`.
 
-Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
+Step 4: After the patient is added, the `CreateCommand` returns the appropriate `CommandResult` to indicate the success of the operation.
+The following sequence diagram shows how a create operation goes through the Logic component:
+![CreateState1](images/CreateCommandLogic.png)
+Similarly, the following sequence diagram shows how a create operation goes through the Model component:
+![CreateState1](images/CreateCommandModel.png)
+
+### Delete patient
+#### Proposed Implementation
+
+The `delete` feature allows users to delete a patient by providing NRIC through a command. This patient data is then removed from the system.
+The `delete` command is facilitated by `DeleteCommand` and `DeleteCommandParser`. They extend the `Command` and `Parser` classes respectively, removing an instance of `Person` from the `UniquePersonList`.
+
+* `DeleteCommandParser#parse` is responsible for parsing the user input and creating a new `DeleteCommand` instance.
+* `DeleteCommand#execute` is responsible for executing the command and removing the patient from the system.
+* `ImmuniMate#removePerson(Person)` is called to remove the patient from the internal list of patients.
+* `UniquePersonList#remove(Person)` is used to remove the patient from the system.
+`ModelManager#deletePerson(Person)` is called to remove the patient from the system. It calls `ImmuniMate.removePerson(Person)` which calls `UniquePersonList#remove(Person)` to remove the patient from the internal list of patients.
+`DeleteCommand` checks if the patient exists in the system before removing the patient.
+* `ModelManager#hasPerson(Person)` is called to check if the patient already exists in the system. It calls `ImmuniMate.hasPerson(Person)` which calls `UniquePersonList#contains(Person)` to check if the patient already exists in the internal list of patients.
+
+Step 1. `DeleteCommandParser` interprets the user's input for NRIC, and creates a new `DeleteCommand` instance.
+Step 2. The `DeleteCommand#execute` is called by the `LogicManager`. The `DeleteCommand` checks if the patient exists in the system by calling `model.hasPerson(person)`.
+Step 3. If the patient exists, the patient is removed from the system by calling `model.deletePerson(person)`.
+Step 4: After the patient is removed, the `DeleteCommand` returns the appropriate `CommandResult` to indicate the success of the operation.
+
+The following sequence diagram shows how a delete operation goes through the Logic component:
+![DeleteState1](images/DeleteSequenceDiagram.png)
+How a delete operation goes through the Model component is very similar to that of the create operation, therefore the sequence diagram is omitted.
+
+### Delete patient information
+#### Proposed Implementation
+
+The `deleteinfo` command allows users to delete a patient's particular field of information by providing NRIC and the field to be deleted through a command. 
+This `deleteinfo` command is facilitated by `DeleteInfoCommand` and `DeleteInfoCommandParser`. They extend the `Command` and `Parser` classes respectively, removing a particular field of information from the `Person` object.
+
+* `DeleteInfoCommandParser#parse` is responsible for parsing the user input and creating a new `DeleteInfoCommand` instance.
+* `DeleteInfoCommand#execute` is responsible for executing the command and removing the field of information from the patient.
+* `Model#getFilteredPersonList()` is called to get the list of patients in the system.
+  `DeleteInfoCommand` checks if the patient exists in the system before removing the field of information.
+* `ModelManager#hasPerson(Person)` is called to check if the patient already exists in the system. It calls `ImmuniMate.hasPerson(Person)` which calls `UniquePersonList#contains(Person)` to check if the patient already exists in the internal list of patients.
+
+Step 1. `DeleteInfoCommandParser` interprets the user's input for NRIC and the fields to be deleted, and creates a new `DeleteInfoCommand` instance.
+Step 2. The `DeleteInfoCommand#execute` is called by the `LogicManager`. The `DeleteInfoCommand` checks if the patient exists in the system by calling `model.hasPerson(person)`.
+Step 3. If the patient exists, the `DeleteInfoCommand` calls `model.getFilteredPersonList()` to get the list of patients in the system. It then find the person with the specific NRIC by calling `Observablelist<Persons>#filtered(Predicate)` and `Observablelist<Persons>#get(int)`.
+Step 4. `DeleteInfoCommand#execute` check which fields are to be deleted, and remove the field of information using `Person#setField(null)`. Where `Field` is the field to be deleted.
+Step 5: After the field of information is removed, the `DeleteInfoCommand` returns the appropriate `CommandResult` to indicate the success of the operation.
+
+### Read a patient's information
+#### Proposed Implementation
+The `read` feature allows users to read a patient profile by providing NRIC through a command. This patient data is then displayed.
+The `read` command is facilitated by `ReadCommand` and `ReadCommandParser`. They extend the `Command` and `Parser` classes respectively, displaying patient profile from an instance of `Person` from the `UniquePersonList`.
+
+* `ReadCommandParser#parse` is responsible for parsing the user input and creating a new `ReadCommand` instance.
+* `ReadCommand#execute` is responsible for executing the command and displaying the patient profile from the system.
+  `ReadCommand` checks if the patient exists in the system before displaying patient profile.
+* `ModelManager#hasPerson(Person)` is called to check if the patient exists in the system. It calls `ImmuniMate.hasPerson(Person)` which calls `UniquePersonList#contains(Person)` to check if the patient already exists in the internal list of patients.
+* `Model#updateFilteredPersonList(Predicate)` and is called to update the list to be of patient with specified NRIC in the system.
+* `Model#getFilteredPersonList()` is called to get the list of patient with specified NRIC in the system.
+* `Observablelist<Persons>#get(int)` is called to obtain `Person` object of patient with speicified NRIC.  
+Step 1. `ReadCommandParser` interprets the user's input for NRIC, and creates a new `ReadCommand` instance.
+Step 2. The `ReadCommand#execute` is called by the `LogicManager`. The `ReadCommand` checks if the patient exists in the system by calling `model.hasPerson(person)`.
+Step 3. If the patient exists, the patient is obtained from the system by calling `model.updateFilteredPersonList(person)`, followed by calling `model.getFilteredPersonList()` and `Observablelist<Persons>#get(int)`.
+Step 4: After the patient is obtained, the `ReadCommand` formats the patient profile by calling `Messages.format(person)` and returns the appropriate `CommandResult` to indicate the success of the operation.
+
+The following sequence diagram shows how a delete operation goes through the Logic component:
+![ReadState1](images/ReadCommandSequenceDiagram.png)
+How a read operation goes through the Model component is shown below:
+![ReadState2](images/ReadCommandModelDiagram.png)
+
+
+### Find patient
+#### Proposed Implementation
+
+### Update patient fields
+#### Proposed Implementation
+Given below is an example usage scenario and how the update mechanism behaves at each step.
 
 Step 1. The user launches the application for the first time.
 
@@ -281,13 +290,45 @@ Step 7. `model.setPerson()` then replaces the retrieved `Person` object with the
 #### Design considerations:
 
 * **Alternative 1 (current choice):** Identify patient by `Nric`.
-  * Pros: More user convenience, as user just needs to type NRIC patients provide
+    * Pros: More user convenience, as user just needs to type NRIC patients provide
 
 * **Alternative 2:** Identify patient by given `Index`.
-  * Pros: Easier to implement.
-  * Cons: Less user convenience, as user has to first know patient `Index` to find patient.
+    * Pros: Easier to implement.
+    * Cons: Less user convenience, as user has to first know patient `Index` to find patient.
 
-_{more aspects and alternatives to be added}_
+### Record patient visit
+#### Proposed Implementation
+
+### Check a patient's visit history
+#### Proposed Implementation
+The `check` feature allows users to check the visit history of a patient by providing NRIC through a command. This patient visit history is then displayed.
+The `check` command is facilitated by `CheckCommand` and `CheckCommandParser`. They extend the `Command` and `Parser` classes respectively, displaying patient visit history from list of `Visit` from the `UniqueVisitList`.
+
+* `CheckCommandParser#parse` is responsible for parsing the user input and creating a new `CheckCommand` instance.
+* `CheckCommand#execute` is responsible for executing the command and displaying the patient visit history from the system.
+  `CheckCommand` checks if the patient exists in the system before displaying patient visit history.
+* `ModelManager#hasPerson(Person)` is called to check if the patient exists in the system. It calls `ImmuniMate.hasPerson(Person)` which calls `UniquePersonList#contains(Person)` to check if the patient already exists in the internal list of patients.
+* `Model#updateFilteredPersonList(Predicate)` is called to get the list of patient with specified NRIC in the system.
+* `Model#updateFilteredVisitList(Predicate)` is called to get the list of visits with specified NRIC in the system.
+  Step 1. `CheckCommandParser` interprets the user's input for NRIC, and creates a new `CheckCommand` instance.
+  Step 2. The `CheckCommand#execute` is called by the `LogicManager`. The `CheckCommand` checks if the patient exists in the system by calling `model.hasPerson(person)`.
+  Step 3. If the patient exists, the patient is obtained from the system by calling `model.updateFilteredPersonList(pred)`, followed by calling `model.getFilteredPersonList()` and `Observablelist<Persons>#get(int)`.
+  Step 4: Patient visit history is obtained from the system by calling `model.updateFilteredVisitList(pred)`, followed by `model.getFilteredVisitList()`.
+  Step 5: After the patient visit history is obtained, the `CheckCommand` formats the patient visit history by calling `Messages.formatCheck(visit)` and returns the appropriate `CommandResult` to indicate the success of the operation.
+
+The following sequence diagram shows how a delete operation goes through the Logic component:
+![ReadState1](images/CheckCommandSequenceDiagram.png)
+How a check operation goes through the Model component is shown below:
+![ReadState2](images/CheckCommandModelDiagram.png)
+
+### Check for clusters
+#### Proposed Implementation
+
+### Exit the app
+#### Proposed Implementation
+
+
+#### Design considerations:
 
 --------------------------------------------------------------------------------------------------------------------
 

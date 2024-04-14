@@ -8,7 +8,7 @@ import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.ReadCommand.MESSAGE_READ_PERSON_SUCCESS;
 import static seedu.address.testutil.TypicalPersons.ALICE;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalPersons.getTypicalPersonsAddressBook;
 
 import org.junit.jupiter.api.Test;
 
@@ -21,8 +21,8 @@ import seedu.address.model.person.NricContainsKeywordsPredicate;
 
 public class ReadCommandTest {
 
-    private final Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-    private final Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private final Model model = new ModelManager(getTypicalPersonsAddressBook(), new UserPrefs());
+    private final Model expectedModel = new ModelManager(getTypicalPersonsAddressBook(), new UserPrefs());
     @Test
     void execute_validNric_success() {
         String expectedMessage = String.format(MESSAGE_READ_PERSON_SUCCESS, Messages.format(ALICE));
