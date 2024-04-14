@@ -49,16 +49,34 @@ deactivate AddressBookParser
 LogicManager -> CheckCommand : execute(m)
 activate CheckCommand
 
-CheckCommand -> Model : updateFilteredPersonList(new NricContainsKeywordsPredicate("T0123456A"));
+CheckCommand -> Model : hasPerson(...)
 activate Model
 
-Model --> CheckCommand : getFilteredPersonList()
+Model --> CheckCommand : false
 deactivate Model
 
-CheckCommand -> Model : updateFilteredVisitList(new VisitContainsNricPredicate("T0123456A"));
+CheckCommand -> Model : updateFilteredPersonList(...)
 activate Model
 
-Model --> CheckCommand : getFilteredVisitList()
+Model --> CheckCommand : updateFilteredPersonList() successful
+deactivate Model
+
+CheckCommand -> Model : getFilteredPersonList()
+activate Model
+
+Model --> CheckCommand : Filtered person list
+deactivate Model
+
+CheckCommand -> Model : updateFilteredVisitList(...)
+activate Model
+
+Model --> CheckCommand : updateFilteredVisitList() successful
+deactivate Model
+
+CheckCommand -> Model : getFilteredVisitList()
+activate Model
+
+Model --> CheckCommand : Filtered visit list
 deactivate Model
 
 create CommandResult

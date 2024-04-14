@@ -49,10 +49,22 @@ deactivate AddressBookParser
 LogicManager -> ReadCommand : execute(m)
 activate ReadCommand
 
-ReadCommand -> Model : updateFilteredPersonList(new NricContainsKeywordsPredicate("T0123456A"));
+ReadCommand -> Model : hasPerson(...)
 activate Model
 
-Model --> ReadCommand : getFilteredPersonList()
+Model --> ReadCommand : false
+deactivate Model
+
+ReadCommand -> Model : updateFilteredPersonList(...)
+activate Model
+
+Model --> ReadCommand : updateFilteredPersonList() successful
+deactivate Model
+
+ReadCommand -> Model : getFilteredPersonList()
+activate Model
+
+Model --> ReadCommand : Filtered person list
 deactivate Model
 
 create CommandResult
