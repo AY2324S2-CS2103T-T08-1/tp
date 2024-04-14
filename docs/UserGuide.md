@@ -448,7 +448,7 @@ Format: `addvisit ic/<NRIC> dov/<Date_of_Visit> sym/<Symptoms> d/<Diagnosis> st/
 Examples:
 * `addvisit ic/S1234567A dov/2024-01-01 sym/Cough d/Covid st/UNWELL`
   * Adds a visit to history of patient uniquely identified by NRIC S1234567A. During this visit on 2024-01-01, the patient was having a cough and was diagnosed to be unwell with Covid.
-* `addvisit ic/S0123456A dov/2024-02-02 sym/Fever,Rashes d/Dengue st/PENDING`
+* `addvisit ic/S0123456A dov/2024-02-02 sym/Fever,Rashes d/possible dengue st/PENDING`
   * Adds a visit to history of patient uniquely identified by NRIC S0123456A. During this visit on 2024-02-02, the patient had a fever and rashes. The doctor suspects the patient has dengue, but is unable to come to a conclusion, hence the `PENDING` status.
 
 ![Add Visit Result](images/AddVisitCommandResult.png)
@@ -592,3 +592,4 @@ If your name has any special characters, kindly remove them for compliance. For 
 3. **The `country` field** does not limit the input to alphabetical characters and is case-insensitive, which may lead to incorrect data entry.
 4. **The `email` field** is case-sensitive, but in practical usage, email is case-insensitive.
 5. **The `NRIC` field** cannot yet take NRIC numbers starting with F, G or M, which might cause inconvenience to a small segment of the Singapore population.
+6. **The ImmuniMate icon** cannot be displayed on Windows systems, instead showing up as a brown square with a person icon. This is simply a cosmetic issue, so it should not pose other technical issues to Windows users.
