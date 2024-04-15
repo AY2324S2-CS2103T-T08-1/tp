@@ -44,26 +44,26 @@ import seedu.address.model.person.Person;
 public class TypicalPersons {
 
     public static final Person ALICE = new PersonBuilder().withNric("T0139571B").withName("Alice Pauline")
-            .withAddress("123, Jurong West Ave 6, #08-111").withPhone("94351253").withDateOfBirth("2001-01-01")
-            .withSex("F").withStatus("HEALTHY").build();
+            .withPhone("94351253").withDateOfBirth("2001-01-01").withAddress("123, Jurong West Ave 6, #08-111")
+            .withSex("F").withStatus("UNWELL").withDiagnosis("coronavirus").build();
     public static final Person BENSON = new PersonBuilder().withNric("T0439571C").withName("Benson Meier")
-            .withAddress("311, Clementi Ave 2, #02-25").withPhone("98765432").withDateOfBirth("2001-01-01")
-            .withSex("M").withStatus("UNWELL").build();
+            .withPhone("98765432").withDateOfBirth("2001-01-01").withAddress("311, Clementi Ave 2, #02-25")
+            .withSex("M").withStatus("UNWELL").withDiagnosis("dengue").build();
     public static final Person CARL = new PersonBuilder().withNric("T0284994B").withName("Carl Kurz")
-            .withPhone("95352563").withAddress("wall street").withDateOfBirth("2001-01-01")
-            .withSex("M").withStatus("PENDING").build();
-    public static final Person DANIEL = new PersonBuilder().withNric("S9839571A")
-            .withName("Daniel Meier").withPhone("87652533").withDateOfBirth("2001-01-01")
-            .withAddress("10th street").withSex("M").withStatus("HEALTHY").build();
+            .withPhone("95352563").withDateOfBirth("2001-01-01").withAddress("123, Jurong East Road 12, #03-40")
+            .withSex("M").withStatus("UNWELL").withDiagnosis("coronavirus").build();
+    public static final Person DANIEL = new PersonBuilder().withNric("S9839571A").withName("Daniel Meier")
+            .withPhone("87652533").withDateOfBirth("2001-01-01").withAddress("123, Jurong South Drive, #01-23")
+            .withSex("M").withStatus("UNWELL").withDiagnosis("coronavirus").build();
     public static final Person ELLE = new PersonBuilder().withNric("S8913957B")
             .withName("Elle Meyer").withPhone("94821224").withDateOfBirth("2001-01-01")
-            .withAddress("michegan ave").withSex("F").withStatus("UNWELL").build();
+            .withAddress("michegan ave").withSex("F").withStatus("HEALTHY").withDiagnosis("dengue").build();
     public static final Person FIONA = new PersonBuilder().withNric("T0536171Z")
             .withName("Fiona Kunz").withPhone("94820427").withDateOfBirth("2001-01-01")
-            .withAddress("little tokyo").withSex("F").withStatus("PENDING").build();
+            .withAddress("little tokyo").withSex("F").withStatus("PENDING").withDiagnosis("dengue").build();
     public static final Person GEORGE = new PersonBuilder().withNric("T0829102Z")
             .withName("George Best").withPhone("94824421").withDateOfBirth("2001-01-01")
-            .withAddress("4th street").withSex("M").withStatus("HEALTHY").build();
+            .withAddress("4th street").withSex("M").withStatus("HEALTHY").withDiagnosis("dengue").build();
 
     // Manually added
     public static final Person HOON = new PersonBuilder().withNric("T0123071C").withName("Hoon Meier")
@@ -96,7 +96,7 @@ public class TypicalPersons {
     /**
      * Returns an {@code AddressBook} with all the typical persons.
      */
-    public static ImmuniMate getTypicalAddressBook() {
+    public static ImmuniMate getTypicalPersonsAddressBook() {
         ImmuniMate ab = new ImmuniMate();
         for (Person person : getTypicalPersons()) {
             ab.addPerson(person);

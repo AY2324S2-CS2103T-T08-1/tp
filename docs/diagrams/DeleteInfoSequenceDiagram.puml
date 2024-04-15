@@ -1,0 +1,74 @@
+@startuml
+!include style.puml
+skinparam ArrowFontStyle plain
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":ImmuniMateParser" as ImmuniMateParser LOGIC_COLOR
+participant ":DeleteInfoCommandParser" as DeleteInfoCommandParser LOGIC_COLOR
+participant "d:DeleteInfoCommand" as DeleteInfoCommand LOGIC_COLOR
+participant "r:CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant "m:Model" as Model MODEL_COLOR
+end box
+
+[-> LogicManager : execute("deleteinfo S1234567X e/")
+activate LogicManager
+
+LogicManager -> ImmuniMateParser : parseCommand("deleteinfo S1234567X e/")
+activate ImmuniMateParser
+
+create DeleteInfoCommandParser
+ImmuniMateParser -> DeleteInfoCommandParser
+activate DeleteInfoCommandParser
+
+DeleteInfoCommandParser --> ImmuniMateParser
+deactivate DeleteInfoCommandParser
+
+ImmuniMateParser -> DeleteInfoCommandParser : parse("S1234567X e/")
+activate DeleteInfoCommandParser
+
+create DeleteInfoCommand
+DeleteInfoCommandParser -> DeleteInfoCommand
+activate DeleteInfoCommand
+
+DeleteInfoCommand --> DeleteInfoCommandParser :
+deactivate DeleteInfoCommand
+
+DeleteInfoCommandParser --> ImmuniMateParser : d
+deactivate DeleteInfoCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+DeleteInfoCommandParser -[hidden]-> ImmuniMateParser
+destroy DeleteInfoCommandParser
+
+ImmuniMateParser --> LogicManager : d
+deactivate ImmuniMateParser
+
+LogicManager -> DeleteInfoCommand : execute(m)
+activate DeleteInfoCommand
+
+DeleteInfoCommand -> Model : hasPerson(...)
+activate Model
+Model --> DeleteInfoCommand : false
+deactivate Model
+
+DeleteInfoCommand -> Model : setEmail(...)
+activate Model
+Model --> DeleteInfoCommand : set email of specified person to null
+deactivate Model
+
+create CommandResult
+DeleteInfoCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> DeleteInfoCommand
+deactivate CommandResult
+
+DeleteInfoCommand --> LogicManager : r
+deactivate DeleteInfoCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

@@ -101,10 +101,10 @@ The sequence diagram below illustrates the interactions within the `Logic` compo
 How the `Logic` component works:
 
 1. When `Logic` is called upon to execute a command, it is passed to an `AddressBookParser` object which in turn creates a parser that matches the command (e.g., `DeleteCommandParser`) and uses it to parse the command.
-1. This results in a `Command` object (more precisely, an object of one of its subclasses e.g., `DeleteCommand`) which is executed by the `LogicManager`.
-1. The command can communicate with the `Model` when it is executed (e.g. to delete a person).<br>
+2. This results in a `Command` object (more precisely, an object of one of its subclasses e.g., `DeleteCommand`) which is executed by the `LogicManager`.
+3. The command can communicate with the `Model` when it is executed (e.g. to delete a person).<br>
    Note that although this is shown as a single step in the diagram above (for simplicity), in the code it can take several interactions (between the command object and the `Model`) to achieve.
-1. The result of the command execution is encapsulated as a `CommandResult` object which is returned back from `Logic`.
+4. The result of the command execution is encapsulated as a `CommandResult` object which is returned back from `Logic`.
 
 Here are the other classes in `Logic` (omitted from the class diagram above) that are used for parsing a user command:
 
@@ -234,17 +234,43 @@ This `deleteinfo` command is facilitated by `DeleteInfoCommand` and `DeleteInfoC
 * `DeleteInfoCommandParser#parse` is responsible for parsing the user input and creating a new `DeleteInfoCommand` instance.
 * `DeleteInfoCommand#execute` is responsible for executing the command and removing the field of information from the patient.
 * `Model#getFilteredPersonList()` is called to get the list of patients in the system.
-`DeleteInfoCommand` checks if the patient exists in the system before removing the field of information.
+* `Model#setField` where `Field` refers to whichever field specified to be deleted, is responsible for removing the field of information from the patient.
+  `DeleteInfoCommand` checks if the patient exists in the system before removing the field of information.
 * `ModelManager#hasPerson(Person)` is called to check if the patient already exists in the system. It calls `ImmuniMate.hasPerson(Person)` which calls `UniquePersonList#contains(Person)` to check if the patient already exists in the internal list of patients.
 
 Step 1. `DeleteInfoCommandParser` interprets the user's input for NRIC and the fields to be deleted, and creates a new `DeleteInfoCommand` instance.
 Step 2. The `DeleteInfoCommand#execute` is called by the `LogicManager`. The `DeleteInfoCommand` checks if the patient exists in the system by calling `model.hasPerson(person)`.
-Step 3. If the patient exists, the `DeleteInfoCommand` calls `model.getFilteredPersonList()` to get the list of patients in the system. It then find the person with the specific NRIC by calling `Observablelist<Persons>#filtered(Predicate)` and `Observablelist<Persons>#get(int)`.
+Step 3. If the patient exists, the `DeleteInfoCommand` calls `model.setField` (where the field is the specified field to delete) to get the list of patients in the system.
 Step 4. `DeleteInfoCommand#execute` check which fields are to be deleted, and remove the field of information using `Person#setField(null)`. Where `Field` is the field to be deleted.
 Step 5: After the field of information is removed, the `DeleteInfoCommand` returns the appropriate `CommandResult` to indicate the success of the operation.
 
+The following sequence diagram shows how a deleteinfo operation goes through the Logic component:
+![DeleteInfoState1](images/DeleteInfoSequenceDiagram.png)
+The sequence diagram for how the deleteinfo operation goes through the Model Component is as the following:
+![DeleteInfoState1](images/DeleteInfoModelDiagram.png)
+
 ### Read a patient's information
 #### Proposed Implementation
+The `read` feature allows users to read a patient profile by providing NRIC through a command. This patient data is then displayed.
+The `read` command is facilitated by `ReadCommand` and `ReadCommandParser`. They extend the `Command` and `Parser` classes respectively, displaying patient profile from an instance of `Person` from the `UniquePersonList`.
+
+* `ReadCommandParser#parse` is responsible for parsing the user input and creating a new `ReadCommand` instance.
+* `ReadCommand#execute` is responsible for executing the command and displaying the patient profile from the system.
+  `ReadCommand` checks if the patient exists in the system before displaying patient profile.
+* `ModelManager#hasPerson(Person)` is called to check if the patient exists in the system. It calls `ImmuniMate.hasPerson(Person)` which calls `UniquePersonList#contains(Person)` to check if the patient already exists in the internal list of patients.
+* `Model#updateFilteredPersonList(Predicate)` and is called to update the list to be of patient with specified NRIC in the system.
+* `Model#getFilteredPersonList()` is called to get the list of patient with specified NRIC in the system.
+* `Observablelist<Persons>#get(int)` is called to obtain `Person` object of patient with speicified NRIC.  
+Step 1. `ReadCommandParser` interprets the user's input for NRIC, and creates a new `ReadCommand` instance.
+Step 2. The `ReadCommand#execute` is called by the `LogicManager`. The `ReadCommand` checks if the patient exists in the system by calling `model.hasPerson(person)`.
+Step 3. If the patient exists, the patient is obtained from the system by calling `model.updateFilteredPersonList(person)`, followed by calling `model.getFilteredPersonList()` and `Observablelist<Persons>#get(int)`.
+Step 4: After the patient is obtained, the `ReadCommand` formats the patient profile by calling `Messages.format(person)` and returns the appropriate `CommandResult` to indicate the success of the operation.
+
+The following sequence diagram shows how a delete operation goes through the Logic component:
+![ReadState1](images/ReadCommandSequenceDiagram.png)
+How a read operation goes through the Model component is shown below:
+![ReadState2](images/ReadCommandModelDiagram.png)
+
 
 ### Find patient
 #### Proposed Implementation
@@ -281,6 +307,25 @@ Step 7. `model.setPerson()` then replaces the retrieved `Person` object with the
 
 ### Check a patient's visit history
 #### Proposed Implementation
+The `check` feature allows users to check the visit history of a patient by providing NRIC through a command. This patient visit history is then displayed.
+The `check` command is facilitated by `CheckCommand` and `CheckCommandParser`. They extend the `Command` and `Parser` classes respectively, displaying patient visit history from list of `Visit` from the `UniqueVisitList`.
+
+* `CheckCommandParser#parse` is responsible for parsing the user input and creating a new `CheckCommand` instance.
+* `CheckCommand#execute` is responsible for executing the command and displaying the patient visit history from the system.
+  `CheckCommand` checks if the patient exists in the system before displaying patient visit history.
+* `ModelManager#hasPerson(Person)` is called to check if the patient exists in the system. It calls `ImmuniMate.hasPerson(Person)` which calls `UniquePersonList#contains(Person)` to check if the patient already exists in the internal list of patients.
+* `Model#updateFilteredPersonList(Predicate)` is called to get the list of patient with specified NRIC in the system.
+* `Model#updateFilteredVisitList(Predicate)` is called to get the list of visits with specified NRIC in the system.
+  Step 1. `CheckCommandParser` interprets the user's input for NRIC, and creates a new `CheckCommand` instance.
+  Step 2. The `CheckCommand#execute` is called by the `LogicManager`. The `CheckCommand` checks if the patient exists in the system by calling `model.hasPerson(person)`.
+  Step 3. If the patient exists, the patient is obtained from the system by calling `model.updateFilteredPersonList(pred)`, followed by calling `model.getFilteredPersonList()` and `Observablelist<Persons>#get(int)`.
+  Step 4: Patient visit history is obtained from the system by calling `model.updateFilteredVisitList(pred)`, followed by `model.getFilteredVisitList()`.
+  Step 5: After the patient visit history is obtained, the `CheckCommand` formats the patient visit history by calling `Messages.formatCheck(visit)` and returns the appropriate `CommandResult` to indicate the success of the operation.
+
+The following sequence diagram shows how a delete operation goes through the Logic component:
+![ReadState1](images/CheckCommandSequenceDiagram.png)
+How a check operation goes through the Model component is shown below:
+![ReadState2](images/CheckCommandModelDiagram.png)
 
 ### Check for clusters
 #### Proposed Implementation
@@ -551,34 +596,110 @@ testers are expected to do more *exploratory* testing.
 
 1. Initial launch
 
-   1.1 Download the jar file and copy into an empty folder
+   1.1 Download the jar file and copy into an empty folder.
 
-   1.2 Double-click the jar file Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+   1.2 Run `java -jar immuniMate.jar` for the jar file Expected: Shows the GUI with a set of sample contacts.
 
 2. Saving window preferences
 
-   2.1 Resize the window to an optimum size. Move the window to a different location. Close the window.
+   2.1 Move the window to a different location. Close the window.
 
-   2.2 Re-launch the app by double-clicking the jar file.<br>
+   2.2 Re-launch the app by running `java -jar ImmuniMate.jar` again.<br>
        Expected: The most recent window size and location is retained.
 
+### Adding a person
+
+1. Adding a person while all persons are being shown.
+   1. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+   1. Test case: `create n/Alice Tan ic/S1234567A dob/1990-01-01 hp/12345678 a/123, Jurong West Ave 6, #08-111 s/F st/PENDING`<br>
+      Expected: A new person is added to the list. The result panel shows the details of the new person.
+   1. Test case: `create n/Bob Tan ic/T0234567C dob/1990-01-01 hp/12345678 a/123, Jurong West Ave 6, #08-111 s/M st/PENDING`<br>
+      Expected: A new person is not added to the list. The result panel shows an error message, indicating that the person already exists in the system.
+   1. Test case: `create n/Charlie Tan ic/S1234567A`<br>
+      Expected: A new person is not added to the list. The result panel shows an error message, indicating that the command format is invalid.
+2. Adding a person while only some persons are being shown
+   1. Prerequisites: show only 1 person's details using the `find n/alex` command. One person is shown in the list.
+   1. Test case: `create n/Bob Tan ic/T0234567C dob/1990-01-01 hp/12345678 a/123, Jurong West Ave 6, #08-111 s/M st/PENDING`<br>
+      Expected: A new person is not added to the list. The result panel shows an error message, indicating that the person already exists in the system.
 ### Deleting a person
 
 1. Deleting a person while all persons are being shown
 
-   1. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+   1. Prerequisites: 
+      1. List all persons using the `list` command. Multiple persons in the list.
+      1. The person with NRIC `S1234567A` is already created in the system with a `create` command.
 
-   1. Test case: `delete 1`<br>
-      Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+   1. Test case: `delete S9234568N`<br>
+      Expected: First patient is deleted from the list. Details of the deleted patient shown in the status message. Timestamp in the status bar is updated.
 
-   1. Test case: `delete 0`<br>
+   1. Test case: `delete S9876543N`<br>
       Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
 
-   1. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
+   1. Other incorrect delete commands to try: `delete`, `delete 0`, `...` (where the input for NRIC field does not follow format for NRIC)<br>
       Expected: Similar to previous.
+2. Deleting a person while only some persons are being shown
+   1. Prerequisites:
+      2. Show only 1 person's details using the `find n/alex` command. One person is shown in the list.
+      3. The person with NRIC `S1234567A` is already created in the system with a `create` command.
+   1. Test case: `delete S1234567A`<br>
+      Expected: The person is deleted from the list. The result panel shows the details of the deleted person. The list panel shows a full list of patients.
 
-1. _{ more test cases …​ }_
+### Updating a person
+1. Updating a existing person's updatable fields
+   1. Prerequisites:
+      1. The person with NRIC `S1234567A` is already created in the system with a `create` command.
+   1. Test case: `update S1234567A a/35 Bishan Road, #10-40 con/myopia`<br>
+      Expected: The person's address is updated to `35 Bishan Road, #10-40` and condition is updated to `myopia`. The result panel shows the updated person's details.
+   2. Test case: `update S1234567A a/35 Bishan Road, #10-40 con/`<br>
+      Expected: The person's both fields are not updated. The result panel shows an error message, indicating that the argument for condition is invalid.
+   3. Test case: `update S1234567A`<br>
+      Expected: The person is not updated at all. The result panel shows an error message, indicating that the command format is invalid.
+2. Updating a non-existing person
+   1. Prerequisites:
+      1. The person with NRIC `S1234568A` does not exist in the system.
+   2. Test case: `update S1234568A a/35 Bishan Road, #10-40 con/myopia`<br>
+      Expected: The person is not updated at all. The result panel shows an error message, indicating that the person does not exist in the system.
+3. Updating a person's non-updatable fields
+   1. Prerequisites:
+       1. The person with NRIC `S1234567A` is already created in the system with a `create` command.
+   1. Test case: `update S1234567A a/35 Bishan Road, #10-40 con/myopia ic/S1234568A`<br>
+      Expected: The person's address is updated to `35 Bishan Road, #10-40` and condition is updated to `myopia`. The NRIC is not updated.
+### Finding a person
 
+1. Finding a person by name, condition or address
+    1. Prerequisites:
+       1. The person with name `Alex Yeoh` exists in the system.
+       2. The person with condition `diabetes` exists in the system.
+       3. The person with address `123, Jurong West Ave 6, #08-111` exists in the system.
+    1. Test case: `find n/Alex Yeoh`<br>
+       Expected: The person with name `Alex Yeoh` is shown in the list. The result panel shows the details of the person.
+    1. Test case: `find con/diabetes`<br>
+       Expected: The person with condition `diabetes` is shown in the list. The result panel shows the details of the person.
+    1. Test case: `find a/123, Jurong West Ave 6, #08-111`<br>
+       Expected: The person with address `123, Jurong West Ave 6, #08-111` is shown in the list. The result panel shows the details of the person.
+2. Finding a person by NRIC
+    1. Test case: `find n/S1234567A`<br>
+       Expected: The person with NRIC `S1234567A` is not shown in the list. The result panel shows an error message, indicating that the command format is invalid.
+
+### Deleting a person's information
+
+1. Deleting a person's optional fields
+    1. Prerequisites:
+       1. The person with NRIC `S1234567A` exists in the system.
+       2. The person with NRIC `S1234568A` does not exist in the system.
+    1. Test case: `deleteinfo S1234567A a/`<br>
+       Expected: The person's address becomes null. The result panel shows the updated person's details.
+    1. Test case: `deleteinfo S1234567A a/ con/`<br>
+       Expected: The person's address and condition become null. The result panel shows the updated person's details.
+    1. Test case: `deleteinfo S1234567A`<br>
+       Expected: The person's information is not deleted. The result panel shows an error message, indicating that the command format is invalid.
+    1. Test case: `deleteinfo S1234568A e/`<br>
+       Expected: The person's name is not deleted. The result panel shows an error message, indicating that the person does not exist in the system.
+2. Deleting a person's mandatory fields
+    1. Prerequisites:
+       1. The person with NRIC `S1234567A` exists in the system.
+    1. Test case: `deleteinfo S1234567A n/`<br>
+       Expected: The person's name is not deleted. The result panel shows an error message, indicating that the name field cannot be deleted.
 ### Saving data
 
 1. Dealing with missing/corrupted data files
