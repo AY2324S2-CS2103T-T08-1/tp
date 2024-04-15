@@ -106,23 +106,23 @@ Common mistakes:
 Throughout this guide, there might be some terms that you might not be familiar with, and that's fine.
 Here's a table of some technical terms you'll see further in the guide:
 
-| Term                 | Definition                                                                                                                                                                                                                                                          |
-|----------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **Java**             | A programming language. Various versions can be downloaded from [here](https://www.oracle.com/sg/java/technologies/downloads/).                                                                                                                                     |
-| **home folder**      | The main folder where all app activity can take place and files can be stored                                                                                                                                                                                       |
-| **command terminal** | A text-based interface to your computer.<br>On Windows, this can be opened by pressing the Windows key, and searching for an app called "Command Prompt".<br> On iOS, this can be opened by pressing Command + Space, typing in "terminal", then pressing "Return". |
-| `cd`                 | A Linux (operating system) command used to navigate to different folders in your command terminal. Stands for "change directory".<br>Linux tutorials can be found [here](https://ubuntu.com/tutorials/command-line-for-beginners#1-overview).                       |
-| **GUI**              | Short for "Graphical User Interface". The digital interface in which user interact with graphical components, such as icons and buttons.                                                                                                                            |
-| **CLI**              | Short for "Command Line Interface". A software mechanism you use to interact with the application using your keyboard.                                                                                                                                              |
+| Term                 | Definition                                                                                                                                                                                                                                                            |
+|----------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Java**             | A programming language. Various versions can be downloaded from [here](https://www.oracle.com/sg/java/technologies/downloads/).                                                                                                                                       |
+| **home folder**      | The main folder where all app activity can take place and files can be stored                                                                                                                                                                                         |
+| **command terminal** | A text-based interface to your computer.<br>On Windows, this can be opened by pressing the Windows key, and searching for an app called "Command Prompt".<br> On MacOS, this can be opened by pressing Command + Space, typing in "terminal", then pressing "Return". |
+| `cd`                 | A Linux (operating system) command used to navigate to different folders in your command terminal. Stands for "change directory".<br>Linux tutorials can be found [here](https://ubuntu.com/tutorials/command-line-for-beginners#1-overview).                         |
+| **GUI**              | Short for "Graphical User Interface". The digital interface in which user interact with graphical components, such as icons and buttons.                                                                                                                              |
+| **CLI**              | Short for "Command Line Interface". A software mechanism you use to interact with the application using your keyboard.                                                                                                                                                |
 
 -----------------------------------------------------------------
 
 ## Product Information
 
-ImmuniMate is a desktop application for healthcare professionals and staff to better store and manage their patients' personal and medical information.
+ImmuniMate is a **desktop application** for healthcare professionals and staff to better store and manage their patients' personal and medical information.
 It is optimised for a single user on a single computer, meaning that after downloading a copy on your computer and using it, your copy cannot be accessed through other computers over the Internet.
 
-ImmuniMate is compatible with Windows, Linux and MacOS operating systems, and installation does not require any additional installers.
+ImmuniMate is compatible with **Windows, Linux and MacOS** operating systems, and installation does not require any additional installers.
 It has an eye-catching GUI to capture your attention, but despite that, all interactions with ImmuniMate happen through the command line interface (CLI).
 This means each feature of ImmuniMate is only accessible through typing a command into the command box in its specified format, and pressing "Enter" to get a response.
 
@@ -130,7 +130,8 @@ Here is a graphic on components of the GUI and their functions:
 <br>
 <br>
 <img src="images/GUIDetailed.png" alt="help message" width="800"/>
-
+<br>
+<br>
 The list of commands and their formats are specified below:
 
 ### Command summary
@@ -151,7 +152,8 @@ The list of commands and their formats are specified below:
 | **[Help](#viewing-help-help)**                                          | `help`                                                                                                                                                                                                                                                                                                                                                                |
 | **[Exit](#exiting-the-program-exit)**                                   | `exit`                                                                                                                                                                                                                                                                                                                                                                |
 
-
+<br>
+<br>
 The list of fields and their formats are specified below:
 
 ### Field summary
@@ -175,7 +177,7 @@ The list of fields and their formats are specified below:
 | **Diagnosis**              | `d/`   | Any text. Blank or empty text is not accepted.                                                                                                                                     | No   |
 | **Date of visit**          | `dov/` | `yyyy-MM-dd` format.                                                                                                                                                               | No   |
 
-## Error Messages
+### Error Messages
 
 Sometimes, **you might type in commands in the wrong format**, or fields that don't make sense, and that's fine.
 When that happens, the erroneous command you typed will light up in red, while more details on the nature of the error will be shown in the feedback box, like in the picture below.
@@ -196,34 +198,34 @@ Find retyping commands a hassle? Use your 'Up' and 'Down' arrow keys to access y
 
 1. Ensure you have Java `11` or above installed in your computer.<br>
 
-<div markdown="block" class="alert alert-success">
+    <div markdown="block" class="alert alert-success">
+    
+    **:bulb: Tip:**<br>
+    Don't worry if you don't have Java 11 installed yet!
+    The Java Development Kit (kind of like an installer) can be downloaded from [here](https://www.oracle.com/sg/java/technologies/downloads/#java11).
+    Take great care in downloading the one which suits your operating system (Linux, Windows, MacOS etc).
+    </div>
 
-**:bulb: Tip:**<br>
-Don't worry if you don't have Java 11 installed yet!
-The Java Development Kit (kind of like an installer) can be downloaded from [here](https://www.oracle.com/sg/java/technologies/downloads/#java11).
-Take great care in downloading the one which suits your operating system (Linux, Windows, MacOS etc).
-</div>
-
-![Java website](images/JavaWebsite.png)
+    ![Java website](images/JavaWebsite.png)
 
 2. Download the latest `immuniMate.jar` from [our website](https://github.com/AY2324S2-CS2103T-T08-1/tp/releases).
 
-<img src="images/GithubReleasePage.png" alt="help message" width="500"/>
+    <img src="images/GithubReleasePage.png" alt="help message" width="500"/>
 
 3. Copy the file to the folder you want to use as the _home folder_ for your ImmuniMate.
 
 4. Open a command terminal, and `cd` into the folder you put the jar file in.<br>
 
-<div markdown="block" class="alert alert-success">
-
-**:bulb: Tip:**<br>
-`cd` is a Linux command. New to Linux? You can learn the basics fast from [here](https://ubuntu.com/tutorials/command-line-for-beginners#1-overview).
-</div>
+    <div markdown="block" class="alert alert-success">
+    
+    **:bulb: Tip:**<br>
+    `cd` is a Linux command. New to Linux? You can learn the basics fast from [here](https://ubuntu.com/tutorials/command-line-for-beginners#1-overview).
+    </div>
 
 5. Type `java -jar immuniMate.jar` and press "Enter" to run the application.<br>
    A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data. The colored circle on the right of each patient's name is the status indicator. For more information about the status indicator, see [create](#creating-a-patient-profile-create).<br>
 
-![Ui](images/GUI.png)
+    ![Ui](images/GUI.png)
 
 6. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
    Some example commands you can try:
@@ -238,12 +240,12 @@ Take great care in downloading the one which suits your operating system (Linux,
 
    * `exit` : Exits the app.
 
-<div markdown="block" class="alert alert-success">
-
-**:bulb: Tip:**<br>
-Refer to the [Features](#features) section below for details of each command.
-
-</div>
+    <div markdown="block" class="alert alert-success">
+    
+    **:bulb: Tip:**<br>
+    Refer to the [Features](#features) section below for details of each command.
+    
+    </div>
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -275,7 +277,7 @@ Refer to the [Features](#features) section below for details of each command.
 
 ### Viewing help: `help`
 
-Shows a message explaining how to access the help page.
+**Shows a message explaining how to access the help page.**
 
 <img src="images/helpMessage.png" alt="help message" width="500"/>
 
@@ -285,7 +287,7 @@ Format: `help`
 
 ### Listing all patients: `list`
 
-Shows all patients in ImmuniMate.
+**Shows all patients in ImmuniMate.**
 
 Format: `list`
 
@@ -293,7 +295,13 @@ Format: `list`
 
 ### Creating a patient profile: `create`
 
-Creates a patient profile in ImmuniMate. A patient profile refers to a record of a patient with a set of relevant information. For the complete field of information, refer to the [Field summary](#field-summary) at the end of this User Guide.
+**Creates a patient profile in ImmuniMate.**
+
+<div markdown="block" class="alert alert-info">
+
+**:information_source: Notes**<br>
+A patient profile refers to a record of a patient with a set of relevant information. For the complete field of information, refer to the [Field summary](#field-summary) at the end of this User Guide.
+</div>
 
 Format: `create ic/<NRIC> n/<Patient_Name> hp/<Phone_Number> a/<Address> dob/<Date_of_birth> s/<Sex> st/<Status> [e/Email] [c/Country_of_Nationality] [doa/Date_of_Admission] [bt/Blood type] [al/Allergies] [con/Condition] [sym/Symptom] [d/diagnosis]`
 
@@ -318,7 +326,7 @@ Examples:
 
 ### Read specific patients: `read`
 
-Shows all profile details of patient with corresponding NRIC.
+**Shows all profile details of patient with corresponding NRIC.**
 
 Format: `read <NRIC>`
 * The NRIC must follow the correct format specified in [Field Summary](#field-summary).
@@ -338,7 +346,7 @@ Examples:
 
 ### Updating a patient profile: `update`
 
-Updates information of a patient with an existing profile in ImmuniMate.
+**Updates information of a patient with an existing profile in ImmuniMate.**
 
 Format: `update <NRIC> <Field>/CONTENT`
 
@@ -374,7 +382,7 @@ Examples:
 
 ### Finding patients by name: `find`
 
-Finds patients whose names contain any of the given keywords.
+**Finds patients whose names contain any of the given keywords.**
 
 Format: `find n/<NAME> [NAME] [NAME] ...`
 
@@ -399,7 +407,7 @@ Examples:
 
 ### Finding patients by address: `find`
 
-Finds patients whose addresses contain any of the given keywords.
+**Finds patients whose addresses contain any of the given keywords.**
 
 Format: `find a/<LOCATION>, [LOCATION], [LOCATION], ...`
 
@@ -426,7 +434,7 @@ Examples:
 
 ### Finding patients by condition: `find`
 
-Finds patients whose conditions contain any of the given keywords.
+**Finds patients whose conditions contain any of the given keywords.**
 
 Format: `find con/<CONDITION>, [CONDITION], [CONDITION], ...`
 
@@ -460,7 +468,7 @@ If you would like to find a person with NRIC, use the `read` command instead.
 
 ### Deleting a patient: `delete`
 
-Deletes the specified patient from ImmuniMate.
+**Deletes the specified patient from ImmuniMate.**
 
 Format: `delete <NRIC>`
 
@@ -482,7 +490,7 @@ Examples:
 
 ### Deleting information of a patient: `deleteinfo`
 
-Deletes specified optional information from the specified person from ImmuniMate.
+**Deletes specified optional information from the specified person from ImmuniMate.**
 
 Format: `deleteinfo <NRIC> <Field> [Field] [Field] ...`
 
@@ -514,7 +522,7 @@ If you would like to change mandatory fields, you can use the `update` command i
 
 ### Add patient visit to history: `addvisit`
 
-Adds visit to patient history. 
+**Adds visit to patient history.** 
 
 Format: `addvisit ic/<NRIC> dov/<Date_of_Visit> sym/<Symptoms> d/<Diagnosis> st/<Status>`
 
@@ -539,7 +547,7 @@ Examples:
 
 ### Check patient history: `check`
 
-Checks all visits in patient history.
+**Checks all visits in patient history.**
 
 Format: `check <NRIC>`
 * NRIC must be that of a patient already in ImmuniMate.
@@ -560,7 +568,7 @@ Example:
 
 ### Cluster finding: `cluster`
 
-Shows whether or not the number of people **unwell** with the illness given (diagnosis in profile) in the location given is at least the integer given, and lists the people there with the illness. 
+**Shows whether or not the number of people _unwell_ with the illness given (diagnosis in profile) in the location given is at least the integer given, and lists the people there with the illness.** 
 
 Format: `cluster <CLUSTER SIZE> a/<LOCATION> d/<DIAGNOSIS>`
 
@@ -590,7 +598,7 @@ Example:
 
 ### Clearing all entries: `clear`
 
-Clears all profiles from ImmuniMate.
+**Clears all profiles from ImmuniMate.**
 
 Format: `clear`
 
@@ -598,7 +606,7 @@ Format: `clear`
 
 ### Exiting the program: `exit`
 
-Exits the program.
+**Exits the program.**
 
 Format: `exit`
 
@@ -612,8 +620,8 @@ Arrow Key to view the next command. The Up and Down Arrow Keys can be found on t
 ![Keyboard Arrow Keys](images/KeyboardArrowKeys.png)
 
 **Notes:**
-1. The Command History only saves valid commands, it does not save commands that were unsuccessful.
-2. The Command History is temporary and will not be stored in between sessions. When you close an instance of ImmuniMate, your Command History is cleared.
+1. The Command History only saves **valid commands**, it does not save commands that were unsuccessful.
+2. The Command History is **temporary** and **will not be stored in between sessions**. When you close an instance of ImmuniMate, your Command History is cleared.
 
 <br>
 
