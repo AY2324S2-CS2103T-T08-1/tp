@@ -625,6 +625,8 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
   - 2a2. Healthcare worker enters new NRIC.
   - Steps 2a1-2a2 are repeated until the data entered are correct or Healthcare worker cancels the action. Use case resumes from step 3.
 
+---
+
 **Use Case: UC06 - Delete Patient Information**
 
 - **Actor:** Healthcare Worker
@@ -915,6 +917,7 @@ testers are expected to do more *exploratory* testing.
        1. The person with NRIC `S1234567A` is already created in the system with a `create` command.
    1. Test case: `update S1234567A a/35 Bishan Road, #10-40 con/myopia ic/S1234568A`<br>
       Expected: The person's address is updated to `35 Bishan Road, #10-40` and condition is updated to `myopia`. The NRIC is not updated.
+
 ### Finding a person
 
 1. Finding a person by name, condition or address
