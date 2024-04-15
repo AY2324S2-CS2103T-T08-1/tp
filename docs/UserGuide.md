@@ -12,16 +12,16 @@ Those days are over!
 Introducing **ImmuniMate**, our innovative platform designed to revolutionize the way healthcare professionals and staff manage patient information.
 It's your secure, centralized hub where you can access all your patients' medical and personal details – allergies, visit history, medical conditions, you name it – just a few clicks away!
 
-## Who This App is For
+### Who This App is For
 
-ImmuniMate is designed for healthcare professionals (doctors, nurses etc.) and healthcare staff (clinic receptionist etc.) longing to leverage the efficiencies of the 21st century, who:
+ImmuniMate is designed for **healthcare professionals** (doctors, nurses etc.) and **healthcare staff** (clinic receptionist etc.) longing to leverage the efficiencies of the 21st century, who:
 
 * have basic experience in using computers
 * have a computer with sufficient space (~100 MB)
 * are comfortable typing on a regular basis
 * have no serious colour vision deficiencies (can differentiate red, yellow and green)
 
-## Purpose of This Guide
+### Purpose of This Guide
 
 If you ticked all the points above, great!
 This user guide is here as your helping hand, imparting knowledge to unlock the full potential of ImmuniMate.
@@ -50,20 +50,20 @@ Let's dive in and explore how ImmuniMate can transform your practice!
 ImmuniMate's user guide is optimised for ease of navigation, so that you can spend less time on the app, and more time on your patients.
 The table of contents just before this section breaks down the guide into its constituent sections:
 
-1. How to Use This Guide (this section)
+1. **How to Use This Guide** (this section)
    * descriptions on different sections of user guide
    * glossary on technical terms
-2. Product Information
+2. **Product Information**
    * detailed description of product
    * summary of command and fields
-3. Quick start
+3. **Quick Start**
    * system requirements
    * how to download and get started on the app
-4. Features
+4. **Features**
    * explains each feature with examples
    * common usage mistakes
-5. Frequently Asked Questions
-6. Known issues
+5. **Frequently Asked Questions**
+6. **Known issues**
    * descriptions on issues with ImmuniMate that have been spotted, but not fixed
 
 Navigating a complex document can be time-consuming, and we understand.
@@ -118,10 +118,13 @@ Examples:
   * (consequence)
 * ...
 
-Common mistakes:
+<div markdown="block" class="alert alert-danger">
+
+**:x: Common Mistakes**<br>
 * `wrong use case 1` (reason)
 * `wrong use case 2` (reason)
 * ...
+</div>
 
 <br>
 
@@ -226,7 +229,7 @@ Find retyping commands a hassle? Use your 'Up' and 'Down' arrow keys to access y
     
     **:bulb: Tip:**<br>
     Don't worry if you don't have Java 11 installed yet!
-    The Java Development Kit (kind of like an installer) can be downloaded from [here](https://www.oracle.com/sg/java/technologies/downloads/#java11).
+    The Java Development Kit (kind of like an installer) can be downloaded from [here](https://www.oracle.com/sg/java/technologies/downloads/#java11) (screenshot below).
     Take great care in downloading the one which suits your operating system (Linux, Windows, MacOS etc).
     </div>
 
@@ -234,7 +237,7 @@ Find retyping commands a hassle? Use your 'Up' and 'Down' arrow keys to access y
 
 2. Download the latest `immuniMate.jar` from [our website](https://github.com/AY2324S2-CS2103T-T08-1/tp/releases).
 
-    <img src="images/GithubReleasePage.png" alt="help message" width="500"/>
+    <img src="images/GithubReleasePage.png" alt="help message" width="700"/>
 
 3. Copy the file to the folder you want to use as the _home folder_ for your ImmuniMate.
 
@@ -251,7 +254,7 @@ Find retyping commands a hassle? Use your 'Up' and 'Down' arrow keys to access y
 
     ![Ui](images/GUI.png)
 
-6. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
+6. Type the command in the command box and press "Enter" to execute it. e.g. typing **`help`** and pressing "Enter" will open the help window.<br>
    Some example commands you can try:
 
    * `list` : Lists all contacts.
