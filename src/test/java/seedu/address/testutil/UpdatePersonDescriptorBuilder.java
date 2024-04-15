@@ -1,8 +1,5 @@
 package seedu.address.testutil;
 
-import java.util.Set;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import seedu.address.logic.commands.UpdateCommand.UpdatePersonDescriptor;
 import seedu.address.model.person.Address;
@@ -13,7 +10,6 @@ import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.Sex;
 import seedu.address.model.person.Status;
-import seedu.address.model.tag.Tag;
 
 /**
  * A utility class to help with building EditPersonDescriptor objects.
@@ -42,7 +38,6 @@ public class UpdatePersonDescriptorBuilder {
         descriptor.setDateOfBirth(person.getDateOfBirth());
         descriptor.setSex(person.getSex());
         descriptor.setStatus(person.getStatus());
-        descriptor.setTags(person.getTags());
         descriptor.setEmail(person.getEmail());
         descriptor.setCountry(person.getCountry());
 
@@ -110,15 +105,6 @@ public class UpdatePersonDescriptorBuilder {
         return this;
     }
 
-    /**
-     * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code EditPersonDescriptor}
-     * that we are building.
-     */
-    public UpdatePersonDescriptorBuilder withTags(String... tags) {
-        Set<Tag> tagSet = Stream.of(tags).map(Tag::new).collect(Collectors.toSet());
-        descriptor.setTags(tagSet);
-        return this;
-    }
 
     public UpdatePersonDescriptor build() {
         return descriptor;

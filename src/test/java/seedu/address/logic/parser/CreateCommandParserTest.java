@@ -182,19 +182,9 @@ public class CreateCommandParserTest {
         assertParseFailure(parser, NRIC_DESC_BOB + NAME_DESC_BOB + INVALID_PHONE_DESC + ADDRESS_DESC_BOB
                 + DATEOFBIRTH_DESC_BOB + SEX_DESC_BOB + STATUS_DESC_BOB, Phone.MESSAGE_CONSTRAINTS);
         //TODO: optional fields
-        /*
-        // invalid email
-        assertParseFailure(parser, NRIC_DESC_BOB + NAME_DESC_BOB + PHONE_DESC_BOB + ADDRESS_DESC_BOB
-                + DATEOFBIRTH_DESC_BOB + SEX_DESC_BOB + STATUS_DESC_BOB, Email.MESSAGE_CONSTRAINTS);
-         */
         // invalid address
         assertParseFailure(parser, NRIC_DESC_BOB + NAME_DESC_BOB + PHONE_DESC_BOB + INVALID_ADDRESS_DESC
                 + DATEOFBIRTH_DESC_BOB + SEX_DESC_BOB + STATUS_DESC_BOB, Address.MESSAGE_CONSTRAINTS);
-        /*
-        // invalid tag
-        assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
-                + INVALID_TAG_DESC + VALID_TAG_FRIEND, Tag.MESSAGE_CONSTRAINTS);
-        */
         // two invalid values, only first invalid value reported
         assertParseFailure(parser, NRIC_DESC_BOB + INVALID_NAME_DESC + PHONE_DESC_BOB + INVALID_ADDRESS_DESC
                         + DATEOFBIRTH_DESC_BOB + SEX_DESC_BOB + STATUS_DESC_BOB,

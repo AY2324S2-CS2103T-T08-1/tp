@@ -17,18 +17,11 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SEX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STATUS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SYMPTOM;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Optional;
-import java.util.Set;
 
 import seedu.address.logic.commands.UpdateCommand;
 import seedu.address.logic.commands.UpdateCommand.UpdatePersonDescriptor;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Nric;
-import seedu.address.model.tag.Tag;
 
 /**
  * Parses input arguments and creates a new EditCommand object
@@ -44,7 +37,7 @@ public class UpdateCommandParser implements Parser<UpdateCommand> {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NRIC, PREFIX_NAME, PREFIX_PHONE, PREFIX_ADDRESS,
-                        PREFIX_DATEOFBIRTH, PREFIX_SEX, PREFIX_STATUS, PREFIX_TAG, PREFIX_EMAIL, PREFIX_COUNTRY,
+                        PREFIX_DATEOFBIRTH, PREFIX_SEX, PREFIX_STATUS, PREFIX_EMAIL, PREFIX_COUNTRY,
                         PREFIX_DATEOFADMISSION, PREFIX_ALLERGIES, PREFIX_BLOODTYPE, PREFIX_CONDITION, PREFIX_SYMPTOM,
                         PREFIX_DIAGNOSIS);
 
@@ -57,7 +50,7 @@ public class UpdateCommandParser implements Parser<UpdateCommand> {
         }
 
         argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_NRIC, PREFIX_NAME, PREFIX_PHONE, PREFIX_ADDRESS,
-                PREFIX_DATEOFBIRTH, PREFIX_SEX, PREFIX_STATUS, PREFIX_TAG, PREFIX_EMAIL, PREFIX_COUNTRY,
+                PREFIX_DATEOFBIRTH, PREFIX_SEX, PREFIX_STATUS, PREFIX_EMAIL, PREFIX_COUNTRY,
                 PREFIX_DATEOFADMISSION, PREFIX_ALLERGIES, PREFIX_BLOODTYPE, PREFIX_CONDITION, PREFIX_SYMPTOM,
                 PREFIX_DIAGNOSIS);
 
@@ -118,7 +111,6 @@ public class UpdateCommandParser implements Parser<UpdateCommand> {
             updatePersonDescriptor.setSymptom(ParserUtil.parseSymptom(argMultimap.getValue(PREFIX_SYMPTOM).get()));
         }
 
-        // parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(updatePersonDescriptor::setTags);
 
         if (!updatePersonDescriptor.isAnyFieldUpdated()) {
             throw new ParseException(UpdateCommand.MESSAGE_NOT_UPDATED);
@@ -126,20 +118,4 @@ public class UpdateCommandParser implements Parser<UpdateCommand> {
 
         return new UpdateCommand(nric, updatePersonDescriptor);
     }
-
-    /**
-     * Parses {@code Collection<String> tags} into a {@code Set<Tag>} if {@code tags} is non-empty.
-     * If {@code tags} contain only one element which is an empty string, it will be parsed into a
-     * {@code Set<Tag>} containing zero tags.
-     */
-    private Optional<Set<Tag>> parseTagsForEdit(Collection<String> tags) throws ParseException {
-        assert tags != null;
-
-        if (tags.isEmpty()) {
-            return Optional.empty();
-        }
-        Collection<String> tagSet = tags.size() == 1 && tags.contains("") ? Collections.emptySet() : tags;
-        return Optional.of(ParserUtil.parseTags(tagSet));
-    }
-
 }

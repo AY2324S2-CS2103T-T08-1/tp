@@ -17,7 +17,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SEX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STATUS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SYMPTOM;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.testutil.Assert.assertThrows;
 
 import java.util.ArrayList;
@@ -72,7 +71,6 @@ public class CommandTestUtil {
     public static final String VALID_SYMPTOM_AMY = "runny nose";
     public static final String VALID_SYMPTOM_BOB = "sore throat";
     public static final String VALID_TAG_HUSBAND = "husband";
-    public static final String VALID_TAG_FRIEND = "friend";
 
     public static final String NRIC_DESC_AMI = " " + PREFIX_NRIC + VALID_NRIC_AMI;
     public static final String NRIC_DESC_AMY = " " + PREFIX_NRIC + VALID_NRIC_AMY;
@@ -105,8 +103,6 @@ public class CommandTestUtil {
     public static final String DIAGNOSIS_DESC_BOB = " " + PREFIX_DIAGNOSIS + VALID_DIAGNOSIS_BOB;
     public static final String SYMPTOM_DESC_AMY = " " + PREFIX_SYMPTOM + VALID_SYMPTOM_AMY;
     public static final String SYMPTOM_DESC_BOB = " " + PREFIX_SYMPTOM + VALID_SYMPTOM_BOB;
-    public static final String TAG_DESC_FRIEND = " " + PREFIX_TAG + VALID_TAG_FRIEND;
-    public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
     public static final String ALL_FIELDS_DESC_AMY = NRIC_DESC_AMY + NAME_DESC_AMY + PHONE_DESC_AMY
             + ADDRESS_DESC_AMY + DATEOFBIRTH_DESC_AMY + SEX_DESC_AMY + STATUS_DESC_AMY + ALLERGIES_DESC_AMY
             + EMAIL_DESC_AMY + CONDITION_DESC_AMY + COUNTRY_DESC_AMY + BLOODTYPE_DESC_AMY + DATEOFADMISSION_DESC_AMY
@@ -120,7 +116,6 @@ public class CommandTestUtil {
     public static final String INVALID_PHONE_DESC = " " + PREFIX_PHONE + "911a"; // 'a' not allowed in phones
     public static final String INVALID_EMAIL_DESC = " " + PREFIX_EMAIL + "bob!yahoo"; // missing '@' symbol
     public static final String INVALID_ADDRESS_DESC = " " + PREFIX_ADDRESS; // empty string not allowed for addresses
-    public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
     public static final String NON_EXISTENT_NRIC = "S1234576A";
     public static final String INVALID_NRIC = "S1234576"; // missing last letter
 

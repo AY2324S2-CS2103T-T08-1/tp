@@ -15,7 +15,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SEX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STATUS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SYMPTOM;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import seedu.address.logic.commands.CreateCommand;
 import seedu.address.logic.commands.UpdateCommand.UpdatePersonDescriptor;
@@ -46,9 +45,6 @@ public class PersonUtil {
         sb.append(PREFIX_DATEOFBIRTH + person.getDateOfBirth().toString() + " ");
         sb.append(PREFIX_SEX + person.getSex().toString() + " ");
         sb.append(PREFIX_STATUS + person.getStatus().toString() + " ");
-        person.getTags().stream().forEach(
-            s -> sb.append(PREFIX_TAG + s.tagName + " ")
-        );
         return sb.toString();
     }
 
@@ -60,35 +56,25 @@ public class PersonUtil {
         assert descriptor.getName().isPresent() && descriptor.getPhone().isPresent()
                 && descriptor.getAddress().isPresent() && descriptor.getDateOfBirth().isPresent()
                 && descriptor.getSex().isPresent() && descriptor.getStatus().isPresent();
-        sb.append(PREFIX_NAME).append(descriptor.getName().get().toString()).append(" ");
-        sb.append(PREFIX_PHONE).append(descriptor.getPhone().get().toString()).append(" ");
-        sb.append(PREFIX_ADDRESS).append(descriptor.getAddress().get().toString()).append(" ");
-        sb.append(PREFIX_DATEOFBIRTH).append(descriptor.getDateOfBirth().get().toString()).append(" ");
-        sb.append(PREFIX_SEX).append(descriptor.getSex().get().toString()).append(" ");
-        sb.append(PREFIX_STATUS).append(descriptor.getStatus().get().toString()).append(" ");
-        descriptor.getEmail().ifPresent(email -> sb.append(PREFIX_EMAIL).append(email.toString()).append(" "));
-        descriptor.getCountry().ifPresent(country -> sb.append(PREFIX_COUNTRY).append(country.toString()).append(" "));
+        sb.append(PREFIX_NAME).append(descriptor.getName().get()).append(" ");
+        sb.append(PREFIX_PHONE).append(descriptor.getPhone().get()).append(" ");
+        sb.append(PREFIX_ADDRESS).append(descriptor.getAddress().get()).append(" ");
+        sb.append(PREFIX_DATEOFBIRTH).append(descriptor.getDateOfBirth().get()).append(" ");
+        sb.append(PREFIX_SEX).append(descriptor.getSex().get()).append(" ");
+        sb.append(PREFIX_STATUS).append(descriptor.getStatus().get()).append(" ");
+        descriptor.getEmail().ifPresent(email -> sb.append(PREFIX_EMAIL).append(email).append(" "));
+        descriptor.getCountry().ifPresent(country -> sb.append(PREFIX_COUNTRY).append(country).append(" "));
         descriptor.getAllergies().ifPresent(allergies -> sb.append(PREFIX_ALLERGIES)
-                .append(allergies.toString()).append(" "));
+                .append(allergies).append(" "));
         descriptor.getBloodType().ifPresent(bloodType -> sb
-                .append(PREFIX_BLOODTYPE).append(bloodType.toString()).append(" "));
+                .append(PREFIX_BLOODTYPE).append(bloodType).append(" "));
         descriptor.getCondition().ifPresent(condition -> sb
-                .append(PREFIX_CONDITION).append(condition.toString()).append(" "));
+                .append(PREFIX_CONDITION).append(condition).append(" "));
         descriptor.getDateOfAdmission().ifPresent(dateOfAdmission -> sb
-                .append(PREFIX_DATEOFADMISSION).append(dateOfAdmission.toString()).append(" "));
+                .append(PREFIX_DATEOFADMISSION).append(dateOfAdmission).append(" "));
         descriptor.getDiagnosis().ifPresent(diagnosis -> sb
-                .append(PREFIX_DIAGNOSIS).append(diagnosis.toString()).append(" "));
-        descriptor.getSymptom().ifPresent(symptom -> sb.append(PREFIX_SYMPTOM).append(symptom.toString()).append(" "));
-        /*
-        if (descriptor.getTags().isPresent()) {
-            Set<Tag> tags = descriptor.getTags().get();
-            if (tags.isEmpty()) {
-                sb.append(PREFIX_TAG);
-            } else {
-                tags.forEach(s -> sb.append(PREFIX_TAG).append(s.tagName).append(" "));
-            }
-        }
-        */
+                .append(PREFIX_DIAGNOSIS).append(diagnosis).append(" "));
+        descriptor.getSymptom().ifPresent(symptom -> sb.append(PREFIX_SYMPTOM).append(symptom).append(" "));
         return sb.toString();
     }
 }

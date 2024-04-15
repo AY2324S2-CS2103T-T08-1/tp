@@ -21,7 +21,6 @@ public class CliSyntax {
     public static final Prefix PREFIX_CONDITION = new Prefix("con/");
     public static final Prefix PREFIX_SYMPTOM = new Prefix("sym/");
     public static final Prefix PREFIX_DIAGNOSIS = new Prefix("d/");
-    public static final Prefix PREFIX_TAG = new Prefix("t/");
     public static final Prefix PREFIX_STATUS = new Prefix("st/");
 
 }

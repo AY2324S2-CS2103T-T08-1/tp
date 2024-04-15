@@ -86,6 +86,9 @@ class JsonAdaptedVisit {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
               Diagnosis.class.getSimpleName()));
         }
+        if (!Diagnosis.isValidDiagnosis(diagnosis)) {
+            throw new IllegalValueException(Diagnosis.MESSAGE_CONSTRAINTS);
+        }
         final Diagnosis modelDiagnosis = new Diagnosis(diagnosis);
         // Status Check
         if (status == null) {

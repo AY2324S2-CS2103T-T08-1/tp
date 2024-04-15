@@ -2,13 +2,9 @@ package seedu.address.model.person;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.util.Collections;
-import java.util.HashSet;
 import java.util.Objects;
-import java.util.Set;
 
 import seedu.address.commons.util.ToStringBuilder;
-import seedu.address.model.tag.Tag;
 
 /**
  * Represents a Person in the address book.
@@ -26,7 +22,6 @@ public class Person {
     private Status status;
     // Optional fields
     // Data fields
-    private final Set<Tag> tags = new HashSet<>();
     private Email email = null;
     private Country country = null;
     //Medical information
@@ -128,13 +123,6 @@ public class Person {
         return symptom;
     }
 
-    /**
-     * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
-     * if modification is attempted.
-     */
-    public Set<Tag> getTags() {
-        return Collections.unmodifiableSet(tags);
-    }
     /**
      * Sets the name of the person to input value.
      * @param name the new name.
@@ -323,7 +311,6 @@ public class Person {
                 .add("condition", condition)
                 .add("diagnosis", diagnosis)
                 .add("symptom", symptom)
-                .add("tags", tags)
                 .toString();
     }
 }

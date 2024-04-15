@@ -17,12 +17,9 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_STATUS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SYMPTOM;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
-import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.Set;
 
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.commons.util.ToStringBuilder;
@@ -46,7 +43,6 @@ import seedu.address.model.person.Phone;
 import seedu.address.model.person.Sex;
 import seedu.address.model.person.Status;
 import seedu.address.model.person.Symptom;
-import seedu.address.model.tag.Tag;
 
 
 /**
@@ -192,8 +188,6 @@ public class UpdateCommand extends Command {
         private Sex sex;
         private Status status;
         // Optional fields
-        // Data fields
-        private Set<Tag> tags = new HashSet<>();
         private Email email;
         private Country country;
         //Medical information
@@ -359,22 +353,6 @@ public class UpdateCommand extends Command {
             return Optional.ofNullable(symptom);
         }
 
-        /**
-         * Sets {@code tags} to this object's {@code tags}.
-         * A defensive copy of {@code tags} is used internally.
-         */
-        public void setTags(Set<Tag> tags) {
-            this.tags = (tags != null) ? new HashSet<>(tags) : null;
-        }
-
-        /**
-         * Returns an unmodifiable tag set, which throws {@code UnsupportedOperationException}
-         * if modification is attempted.
-         * Returns {@code Optional#empty()} if {@code tags} is null.
-         */
-        public Optional<Set<Tag>> getTags() {
-            return (tags != null) ? Optional.of(Collections.unmodifiableSet(tags)) : Optional.empty();
-        }
 
         @Override
         public boolean equals(Object other) {
@@ -402,8 +380,13 @@ public class UpdateCommand extends Command {
                     && Objects.equals(condition, otherUpdatePersonDescriptor.condition)
                     && Objects.equals(dateOfAdmission, otherUpdatePersonDescriptor.dateOfAdmission)
                     && Objects.equals(diagnosis, otherUpdatePersonDescriptor.diagnosis)
-                    && Objects.equals(symptom, otherUpdatePersonDescriptor.symptom)
-                    && Objects.equals(tags, otherUpdatePersonDescriptor.tags);
+                    && Objects.equals(symptom, otherUpdatePersonDescriptor.symptom);
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(nric, name, phone, address, dateOfBirth, sex, status, email, country,
+                allergies, bloodType, condition, dateOfAdmission, diagnosis, symptom);
         }
 
         @Override
