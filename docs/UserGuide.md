@@ -637,9 +637,12 @@ Arrow Key to view the next command. The Up and Down Arrow Keys can be found on t
 
 ![Keyboard Arrow Keys](images/KeyboardArrowKeys.png)
 
-**Notes:**
-1. The Command History only saves **valid commands**, it does not save commands that were unsuccessful.
-2. The Command History is **temporary** and **will not be stored in between sessions**. When you close an instance of ImmuniMate, your Command History is cleared.
+<div markdown="block" class="alert alert-info">
+
+**:information_source: Notes**<br>
+* The Command History only saves **valid commands**, it does not save commands that were unsuccessful. 
+* The Command History is **temporary** and **will not be stored in between sessions**. When you close an instance of ImmuniMate, your Command History is cleared.
+</div>
 
 <br>
 
