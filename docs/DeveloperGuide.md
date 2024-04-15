@@ -143,7 +143,7 @@ The `Storage` component,
 
 ### Common classes
 
-Classes used by multiple components are in the `seedu.addressbook.commons` package.
+Classes used by multiple components are in the `seedu.address.commons` package.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -491,7 +491,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 ### Use cases
 
-(For all use cases below, the **IMS** is the `ImmuniMate system` and the **Healthcare worker** is the `user`, unless specified otherwise)
+(For all use cases below, the **IMS** is the `ImmuniMate system` and the **Healthcare Worker** is the `user`, unless specified otherwise)
 
 **Use Case: UC01 - Create Patient Profile**
 
@@ -534,9 +534,9 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **Use Case: UC02 - Read Patient Profile**
 
 - **Actor:** Healthcare Worker
-- **Description:** Healthcare worker reads patient profile in the ImmuniMate Address Book System.
+- **Description:** Healthcare worker reads patient profile in the IMS.
 - **Preconditions:** Healthcare worker has logged into the system.
-- **Guarantees:** Existing patient profile  in the ImmuniMate Address Book System is successfully displayed.
+- **Guarantees:** Existing patient profile  in the IMS is successfully displayed.
 - **MSS:**
     1. Healthcare worker choose to read a patient profile.
     2. IMS requests the necessary detail for reading patient profile (NRIC).
@@ -572,7 +572,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **Use Case: UC03 - Find Patient Information**
 
 - **Actor:** Healthcare Worker
-- **Description:** Healthcare worker searches for specific patient information in the ImmuniMate Address Book System.
+- **Description:** Healthcare worker searches for specific patient information in the IMS.
 - **Preconditions:** Healthcare worker has logged into the system.
 - **Guarantees:** Relevant patient information is displayed for the healthcare worker to view.
 - **Basic Flow:**
@@ -590,9 +590,9 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **Use Case: UC04 - Update Patient Information**
 
 - **Actor:** Healthcare Worker
-- **Description:** Healthcare worker updates a patient's information in the ImmuniMate Address Book System.
+- **Description:** Healthcare worker updates a patient's information in the IMS.
 - **Preconditions:** Healthcare worker has logged into the system and has selected the patient whose information needs to be updated.
-- **Guarantees:** Patient's information is successfully updated in the ImmuniMate Address Book System.
+- **Guarantees:** Patient's information is successfully updated in the IMS.
 - **Basic Flow:**
     1. Healthcare worker chooses to update a certain patient’s certain information.
     2. IMS validates the new content.
@@ -612,9 +612,9 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **Use Case: UC05 - Delete Patient Profile**
 
 - **Actor:** Healthcare worker
-- **Description:** Healthcare worker deletes a patient's record from the ImmuniMate Address Book System.
+- **Description:** Healthcare worker deletes a patient's record from the IMS.
 - **Preconditions:** Healthcare worker has opened the app and has selected the patient whose record needs to be deleted.
-- **Guarantees:** Patient's record is successfully deleted from the ImmuniMate Address Book System.
+- **Guarantees:** Patient's record is successfully deleted from the IMS System.
 - **MSS:**
     1. Healthcare worker choose to delete a specified patient’s record.
     2. IMS validates the NRIC and deletes the patient's record from the database.
@@ -630,9 +630,9 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **Use Case: UC06 - Delete Patient Information**
 
 - **Actor:** Healthcare Worker
-- **Description:** Healthcare worker deletes specific information from a patient's record in the ImmuniMate Address Book System.
+- **Description:** Healthcare worker deletes specific information from a patient's record in the IMS.
 - **Preconditions:** Healthcare worker has logged into the system and has selected the patient whose information needs to be deleted.
-- **Guarantees:** Specified information is successfully deleted from the patient's record in the ImmuniMate Address Book System.
+- **Guarantees:** Specified information is successfully deleted from the patient's record in the IMS.
 - **MSS:**
     1. Healthcare worker chooses to delete certain fields of a certain patient's profile.
     2. IMS validates the information to be deleted and deletes the specified information from the patient's record in the database.
@@ -662,9 +662,9 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 
 - **Actor:** Healthcare Worker
-- **Description:** Healthcare worker adds a visit record for a patient in the ImmuniMate Address Book System.
+- **Description:** Healthcare worker adds a visit record for a patient in the IMS.
 - **Preconditions:** Healthcare worker has logged into the system.
-- **Guarantees:** A new visit record is successfully added for the patient in the ImmuniMate Address Book System.
+- **Guarantees:** A new visit record is successfully added for the patient in the IMS.
 - **Main Success Scenario (MSS):**
   1. Healthcare worker chooses to add a new patient visit.
   2. IMS requests the necessary details for the visit (NRIC, date of visit, diagnosis, symptoms, status).
@@ -699,15 +699,14 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
   - *a2. Healthcare Worker confirms the cancellation.
   - Use case ends.
 
-
 ---
 
 **Use Case: UC08 - Check Patient Visit History**
 
 - **Actor:** Healthcare Worker
-- **Description:** Healthcare worker checks patient visit history in the ImmuniMate Address Book System.
+- **Description:** Healthcare worker checks patient visit history in the IMS.
 - **Preconditions:** Healthcare worker has logged into the system.
-- **Guarantees:** Existing patient visit history in the ImmuniMate Address Book System is successfully displayed.
+- **Guarantees:** Existing patient visit history in the IMS is successfully displayed.
 - **MSS:**
     1. Healthcare worker choose to check a patient visit history.
     2. IMS requests the necessary detail for checking patient visit history (NRIC).
@@ -737,49 +736,53 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
   *a2. Healthcare Worker confirms the cancellation.
   Use case ends.
 
+---
+
+**Use Case: UC09 - Finding Clusters**
+
+- **Actor:** Healthcare Worker
+- **Description:** Healthcare worker tries to identify disease clusters through data in the ImmuniMate System.
+- **Preconditions:** Healthcare worker has logged into the system.
+- **Guarantees:** There is at least 1 patient profile saved in IMS.
+- **MSS:**
+    1. Healthcare worker wants to find disease clusters/potential disease clusters.
+    2. IMS requests Healthcare Worker for relevant details.
+    3. Healthcare worker enters integer, location and illness.
+    4. IMS validates the entered data and displays all patients at that location unwell with the illness.
+- **Extensions:**
+
+  3a. IMS detects an error in the entered data (invalid cluster size).
+
+  * 3a1. IMS shows the conflicting existing entry
+  * 3a2. IMS requests for the correct data.
+  * 3a3. Healthcare Worker enters data with valid cluster size.<br>
+  Steps 3a1-3a3 are repeated until the data entered are correct, or the user cancels the action.
+  Use case resumes from step 4.
+
+  3b. IMS detects an error in the entered data (empty location).
+
+  * 3b1. IMS requests for the correct data.
+  * 3b2. Healthcare Worker enters data with valid location.<br>
+  Steps 3b1-3b2 are repeated until the data entered are correct.
+  Use case resumes from step 4.
 
 ### Non-Functional Requirements
 
 1.  Should work on any _mainstream OS_ as long as it has Java `11` or above installed.
-2.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
-*{More to be added}*
-
-Data Requirements:
-* the app should have high data persistency
-
-Environment Requirements:
-* the app should work on both 32-bit and 64-bit environments
-
-Accessibility:
-* the app should be easily downloaded from websites/app stores, and need no prior setup
-
-Capacity:
-* the app should be able to store 10000 profiles 
-* the app should not exceed 10GB in storage space
-
-Compliance with regulations:
-* personal data collection on the app should adhere to the Personal Data Protection Act (PDPA)
-
-Extensibility:
-* the app should enable new profile fields to be added easily
-* the app should be convenient to expand its capacity when needed
-
-Interoperability:
-* the app should be compatible with Windows, MacOS, Linux platforms
-
-Maintainability:
-* the app should use automated testing
-
-Performance requirements:
-* the app should respond to queries within 1 second
-
-Process requirements:
-* the project should adhere to a schedule to deliver new features fortnightly
-* the project should aim to solve bugs found in one version by the next version
-
-Quality requirements:
-* the app should be usable by doctors/nurses/receptionists with limited guidance
-* the app should be faster to use by typing queries than using the mouse
+2.  Should be able to hold up to 10000 persons without a noticeable sluggishness in performance for typical usage.
+3.  Should have high data persistency.
+4.  Should work on both 32-bit and 64-bit environments.
+5.  Should be easily downloaded from websites/app stores, and need no prior setup besides downloading Java 11.
+6.  Should not exceed 100MB in storage space.
+7.  Data collection on the app should adhere to the Personal Data Protection Act (PDPA).
+8.  Unimplemented fields should be added easily.
+9.  Should be convenient to expand storage capacity of the app when needed.
+10. Should use automated testing.
+11. Should respond to queries within 1 second.
+12. Project should adhere to a schedule to deliver new features fortnightly.
+13. Project should aim to solve bugs found in one version by the next version.
+14. Should be usable by doctors/nurses/receptionists with limited guidance. 
+15. Should be faster to use by typing queries than using the mouse.
 
 ### Glossary
 
@@ -994,14 +997,6 @@ testers are expected to do more *exploratory* testing.
         3. The person with NRIC `S1234567A` is already created in the system with a `create` command.
     1. Test case: `check S1234567A`<br>
        Expected: The result panel shows the details of the checked person's visit history. The list panel shows the checked person.
-
-### Saving data
-
-1. Dealing with missing/corrupted data files
-
-   1. _{explain how to simulate a missing/corrupted file, and the expected behavior}_
-
-1. _{ more test cases …​ }_
 
 <div style="page-break-after: always;"></div>
 
