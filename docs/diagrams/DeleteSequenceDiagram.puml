@@ -51,7 +51,7 @@ activate DeleteCommand
 
 DeleteCommand -> Model : hasPerson(...)
 activate Model
-Model --> DeleteCommand : false
+Model --> DeleteCommand : true
 deactivate Model
 DeleteCommand -> Model : deletePerson(...)
 activate Model

@@ -56,7 +56,7 @@ Visit --> AddVisitCommand : nric
 deactivate Visit
 AddVisitCommand -> Model : hasPerson(...)
 activate Model
-Model --> AddVisitCommand : false
+Model --> AddVisitCommand : true
 deactivate Model
 AddVisitCommand -> Model : hasVisit(...)
 activate Model
