@@ -497,7 +497,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 - **Actor:** Healthcare Worker
 - **Description:** Healthcare worker creates a new patient profile in the IMS.
-- **Preconditions:** Healthcare worker has logged into the system.
+- **Preconditions:** Healthcare worker has launched the system.
 - **Guarantees:** New patient profile is successfully created in the IMS.
 - **MSS:**
     1. Healthcare worker choose to create a new patient profile.
@@ -535,7 +535,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 - **Actor:** Healthcare Worker
 - **Description:** Healthcare worker reads patient profile in the IMS.
-- **Preconditions:** Healthcare worker has logged into the system.
+- **Preconditions:** Healthcare worker has launched the system.
 - **Guarantees:** Existing patient profile  in the IMS is successfully displayed.
 - **MSS:**
     1. Healthcare worker choose to read a patient profile.
@@ -573,7 +573,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 - **Actor:** Healthcare Worker
 - **Description:** Healthcare worker searches for specific patient information in the IMS.
-- **Preconditions:** Healthcare worker has logged into the system.
+- **Preconditions:** Healthcare worker has launched the system.
 - **Guarantees:** Relevant patient information is displayed for the healthcare worker to view.
 - **Basic Flow:**
     1. Healthcare worker chooses to find patient information meeting specified criteria.
@@ -591,7 +591,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 - **Actor:** Healthcare Worker
 - **Description:** Healthcare worker updates a patient's information in the IMS.
-- **Preconditions:** Healthcare worker has logged into the system and has selected the patient whose information needs to be updated.
+- **Preconditions:** Healthcare worker has launched the system and has selected the patient whose information needs to be updated.
 - **Guarantees:** Patient's information is successfully updated in the IMS.
 - **Basic Flow:**
     1. Healthcare worker chooses to update a certain patient’s certain information.
@@ -614,7 +614,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 - **Actor:** Healthcare worker
 - **Description:** Healthcare worker deletes a patient's record from the IMS.
 - **Preconditions:** Healthcare worker has opened the app and has selected the patient whose record needs to be deleted.
-- **Guarantees:** Patient's record is successfully deleted from the IMS System.
+- **Guarantees:** Patient's record is successfully deleted from the IMS.
 - **MSS:**
     1. Healthcare worker choose to delete a specified patient’s record.
     2. IMS validates the NRIC and deletes the patient's record from the database.
@@ -631,7 +631,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 - **Actor:** Healthcare Worker
 - **Description:** Healthcare worker deletes specific information from a patient's record in the IMS.
-- **Preconditions:** Healthcare worker has logged into the system and has selected the patient whose information needs to be deleted.
+- **Preconditions:** Healthcare worker has launched the system and has selected the patient whose information needs to be deleted.
 - **Guarantees:** Specified information is successfully deleted from the patient's record in the IMS.
 - **MSS:**
     1. Healthcare worker chooses to delete certain fields of a certain patient's profile.
@@ -663,7 +663,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 - **Actor:** Healthcare Worker
 - **Description:** Healthcare worker adds a visit record for a patient in the IMS.
-- **Preconditions:** Healthcare worker has logged into the system.
+- **Preconditions:** Healthcare worker has launched the system.
 - **Guarantees:** A new visit record is successfully added for the patient in the IMS.
 - **Main Success Scenario (MSS):**
   1. Healthcare worker chooses to add a new patient visit.
@@ -705,7 +705,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 - **Actor:** Healthcare Worker
 - **Description:** Healthcare worker checks patient visit history in the IMS.
-- **Preconditions:** Healthcare worker has logged into the system.
+- **Preconditions:** Healthcare worker has launched the system.
 - **Guarantees:** Existing patient visit history in the IMS is successfully displayed.
 - **MSS:**
     1. Healthcare worker choose to check a patient visit history.
@@ -765,6 +765,28 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
   * 3b2. Healthcare Worker enters data with valid location.<br>
   Steps 3b1-3b2 are repeated until the data entered are correct.
   Use case resumes from step 4.
+  
+---
+  
+**Use Case: UC10 - List all patients**
+
+- **Actor:** Healthcare Worker
+- **Description:** Healthcare worker lists all patients in the IMS.
+- **Preconditions:** Healthcare worker has launched the system. The data file is not corrupted.
+- **Guarantees:** Existing patients in the IMS are successfully displayed.
+- **MSS:**
+  1. Healthcare worker choose to list all patients.
+  2. IMS displays all patients in the database.
+
+---
+**Use Case: UC11 - Access help**
+- **Actor:** Healthcare Worker
+- **Description:** Healthcare worker accesses the help guide in the IMS.
+- **Preconditions:** Healthcare worker has launched the system.
+- **Guarantees:** The help guide is successfully displayed.
+- **MSS:**
+  1. Healthcare worker chooses to access the help guide.
+  2. IMS displays the help guide.
 
 ### Non-Functional Requirements
 
