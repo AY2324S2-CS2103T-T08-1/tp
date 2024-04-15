@@ -66,10 +66,10 @@ The table of contents just before this section breaks down the guide into its co
 6. Known issues
    * descriptions on issues with ImmuniMate that have been spotted, but not fixed
 
-<br>
-
 Navigating a complex document can be time-consuming, and we understand.
 That's why we've placed hyperlinks throughout this article (like [this one](#command-summary), to the command summary), so that any information you need is truly at your fingertips.
+
+### Information Boxes
 
 Before engaging with ImmuniMate, there are some things that are so important that they have to catch your eye.
 That's why we made these nice blue note boxes to capture your attention, to plug gaps in your understanding before proceeding with ImmuniMate.
@@ -79,13 +79,24 @@ That's why we made these nice blue note boxes to capture your attention, to plug
 This is what a note box looks like.
 </div>
 
-Sometimes, certain instructions might sound very new or contain too many technical terms, which is why we also positioned a few tip snippets below them, so that you'll never have to fret about the intricacies of ImmuniMate.
+Sometimes, certain instructions might sound very new or contain too many technical terms, which is why we also positioned a few tip snippets below them in green boxes, so that you'll never have to fret about the intricacies of ImmuniMate.
 <div markdown="block" class="alert alert-success">
 
 **:bulb: Tip:**<br>
-This is what a tip snippet looks like
+This is what a tip snippet looks like.
 </div>
 
+Mistakes are inevitable, even in the healthcare industry.
+But we should always strive to minimise them, and we're helping you do just that by informing you of common mistakes that have happened countless times.
+You can view them in red boxes such as this one.
+
+<div markdown="block" class="alert alert-danger">
+
+**:x: Common Mistakes**<br>
+This is what a common mistake box looks like.
+</div>
+
+<br>
 <br>
 
 ImmuniMate comes with an abundant set of features, each of which we have taken great care to explain in great detail.
@@ -149,21 +160,21 @@ The list of commands and their formats are specified below:
 
 ### Command summary
 
-| Action                                                                  | Format, Examples                                                                                                                                                                                                                                                                                                                                                      |
-|-------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **[Create](#creating-a-patient-profile-create)**                        | `create <ic/NRIC> <n/Patient_Name> <hp/Phone_Number> a/<Address> <dob/Date_of_birth> <s/Sex> <st/Status> [e/Email] [c/Country_of_Nationality] [doa/Date_of_Admission] [bt/Blood type] [al/Allergies] [con/Condition] [sym/Symptom] [d/diagnosis]` <br> e.g., `create ic/S1234567A n/John Doe hp/98765432 a/311, Clementi Ave 2, #02-25 dob/1990-01-01 s/M st/PENDING` |
-| **[Read](#read-specific-patients-read)**                                | `read <NRIC>` <br> e.g., `read S1234567A`                                                                                                                                                                                                                                                                                                                             |
-| **[Update](#updating-a-patient-profile-update)**                        | `update <NRIC> <Field>/<Content>` <br> e.g., `update S1234567A hp/91234567 e/jd123@example.com`                                                                                                                                                                                                                                                                       |
-| **[Find](#finding-patients-by-name-find)**                              | `find n/<Part_of_name> <Part_of_name> <Part_of_name>` <br> e.g., `find n/Alex Bryan Charlie` <br> `find a/<Part_of_Address>, <Part_of_Address>, <Part_of_Address>, ...` <br> e.g., `find a/Serangoon, Geylang` <br> `find con/<Part_of_Condition>, <Part_of_Condition>, <Part_of_Condition>, ...` <br> e.g., `find con/Covid, Ebola`                                  |
-| **[Delete Patient](#deleting-a-patient-delete)**                        | `delete <NRIC>`<br> e.g., `delete S1234567A`                                                                                                                                                                                                                                                                                                                          |
-| **[Delete Information](#deleting-information-of-a-patient-deleteinfo)** | `deleteinfo <NRIC> <Field>` <br> e.g., `deleteinfo S1234567A e/`                                                                                                                                                                                                                                                                                                      |
-| **[Add Visit](#add-patient-visit-to-history-addvisit)**                 | `addvisit ic/<NRIC> dov/<Date_of_Visit> sym/<Symptoms> d/<Diagnosis> st/<Status>` <br> e.g., `addvisit ic/S1234567A dov/2024-01-01 sym/Cough d/Covid st/UNWELL`                                                                                                                                                                                                       |
-| **[Check](#check-patient-history-check)**                               | `check <NRIC>` <br> e.g., `check S1234567A`                                                                                                                                                                                                                                                                                                                           |
-| **[Find Cluster](#cluster-finding-cluster)**                            | `cluster <cluster size> a/<Part_of_Address> d/<Diagnosis>` <br> e.g. `cluster 3 a/Serangoon d/dengue`                                                                                                                                                                                                                                                                 |
-| **[Clear](#clearing-all-entries-clear)**                                | `clear`                                                                                                                                                                                                                                                                                                                                                               |
-| **[List](#listing-all-patients-list)**                                  | `list`                                                                                                                                                                                                                                                                                                                                                                |
-| **[Help](#viewing-help-help)**                                          | `help`                                                                                                                                                                                                                                                                                                                                                                |
-| **[Exit](#exiting-the-program-exit)**                                   | `exit`                                                                                                                                                                                                                                                                                                                                                                |
+| Action                                                                  | Format                                                                                                                                                                                                                                                                                             | Examples                                                                                                    |
+|-------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------|
+| **[Create](#creating-a-patient-profile-create)**                        | `create <ic/NRIC> <n/Patient_Name> <hp/Phone_Number> a/<Address> <dob/Date_of_birth> <s/Sex> <st/Status> [e/Email] [c/Country_of_Nationality] [doa/Date_of_Admission] [bt/Blood type] [al/Allergies] [con/Condition] [sym/Symptom] [d/diagnosis]` | `create ic/S1234567A n/John Doe hp/98765432 a/311, Clementi Ave 2, #02-25 dob/1990-01-01 s/M st/PENDING`    |
+| **[Read](#read-specific-patients-read)**                                | `read <NRIC>`                                                                                                                                                                                                                                                                             | `read S1234567A`                                                                                            |
+| **[Update](#updating-a-patient-profile-update)**                        | `update <NRIC> <Field>/<Content>`                                                                                                                                                                                                                             |  `update S1234567A hp/91234567 e/jd123@example.com`                                                         |
+| **[Find](#finding-patients-by-name-find)**                              | `find n/<Part_of_name> <Part_of_name> <Part_of_name>`<br> `find a/<Part_of_Address>, <Part_of_Address>, <Part_of_Address>, ...` <br> `find con/<Part_of_Condition>, <Part_of_Condition>, <Part_of_Condition>, ...`                | `find n/Alex Bryan Charlie`           <br> `find a/Serangoon, Geylang`               <br> `find con/Covid, Ebola` |
+| **[Delete Patient](#deleting-a-patient-delete)**                        | `delete <NRIC>`                                                                                                                                                                                                                                                             | `delete S1234567A`                                                                                          |
+| **[Delete Information](#deleting-information-of-a-patient-deleteinfo)** | `deleteinfo <NRIC> <Field>`                                                                                                                                                                                                                                              | `deleteinfo S1234567A e/`                                                                                   |
+| **[Add Visit](#add-patient-visit-to-history-addvisit)**                 | `addvisit ic/<NRIC> dov/<Date_of_Visit> sym/<Symptoms> d/<Diagnosis> st/<Status>`                                                                                                                                                      | `addvisit ic/S1234567A dov/2024-01-01 sym/Cough d/Covid st/UNWELL`                                          |
+| **[Check](#check-patient-history-check)**                               | `check <NRIC>`                                                                                                                                                                                                                                                              | `check S1234567A`                                                                                            |
+| **[Find Cluster](#cluster-finding-cluster)**                            | `cluster <cluster size> a/<Part_of_Address> d/<Diagnosis>`                                                                                                                                                                                                    | `cluster 3 a/Serangoon d/dengue`                                                                            |
+| **[Clear](#clearing-all-entries-clear)**                                | `clear`                                                                                                                                                                                                                                                                                            | -                                                                                                           |
+| **[List](#listing-all-patients-list)**                                  | `list`                                                                                                                                                                                                                                                                                             | -                                                                                                           |
+| **[Help](#viewing-help-help)**                                          | `help`                                                                                                                                                                                                                                                                                             | -                                                                                                           |
+| **[Exit](#exiting-the-program-exit)**                                   | `exit`                                                                                                                                                                                                                                                                                             | -                                                                                                           |
 
 <br>
 <br>
@@ -309,8 +320,6 @@ Format: `list`
 ### Creating a patient profile: `create`
 
 **Creates a patient profile in ImmuniMate.**
-
-pro
 
 Format: `create ic/<NRIC> n/<Patient_Name> hp/<Phone_Number> a/<Address> dob/<Date_of_birth> s/<Sex> st/<Status> [e/Email] [c/Country_of_Nationality] [doa/Date_of_Admission] [bt/Blood type] [al/Allergies] [con/Condition] [sym/Symptom] [d/diagnosis]`
 
