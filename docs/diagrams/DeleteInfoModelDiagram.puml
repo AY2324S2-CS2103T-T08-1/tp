@@ -11,11 +11,16 @@ participant ":ImmuniMate" as ImmuniMate MODEL_COLOR
 participant ":UniquePersonList" as UniquePersonList MODEL_COLOR
 participant "internalList: ObservableList<Person>" as internalList MODEL_COLOR
 participant "p1:Person" as p1 MODEL_COLOR
-participant "p1:Person" as p MODEL_COLOR
 end box
 
 [-> CreateCommand : execute()
 activate CreateCommand
+
+CreateCommand -> ModelManager : getFilteredPersonsList()
+activate ModelManager
+
+ModelManager --> CreateCommand : persons
+deactivate ModelManager
 
 CreateCommand -> ModelManager : hasPerson(...)
 activate ModelManager
@@ -32,49 +37,26 @@ activate internalList
 internalList -> p1 : isSamePerson(p1)
 activate p1
 
-p1 --> internalList
+p1 --> internalList : true
 deactivate p1
 
-internalList --> UniquePersonList
+internalList --> UniquePersonList : true
 deactivate internalList
 
-UniquePersonList --> ImmuniMate
+UniquePersonList --> ImmuniMate : true
 deactivate UniquePersonList
 
-ImmuniMate --> ModelManager
+ImmuniMate --> ModelManager : true
 deactivate ImmuniMate
 
-ModelManager --> CreateCommand
+ModelManager --> CreateCommand : true
 deactivate ModelManager
 
-CreateCommand -> ModelManager : setEmail(...)
-activate ModelManager
+CreateCommand -> p1 : setEmail(null)
+activate p1
 
-ModelManager -> ImmuniMate: getPerson(...)
-activate ImmuniMate
-
-ImmuniMate -> UniquePersonList : get(...)
-activate UniquePersonList
-
-UniquePersonList -> internalList : get(...)
-activate internalList
-
-internalList --> UniquePersonList : p
-deactivate internalList
-
-UniquePersonList --> ImmuniMate : p
-deactivate UniquePersonList
-
-ImmuniMate -> p : setEmail(null)
-activate p
-p --> ImmuniMate : set email to null
-deactivate p
-
-ImmuniMate --> ModelManager
-deactivate ImmuniMate
-
-ModelManager --> CreateCommand
-deactivate ModelManager
+p1 --> CreateCommand
+deactivate p1
 
 [<--CreateCommand
 deactivate CreateCommand
