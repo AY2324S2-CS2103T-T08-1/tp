@@ -71,7 +71,20 @@ The table of contents just before this section breaks down the guide into its co
 Navigating a complex document can be time-consuming, and we understand.
 That's why we've placed hyperlinks throughout this article (like [this one](#command-summary), to the command summary), so that any information you need is truly at your fingertips.
 
-Sometimes, certain instructions might sound very new or contain too many technical terms, which is why we also positioned a few "**TIP**" snippets below them, so that you'll never have to fret about the intricacies of ImmuniMate.
+Before engaging with ImmuniMate, there are some things that are so important that they have to catch your eye.
+That's why we made these nice blue note boxes to capture your attention, to plug gaps in your understanding before proceeding with ImmuniMate.
+<div markdown="block" class="alert alert-info">
+
+**:information_source: Notes**<br>
+This is what a note box looks like.
+</div>
+
+Sometimes, certain instructions might sound very new or contain too many technical terms, which is why we also positioned a few tip snippets below them, so that you'll never have to fret about the intricacies of ImmuniMate.
+<div markdown="block" class="alert alert-success">
+
+**:bulb: Tip:**<br>
+This is what a tip snippet looks like
+</div>
 
 <br>
 
@@ -253,7 +266,7 @@ Find retyping commands a hassle? Use your 'Up' and 'Down' arrow keys to access y
 
 <div markdown="block" class="alert alert-info">
 
-**:information_source: Notes about the command format:**<br>
+**:information_source: Notes**<br>
 
 * Words in `UPPERCASE` are the parameters to be supplied by the user.<br>
   e.g. in `update <NRIC> <Field>/CONTENT`, `CONTENT` is a parameter which can be used as `update S0123456A hp/87654321`.
@@ -297,11 +310,7 @@ Format: `list`
 
 **Creates a patient profile in ImmuniMate.**
 
-<div markdown="block" class="alert alert-info">
-
-**:information_source: Notes**<br>
-A patient profile refers to a record of a patient with a set of relevant information. For the complete field of information, refer to the [Field summary](#field-summary) at the end of this User Guide.
-</div>
+pro
 
 Format: `create ic/<NRIC> n/<Patient_Name> hp/<Phone_Number> a/<Address> dob/<Date_of_birth> s/<Sex> st/<Status> [e/Email] [c/Country_of_Nationality] [doa/Date_of_Admission] [bt/Blood type] [al/Allergies] [con/Condition] [sym/Symptom] [d/diagnosis]`
 
