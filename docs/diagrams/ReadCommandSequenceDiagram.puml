@@ -52,7 +52,7 @@ activate ReadCommand
 ReadCommand -> Model : hasPerson(...)
 activate Model
 
-Model --> ReadCommand : false
+Model --> ReadCommand : true
 deactivate Model
 
 ReadCommand -> Model : updateFilteredPersonList(...)
