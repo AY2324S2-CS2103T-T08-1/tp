@@ -25,7 +25,7 @@ public class ReadCommandParser implements Parser<ReadCommand> {
         }
 
         try {
-            return new ReadCommand(new Nric(trimmedArg));
+            return new ReadCommand(new Nric(trimmedArg.toUpperCase()));
         } catch (IllegalArgumentException e) {
             throw new ParseException(
                     String.format("%s", e.getMessage()));

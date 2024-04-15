@@ -14,7 +14,7 @@ You can contact us individually through our portfolios
 <img src="images/alex-setyawan.png" width="200px">
 
 [[github](https://github.com/alex-setyawan)]
-[[portfolio](team/johndoe.md)]
+[[portfolio](team/alex-setyawan)]
 
 * Role: Team Lead
 * Responsibilities: Project Manager, Back-end
@@ -46,7 +46,7 @@ You can contact us individually through our portfolios
 <img src="images/natleong.png" width="200px">
 
 [[github](http://github.com/NatLeong)]
-[[portfolio](team/johndoe.md)]
+[[portfolio](team/alex-setyawan)]
 
 * Role: Developer
 * Responsibilities: Front-end, Documentation
