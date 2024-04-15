@@ -360,6 +360,7 @@ How a check operation goes through the Model component is shown below:
 * can type fast
 * prefers typing to mouse interactions
 * is reasonably comfortable using CLI apps
+* works at a gp clinic or similar environments
 
 **Value proposition**: As the number of patients a General Practitioner grows, information management might prove complex, especially so for personal data. ImmuniMate offers a way to record comprehensive information about every patient, while ensuring timely updates and avoiding duplications/contradictions. It also seeks to establish links between patient for contact tracing and finding potential infectious clusters.
 
@@ -391,7 +392,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `*`     | Healthcare Worker | see the close contacts of a patient             | see the links between infected patients                                      |
 ### Use cases
 
-(For all use cases below, the **System** is the `AddressBook` and the **Actor** is the `user`, unless specified otherwise)
+(For all use cases below, the **IMS** is the `ImmuniMate system` and the **Healthcare worker** is the `user`, unless specified otherwise)
 
 **Use Case: UC01 - Create Patient Profile**
 
@@ -401,30 +402,30 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 - **Guarantees:** New patient profile is successfully created in the ImmuniMate Address Book System.
 - **MSS:**
     1. Healthcare worker choose to create a new patient profile.
-    2. IABS requests the necessary details for the new patient profile (name, NRIC, date of birth, sex, phone number, address, email, country of nationality, date of admission, blood type, allergies).
+    2. IMS requests the necessary details for the new patient profile (name, NRIC, date of birth, sex, phone number, address, email, country of nationality, date of admission, blood type, allergies).
     3. Healthcare worker enters the patient's details.
-    4. IABS validates the entered data.
-    5. IABS adds the new patient profile to the database.
+    4. IMS validates the entered data.
+    5. IMS adds the new patient profile to the database.
 - **Extensions:**
 
-  3a. IABS detects a conflict in the entered data (user existing).
+  3a. IMS detects a conflict in the entered data (user existing).
 
-  3a1. IABS shows the conflicting existing entry
-  3a2. IABS requests for the correct data.
+  3a1. IMS shows the conflicting existing entry
+  3a2. IMS requests for the correct data.
   3a3. Healthcare Worker enters new data.
   Steps 3a1-3a3 are repeated until the data entered are correct, or the user cancels the action.
   Use case resumes from step 4.
 
-  3b. IABS detects an error in the entered data.
+  3b. IMS detects an error in the entered data.
 
-  3b1. IABS requests for the correct data.
+  3b1. IMS requests for the correct data.
   3b2. Healthcare Worker enters new data.
   Steps 3b1-3b2 are repeated until the data entered are correct.
   Use case resumes from step 4.
 
   *a. At any time, Healthcare Worker chooses to cancel creating the patient profile.
 
-  *a1. IABS requests confirmation to cancel.
+  *a1. IMS requests confirmation to cancel.
   *a2. Healthcare Worker confirms the cancellation.
   Use case ends.
 
@@ -439,30 +440,30 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 - **Guarantees:** Existing patient profile  in the ImmuniMate Address Book System is successfully displayed.
 - **MSS:**
     1. Healthcare worker choose to read a patient profile.
-    2. IABS requests the necessary detail for reading patient profile (NRIC).
+    2. IMS requests the necessary detail for reading patient profile (NRIC).
     3. Healthcare worker enters the patient's details.
-    4. IABS validates the entered data.
-    5. IABS displays the patient profile to the database.
+    4. IMS validates the entered data.
+    5. IMS displays the patient profile to the database.
 - **Extensions:**
 
-  3a. IABS detects an error in the entered data (user does not exist).
+  3a. IMS detects an error in the entered data (user does not exist).
 
-  3a1. IABS shows the conflicting existing entry
-  3a2. IABS requests for the correct data.
+  3a1. IMS shows the conflicting existing entry
+  3a2. IMS requests for the correct data.
   3a3. Healthcare Worker enters new data.
   Steps 3a1-3a3 are repeated until the data entered are correct, or the user cancels the action.
   Use case resumes from step 4.
 
-  3b. IABS detects an error in the entered data (wrong NRIC format).
+  3b. IMS detects an error in the entered data (wrong NRIC format).
 
-  3b1. IABS requests for the correct data.
+  3b1. IMS requests for the correct data.
   3b2. Healthcare Worker enters new data.
   Steps 3b1-3b2 are repeated until the data entered are correct.
   Use case resumes from step 4.
 
   *a. At any time, Healthcare Worker chooses to cancel creating the patient profile.
 
-  *a1. IABS requests confirmation to cancel.
+  *a1. IMS requests confirmation to cancel.
   *a2. Healthcare Worker confirms the cancellation.
   Use case ends.
 
@@ -477,11 +478,11 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 - **Guarantees:** Relevant patient information is displayed for the healthcare worker to view.
 - **Basic Flow:**
     1. Healthcare worker chooses to find patient information meeting specified criteria.
-    2. IABS searches for and displays the relevant patients.
+    2. IMS searches for and displays the relevant patients.
 - **Extensions:**
-  2a. IABS detects an error in the entered data.
+  2a. IMS detects an error in the entered data.
 
-  - 2a1. IABS requests for the correct data.
+  - 2a1. IMS requests for the correct data.
   - 2a2. Healthcare Worker enters new data.
   - Steps 2a1-2a2 are repeated until the data entered are correct. Use case resumes from step 3.
 
@@ -495,13 +496,13 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 - **Guarantees:** Patient's information is successfully updated in the ImmuniMate Address Book System.
 - **Basic Flow:**
     1. Healthcare worker chooses to update a certain patient’s certain information.
-    2. IABS validates the new content.
-    3. IABS updates the patient's information in the database.
+    2. IMS validates the new content.
+    3. IMS updates the patient's information in the database.
 - **Extensions:**
 
-  2a. IABS detects an error in the entered data.
+  2a. IMS detects an error in the entered data.
 
-  2a1. IABS requests for the correct data.
+  2a1. IMS requests for the correct data.
   2a2. Healthcare Worker enters new data.
   Steps 2a1-2a2 are repeated until the data entered are correct.
   Use case resumes from step 3.
@@ -517,11 +518,11 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 - **Guarantees:** Patient's record is successfully deleted from the ImmuniMate Address Book System.
 - **MSS:**
     1. Healthcare worker choose to delete a specified patient’s record.
-    2. IABS validates the NRIC and deletes the patient's record from the database.
+    2. IMS validates the NRIC and deletes the patient's record from the database.
 - **Extensions:**
 
-  2a. IABS cannot find the patient specified.
-  - 2a1. IABS requests for the correct NRIC.
+  2a. IMS cannot find the patient specified.
+  - 2a1. IMS requests for the correct NRIC.
   - 2a2. Healthcare worker enters new NRIC.
   - Steps 2a1-2a2 are repeated until the data entered are correct or Healthcare worker cancels the action. Use case resumes from step 3.
 
@@ -533,23 +534,23 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 - **Guarantees:** Specified information is successfully deleted from the patient's record in the ImmuniMate Address Book System.
 - **MSS:**
     1. Healthcare worker chooses to delete certain fields of a certain patient's profile.
-    2. IABS validates the information to be deleted and deletes the specified information from the patient's record in the database.
+    2. IMS validates the information to be deleted and deletes the specified information from the patient's record in the database.
 - **Extensions:**
 
-  2a. IABS cannot find the patient specified.
-  - 2a1. IABS requests for the correct NRIC.
+  2a. IMS cannot find the patient specified.
+  - 2a1. IMS requests for the correct NRIC.
   - 2a2. Healthcare worker enters new NRIC.
   - Steps 2a1-2a2 are repeated until the data entered are correct or Healthcare worker cancels the action. Use case resumes from step 3.
 
-  2b. IABS cannot find the specified information.
+  2b. IMS cannot find the specified information.
 
-  - 2b1. IABS alerts healthcare worker that the specified information is not found.
+  - 2b1. IMS alerts healthcare worker that the specified information is not found.
   - 2b2. Healthcare worker enters new field.
   - Steps 2b1-2b2 are repeated until the data entered are correct or Healthcare worker cancels the action. Use case resumes from step 3.
 
   2c. Healthcare worker chooses to delete a mandatory field.
 
-  - 2c1. IABS alerts healthcare worker that mandatory field cannot be deleted.
+  - 2c1. IMS alerts healthcare worker that mandatory field cannot be deleted.
   - 2c2. Healthcare worker enters new field.
   - Steps 2c1-2c2 are repeated until the data entered are correct or Healthcare worker cancels the action. Use case resumes from step 3.
 
@@ -557,6 +558,45 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 ---
 
 **Use Case: UC07 - Add Patient Visit**
+
+
+- **Actor:** Healthcare Worker
+- **Description:** Healthcare worker adds a visit record for a patient in the ImmuniMate Address Book System.
+- **Preconditions:** Healthcare worker has logged into the system.
+- **Guarantees:** A new visit record is successfully added for the patient in the ImmuniMate Address Book System.
+- **Main Success Scenario (MSS):**
+  1. Healthcare worker chooses to add a new patient visit.
+  2. IMS requests the necessary details for the visit (NRIC, date of visit, diagnosis, symptoms, status).
+  3. Healthcare worker enters the required information for the visit.
+  4. IMS validates the entered data.
+  5. IMS adds the visit record to the patient's profile in the database.
+  6. IMS confirms that the visit has been added successfully.
+  7. Use case ends.
+
+- **Extensions:**
+
+  3a. IMS detects an error in the entered data (patient does not exist).
+  - 3a1. IMS notifies Healthcare Worker that the patient does not exist.
+  - 3a2. Healthcare Worker opts to create a new patient profile or re-enters correct data.
+  - Steps 3a1-3a2 are repeated until valid data are entered, or the user cancels the action.
+  - Use case resumes from step 4 if valid data are entered.
+
+  3b. IMS detects an error in the entered data (e.g., incorrect NRIC format, invalid date of visit).
+  - 3b1. IMS requests for the correct data.
+  - 3b2. Healthcare Worker enters new data.
+  - Steps 3b1-3b2 are repeated until the data entered are correct.
+  - Use case resumes from step 4.
+
+  3c. IMS detects missing mandatory fields (e.g., NRIC, date of visit).
+  - 3c1. IMS displays an error message indicating which fields are missing.
+  - 3c2. Healthcare Worker provides the missing information.
+  - Steps 3c1-3c2 are repeated until all required data are provided.
+  - Use case resumes from step 4.
+
+  *a. At any time, Healthcare Worker chooses to cancel the addition of the patient visit.
+  - *a1. IMS requests confirmation to cancel.
+  - *a2. Healthcare Worker confirms the cancellation.
+  - Use case ends.
 
 
 ---
@@ -569,30 +609,30 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 - **Guarantees:** Existing patient visit history in the ImmuniMate Address Book System is successfully displayed.
 - **MSS:**
     1. Healthcare worker choose to check a patient visit history.
-    2. IABS requests the necessary detail for checking patient visit history (NRIC).
+    2. IMS requests the necessary detail for checking patient visit history (NRIC).
     3. Healthcare worker enters the patient's details.
-    4. IABS validates the entered data.
-    5. IABS displays the patient profile to the database.
+    4. IMS validates the entered data.
+    5. IMS displays the patient profile to the database.
 - **Extensions:**
 
-  3a. IABS detects an error in the entered data (user does not exist).
+  3a. IMS detects an error in the entered data (user does not exist).
 
-  3a1. IABS shows the conflicting existing entry
-  3a2. IABS requests for the correct data.
+  3a1. IMS shows the conflicting existing entry
+  3a2. IMS requests for the correct data.
   3a3. Healthcare Worker enters new data.
   Steps 3a1-3a3 are repeated until the data entered are correct, or the user cancels the action.
   Use case resumes from step 4.
 
-  3b. IABS detects an error in the entered data (wrong NRIC format).
+  3b. IMS detects an error in the entered data (wrong NRIC format).
 
-  3b1. IABS requests for the correct data.
+  3b1. IMS requests for the correct data.
   3b2. Healthcare Worker enters new data.
   Steps 3b1-3b2 are repeated until the data entered are correct.
   Use case resumes from step 4.
 
   *a. At any time, Healthcare Worker chooses to cancel creating the patient profile.
 
-  *a1. IABS requests confirmation to cancel.
+  *a1. IMS requests confirmation to cancel.
   *a2. Healthcare Worker confirms the cancellation.
   Use case ends.
 
