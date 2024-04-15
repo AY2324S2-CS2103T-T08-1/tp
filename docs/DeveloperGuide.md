@@ -370,7 +370,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | Priority | As a …​           | I want to …​                                    | So that I can…​                                                              |
 |---------|-------------------|-------------------------------------------------|------------------------------------------------------------------------------|
 | `* * *` | New user          | see usage instructions                          | refer to instructions when I forget how to use the App                       |
-| `* * *` | Healthcare Worker | create a new patient record                     |                                                                              |
+| `* * *` | Healthcare Worker | create a new patient record                     | add new patient to database                                                  |
 | `* * *` | Healthcare Worker | delete a patient                                | remove wrong or obselete patient record from the database                    |
 | `* * *` | Healthcare Worker | delete patient's information                    | remove patient information that is known to be incorrect                     |
 | `* * *` | Healthcare Worker | read a patient's information by NRIC            | locate details of persons without having to go through the entire list       |
@@ -430,7 +430,45 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 ---
 
-### **Use Case: UC02 - Find Patient Information**
+**Use Case: UC02 - Read Patient Record**
+
+- **Actor:** Healthcare Worker
+- **Description:** Healthcare worker reads patient record in the ImmuniMate Address Book System.
+- **Preconditions:** Healthcare worker has logged into the system.
+- **Guarantees:** Existing patient record  in the ImmuniMate Address Book System is successfully displayed.
+- **MSS:**
+    1. Healthcare worker choose to read a patient record.
+    2. IABS requests the necessary detail for reading patient record (NRIC).
+    3. Healthcare worker enters the patient's details.
+    4. IABS validates the entered data.
+    5. IABS displays the patient record to the database.
+- **Extensions:**
+
+  3a. IABS detects an error in the entered data (user does not exist).
+
+  3a1. IABS shows the conflicting existing entry
+  3a2. IABS requests for the correct data.
+  3a3. Healthcare Worker enters new data.
+  Steps 3a1-3a3 are repeated until the data entered are correct, or the user cancels the action.
+  Use case resumes from step 4.
+
+  3b. IABS detects an error in the entered data (wrong NRIC format).
+
+  3b1. IABS requests for the correct data.
+  3b2. Healthcare Worker enters new data.
+  Steps 3b1-3b2 are repeated until the data entered are correct.
+  Use case resumes from step 4.
+
+  *a. At any time, Healthcare Worker chooses to cancel creating the patient record.
+
+  *a1. IABS requests confirmation to cancel.
+  *a2. Healthcare Worker confirms the cancellation.
+  Use case ends.
+
+
+---
+
+**Use Case: UC03 - Find Patient Information**
 
 - **Actor:** Healthcare Worker
 - **Description:** Healthcare worker searches for specific patient information in the ImmuniMate Address Book System.
@@ -448,7 +486,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 ---
 
-**Use Case: UC03 - Update Patient Information**
+**Use Case: UC04 - Update Patient Information**
 
 - **Actor:** Healthcare Worker
 - **Description:** Healthcare worker updates a patient's information in the ImmuniMate Address Book System.
@@ -470,7 +508,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 ---
 
-**Use Case: UC04 - Delete Patient Record**
+**Use Case: UC05 - Delete Patient Record**
 
 - **Actor:** Healthcare worker
 - **Description:** Healthcare worker deletes a patient's record from the ImmuniMate Address Book System.
@@ -486,7 +524,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
   - 2a2. Healthcare worker enters new NRIC.
   - Steps 2a1-2a2 are repeated until the data entered are correct or Healthcare worker cancels the action. Use case resumes from step 3.
 
-**Use Case: UC05 - Delete Patient Information**
+**Use Case: UC06 - Delete Patient Information**
 
 - **Actor:** Healthcare Worker
 - **Description:** Healthcare worker deletes specific information from a patient's record in the ImmuniMate Address Book System.
@@ -513,6 +551,50 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
   - 2c1. IABS alerts healthcare worker that mandatory field cannot be deleted.
   - 2c2. Healthcare worker enters new field.
   - Steps 2c1-2c2 are repeated until the data entered are correct or Healthcare worker cancels the action. Use case resumes from step 3.
+
+
+---
+
+**Use Case: UC07 - Add Patient Visit**
+
+
+---
+
+**Use Case: UC08 - Check Patient Visit History**
+
+- **Actor:** Healthcare Worker
+- **Description:** Healthcare worker checks patient visit history in the ImmuniMate Address Book System.
+- **Preconditions:** Healthcare worker has logged into the system.
+- **Guarantees:** Existing patient visit history in the ImmuniMate Address Book System is successfully displayed.
+- **MSS:**
+    1. Healthcare worker choose to check a patient visit history.
+    2. IABS requests the necessary detail for checking patient visit history (NRIC).
+    3. Healthcare worker enters the patient's details.
+    4. IABS validates the entered data.
+    5. IABS displays the patient record to the database.
+- **Extensions:**
+
+  3a. IABS detects an error in the entered data (user does not exist).
+
+  3a1. IABS shows the conflicting existing entry
+  3a2. IABS requests for the correct data.
+  3a3. Healthcare Worker enters new data.
+  Steps 3a1-3a3 are repeated until the data entered are correct, or the user cancels the action.
+  Use case resumes from step 4.
+
+  3b. IABS detects an error in the entered data (wrong NRIC format).
+
+  3b1. IABS requests for the correct data.
+  3b2. Healthcare Worker enters new data.
+  Steps 3b1-3b2 are repeated until the data entered are correct.
+  Use case resumes from step 4.
+
+  *a. At any time, Healthcare Worker chooses to cancel creating the patient record.
+
+  *a1. IABS requests confirmation to cancel.
+  *a2. Healthcare Worker confirms the cancellation.
+  Use case ends.
+
 
 ### Non-Functional Requirements
 
@@ -621,6 +703,29 @@ testers are expected to do more *exploratory* testing.
    1. Prerequisites: show only 1 person's details using the `find n/alex` command. One person is shown in the list.
    1. Test case: `create n/Bob Tan ic/T0234567C dob/1990-01-01 hp/12345678 a/123, Jurong West Ave 6, #08-111 s/M st/PENDING`<br>
       Expected: A new person is not added to the list. The result panel shows an error message, indicating that the person already exists in the system.
+
+### Reading a person
+1. Reading a person while all persons are being shown.
+    1. Prerequisites:
+       1. List all persons using the `list` command. Multiple persons in the list.
+       1. The person with NRIC `S1234567A` is already created in the system with a `create` command.
+
+   1. Test case: `read S1234567A`<br>
+      Expected: Details of the read patient shown in result panel. The list panel shows the read person.
+
+   1. Test case: `read S9876543N`<br>
+      Expected: No person is read. Error details shown.
+
+   1. Other incorrect read commands to try: `read`, `read 0`, `...` (where the input for NRIC field does not follow format for NRIC)<br>
+      Expected: Similar to previous.
+   2. 
+2. Reading a person while only some persons are being shown
+    1. Prerequisites:
+        2. Show only 1 person's details using the `find n/alex` command. One person is shown in the list.
+        3. The person with NRIC `S1234567A` is already created in the system with a `create` command.
+    1. Test case: `read S1234567A`<br>
+       Expected: The result panel shows the details of the read person. The list panel shows the read person.
+
 ### Deleting a person
 
 1. Deleting a person while all persons are being shown
@@ -700,6 +805,31 @@ testers are expected to do more *exploratory* testing.
        1. The person with NRIC `S1234567A` exists in the system.
     1. Test case: `deleteinfo S1234567A n/`<br>
        Expected: The person's name is not deleted. The result panel shows an error message, indicating that the name field cannot be deleted.
+
+### Adding a person's visit 
+
+### Checking a person's visit history
+1. Checking a person while all persons are being shown.
+    1. Prerequisites:
+        1. List all persons using the `list` command. Multiple persons in the list.
+        1. The person with NRIC `S1234567A` is already created in the system with a `create` command.
+
+    1. Test case: `check S1234567A`<br>
+       Expected: Details of the checked person's visit history is shown in the result panel. The list panel shows the checked person.
+
+    1. Test case: `check S9876543N`<br>
+       Expected: No person is checked. Error details shown.
+
+    1. Other incorrect read commands to try: `check`, `check 0`, `...` (where the input for NRIC field does not follow format for NRIC)<br>
+       Expected: Similar to previous.
+    2.
+2. Checking a person while only some persons are being shown
+    1. Prerequisites:
+        2. Show only 1 person's details using the `find n/alex` command. One person is shown in the list.
+        3. The person with NRIC `S1234567A` is already created in the system with a `create` command.
+    1. Test case: `check S1234567A`<br>
+       Expected: The result panel shows the details of the checked person's visit history. The list panel shows the checked person.
+
 ### Saving data
 
 1. Dealing with missing/corrupted data files
