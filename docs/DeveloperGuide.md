@@ -738,7 +738,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
   Use case ends.
 
 ---
-**Use Case: UC09 - List all patients**
+**Use Case: UC10 - List all patients**
 
 - **Actor:** Healthcare Worker
 - **Description:** Healthcare worker lists all patients in the IMS.
@@ -749,7 +749,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
   2. IMS displays all patients in the database.
 
 ---
-**Use Case: UC10 - Access help**
+**Use Case: UC11 - Access help**
 - **Actor:** Healthcare Worker
 - **Description:** Healthcare worker accesses the help guide in the IMS.
 - **Preconditions:** Healthcare worker has launched the system.
