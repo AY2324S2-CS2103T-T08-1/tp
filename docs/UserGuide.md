@@ -12,12 +12,16 @@ Those days are over!
 Introducing **ImmuniMate**, our innovative platform designed to revolutionize the way healthcare professionals and staff manage patient information.
 It's your secure, centralized hub where you can access all your patients' medical and personal details – allergies, visit history, medical conditions, you name it – just a few clicks away!
 
+## Who This App is For
+
 ImmuniMate is designed for healthcare professionals (doctors, nurses etc.) and healthcare staff (clinic receptionist etc.) longing to leverage the efficiencies of the 21st century, who:
 
 * have basic experience in using computers
-* have a computer with sufficient space (~50 MB)
+* have a computer with sufficient space (~100 MB)
 * are comfortable typing on a regular basis
 * have no serious colour vision deficiencies (can differentiate red, yellow and green)
+
+## Purpose of This Guide
 
 If you ticked all the points above, great!
 This user guide is here as your helping hand, imparting knowledge to unlock the full potential of ImmuniMate.
@@ -25,13 +29,17 @@ You can start with learning to navigate this guide effectively by viewing guidel
 After that, get started with ImmuniMate by following our step-by-step setup instructions, before really getting involved through short tutorials on its comprehensive set of features.
 Get ready to:
 
-* Enhance Patient Care: Deliver faster, more informed consultations with easy access to vital information.
-* Boost Efficiency: Save precious time by ditching paper records and streamlining your workflow.
-* Revitalise Patients: Use organised information about your patients to offer them peronalised medical advice.
+* **Enhance Patient Care**: Deliver faster, more informed consultations with easy access to vital information.
+* **Boost Efficiency**: Save precious time by ditching paper records and streamlining your workflow.
+* **Revitalise Patients**: Use organised information about your patients to offer them peronalised medical advice.
 
 Ready to take patient service to the next level?
 Time to ditch those stacks of paper and Excel spreadsheets, and embrace the future of healthcare.
 Let's dive in and explore how ImmuniMate can transform your practice!
+
+-------------------------------------------
+
+## Table of Contents
 
 * Table of Contents
 {:toc}
@@ -119,7 +127,7 @@ This means each feature of ImmuniMate is only accessible through typing a comman
 Here is a graphic on components of the GUI and their functions:
 <br>
 <br>
-<img src="images/GUIDetailed.png" alt="help message" width="500"/>
+<img src="images/GUIDetailed.png" alt="help message" width="800"/>
 
 The list of commands and their formats are specified below:
 
@@ -165,22 +173,34 @@ The list of fields and their formats are specified below:
 | **Diagnosis**              | `d/`   | Any text. Blank or empty text is not accepted.                                                                                                                                     | No   |
 | **Date of visit**          | `dov/` | `yyyy-MM-dd` format.                                                                                                                                                               | No   |
 
-Sometimes, you might type in commands in the wrong format, or fields that don't make sense, and that's fine.
+## Error Messages
+
+Sometimes, **you might type in commands in the wrong format**, or fields that don't make sense, and that's fine.
 When that happens, the erroneous command you typed will light up in red, while more details on the nature of the error will be shown in the feedback box, like in the picture below.
 
 ![Error Message](images/ErrorMessage.png)
 
-Not to worry, you can just edit that command, or delete it and type in a correct one.
-**TIP**: Find retyping commands a hassle? Use your 'Up' and 'Down' arrow keys to access your past commands saved in your [Command History](#command-history)!
+Not to worry, you can just edit that command, or delete it and type in a correct one.<br>
+
+<div markdown="block" class="alert alert-success">
+
+**:bulb: Tip:**<br>
+Find retyping commands a hassle? Use your 'Up' and 'Down' arrow keys to access your past commands saved in your [Command History](#command-history)!
+</div>
 
 ----------------------------------------------------------------
 
 ## Quick start
 
 1. Ensure you have Java `11` or above installed in your computer.<br>
-**TIP**: Don't worry if you don't have Java 11 installed yet!
+
+<div markdown="block" class="alert alert-success">
+
+**:bulb: Tip:**<br>
+Don't worry if you don't have Java 11 installed yet!
 The Java Development Kit (kind of like an installer) can be downloaded from [here](https://www.oracle.com/sg/java/technologies/downloads/#java11).
 Take great care in downloading the one which suits your operating system (Linux, Windows, MacOS etc).
+</div>
 
 ![Java website](images/JavaWebsite.png)
 
@@ -191,10 +211,17 @@ Take great care in downloading the one which suits your operating system (Linux,
 3. Copy the file to the folder you want to use as the _home folder_ for your ImmuniMate.
 
 4. Open a command terminal, and `cd` into the folder you put the jar file in.<br>
-**TIP**: `cd` is a Linux command. New to Linux? You can learn the basics fast from [here](https://ubuntu.com/tutorials/command-line-for-beginners#1-overview).
-5. Type `java -jar immuniMate.jar` and press "Enter" to run the application.<br>
+
+<div markdown="block" class="alert alert-success">
+
+**:bulb: Tip:**<br>
+`cd` is a Linux command. New to Linux? You can learn the basics fast from [here](https://ubuntu.com/tutorials/command-line-for-beginners#1-overview).
+</div>
+
+6. Type `java -jar immuniMate.jar` and press "Enter" to run the application.<br>
    A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data. The colored circle on the right of each patient's name is the status indicator. For more information about the status indicator, see [create](#creating-a-patient-profile-create).<br>
-   ![Ui](images/GUI.png)
+
+![Ui](images/GUI.png)
 
 5. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
    Some example commands you can try:
@@ -209,7 +236,12 @@ Take great care in downloading the one which suits your operating system (Linux,
 
    * `exit` : Exits the app.
 
-**TIP**: Refer to the [Features](#features) section below for details of each command.
+<div markdown="block" class="alert alert-success">
+
+**:bulb: Tip:**<br>
+Refer to the [Features](#features) section below for details of each command.
+
+</div>
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -307,8 +339,13 @@ Format: `update <NRIC> <Field>/CONTENT`
 * NRIC cannot be updated, all other values can be updated.
 * Existing values will be updated to the input values.
 * Refer to the [Field Summary](#field-summary) for a list of fields and their formats.<br>
-**TIP**: Just finished a consultation with a patient?
+
+<div markdown="block" class="alert alert-success">
+
+**:bulb: Tip**<br>
+Just finished a consultation with a patient?
 You can update related fields together, like changing the patient's diagnosis to "coronavirus" while changing the status to "UNWELL".
+</div>
 
 Examples:
 *  `update S1234567A hp/91234567 e/jd123@example.com`
@@ -398,7 +435,12 @@ Examples:
 
 Common mistakes:
 * `find ic/S1234567X` (only condition, name and address can be searched with find)<br>
-**TIP**: If you would like to find a person with NRIC, use the `read` command instead.
+
+<div markdown="block" class="alert alert-success">
+
+**:bulb: Tip:**<br>
+If you would like to find a person with NRIC, use the `read` command instead.
+</div>
 
 <br>
 
@@ -441,7 +483,12 @@ Common mistakes:
 * `deleteinfo S1234567A abc/` (a valid optional field from the [Field Summary](#field-summary) must be provided)
 * `deleteinfo S1234567A` (a field must be provided)
 * `deleteinfo S1234567A ic/` (mandatory fields cannot be deleted)<br>
-**TIP**: If you would like to change mandatory fields, you can use the `update` command instead.
+
+<div markdown="block" class="alert alert-success">
+
+**:bulb: Tip:**<br>
+If you would like to change mandatory fields, you can use the `update` command instead.
+</div>
 
 <br>
 
