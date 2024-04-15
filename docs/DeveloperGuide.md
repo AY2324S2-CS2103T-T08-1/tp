@@ -101,10 +101,10 @@ The sequence diagram below illustrates the interactions within the `Logic` compo
 How the `Logic` component works:
 
 1. When `Logic` is called upon to execute a command, it is passed to an `AddressBookParser` object which in turn creates a parser that matches the command (e.g., `DeleteCommandParser`) and uses it to parse the command.
-1. This results in a `Command` object (more precisely, an object of one of its subclasses e.g., `DeleteCommand`) which is executed by the `LogicManager`.
-1. The command can communicate with the `Model` when it is executed (e.g. to delete a person).<br>
+2. This results in a `Command` object (more precisely, an object of one of its subclasses e.g., `DeleteCommand`) which is executed by the `LogicManager`.
+3. The command can communicate with the `Model` when it is executed (e.g. to delete a person).<br>
    Note that although this is shown as a single step in the diagram above (for simplicity), in the code it can take several interactions (between the command object and the `Model`) to achieve.
-1. The result of the command execution is encapsulated as a `CommandResult` object which is returned back from `Logic`.
+4. The result of the command execution is encapsulated as a `CommandResult` object which is returned back from `Logic`.
 
 Here are the other classes in `Logic` (omitted from the class diagram above) that are used for parsing a user command:
 
@@ -233,15 +233,20 @@ This `deleteinfo` command is facilitated by `DeleteInfoCommand` and `DeleteInfoC
 
 * `DeleteInfoCommandParser#parse` is responsible for parsing the user input and creating a new `DeleteInfoCommand` instance.
 * `DeleteInfoCommand#execute` is responsible for executing the command and removing the field of information from the patient.
-* `Model#getFilteredPersonList()` is called to get the list of patients in the system.
+* `Model#setField` where `Field` refers to whichever field specified to be deleted, is responsible for removing the field of information from the patient.
   `DeleteInfoCommand` checks if the patient exists in the system before removing the field of information.
 * `ModelManager#hasPerson(Person)` is called to check if the patient already exists in the system. It calls `ImmuniMate.hasPerson(Person)` which calls `UniquePersonList#contains(Person)` to check if the patient already exists in the internal list of patients.
 
 Step 1. `DeleteInfoCommandParser` interprets the user's input for NRIC and the fields to be deleted, and creates a new `DeleteInfoCommand` instance.
 Step 2. The `DeleteInfoCommand#execute` is called by the `LogicManager`. The `DeleteInfoCommand` checks if the patient exists in the system by calling `model.hasPerson(person)`.
-Step 3. If the patient exists, the `DeleteInfoCommand` calls `model.getFilteredPersonList()` to get the list of patients in the system. It then find the person with the specific NRIC by calling `Observablelist<Persons>#filtered(Predicate)` and `Observablelist<Persons>#get(int)`.
+Step 3. If the patient exists, the `DeleteInfoCommand` calls `model.setField` (where the field is the specified field to delete) to get the list of patients in the system.
 Step 4. `DeleteInfoCommand#execute` check which fields are to be deleted, and remove the field of information using `Person#setField(null)`. Where `Field` is the field to be deleted.
 Step 5: After the field of information is removed, the `DeleteInfoCommand` returns the appropriate `CommandResult` to indicate the success of the operation.
+
+The following sequence diagram shows how a deleteinfo operation goes through the Logic component:
+![DeleteInfoState1](images/DeleteInfoSequenceDiagram.png)
+The sequence diagram for how the deleteinfo operation goes through the Model Component is as the following:
+![DeleteInfoState1](images/DeleteInfoModelDiagram.png)
 
 ### Read a patient's information
 #### Proposed Implementation
