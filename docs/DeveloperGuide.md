@@ -497,7 +497,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 - **Actor:** Healthcare Worker
 - **Description:** Healthcare worker creates a new patient profile in the IMS.
-- **Preconditions:** Healthcare worker has logged into the system.
+- **Preconditions:** Healthcare worker has launched the system.
 - **Guarantees:** New patient profile is successfully created in the IMS.
 - **MSS:**
     1. Healthcare worker choose to create a new patient profile.
@@ -534,9 +534,9 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **Use Case: UC02 - Read Patient Profile**
 
 - **Actor:** Healthcare Worker
-- **Description:** Healthcare worker reads patient profile in the ImmuniMate Address Book System.
-- **Preconditions:** Healthcare worker has logged into the system.
-- **Guarantees:** Existing patient profile  in the ImmuniMate Address Book System is successfully displayed.
+- **Description:** Healthcare worker reads patient profile in the IMS.
+- **Preconditions:** Healthcare worker has launched the system.
+- **Guarantees:** Existing patient profile  in the IMS is successfully displayed.
 - **MSS:**
     1. Healthcare worker choose to read a patient profile.
     2. IMS requests the necessary detail for reading patient profile (NRIC).
@@ -572,8 +572,8 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **Use Case: UC03 - Find Patient Information**
 
 - **Actor:** Healthcare Worker
-- **Description:** Healthcare worker searches for specific patient information in the ImmuniMate Address Book System.
-- **Preconditions:** Healthcare worker has logged into the system.
+- **Description:** Healthcare worker searches for specific patient information in the IMS.
+- **Preconditions:** Healthcare worker has launched the system.
 - **Guarantees:** Relevant patient information is displayed for the healthcare worker to view.
 - **Basic Flow:**
     1. Healthcare worker chooses to find patient information meeting specified criteria.
@@ -590,9 +590,9 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **Use Case: UC04 - Update Patient Information**
 
 - **Actor:** Healthcare Worker
-- **Description:** Healthcare worker updates a patient's information in the ImmuniMate Address Book System.
-- **Preconditions:** Healthcare worker has logged into the system and has selected the patient whose information needs to be updated.
-- **Guarantees:** Patient's information is successfully updated in the ImmuniMate Address Book System.
+- **Description:** Healthcare worker updates a patient's information in the IMS.
+- **Preconditions:** Healthcare worker has launched the system and has selected the patient whose information needs to be updated.
+- **Guarantees:** Patient's information is successfully updated in the IMS.
 - **Basic Flow:**
     1. Healthcare worker chooses to update a certain patient’s certain information.
     2. IMS validates the new content.
@@ -612,9 +612,9 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **Use Case: UC05 - Delete Patient Profile**
 
 - **Actor:** Healthcare worker
-- **Description:** Healthcare worker deletes a patient's record from the ImmuniMate Address Book System.
+- **Description:** Healthcare worker deletes a patient's record from the IMS.
 - **Preconditions:** Healthcare worker has opened the app and has selected the patient whose record needs to be deleted.
-- **Guarantees:** Patient's record is successfully deleted from the ImmuniMate Address Book System.
+- **Guarantees:** Patient's record is successfully deleted from the IMS.
 - **MSS:**
     1. Healthcare worker choose to delete a specified patient’s record.
     2. IMS validates the NRIC and deletes the patient's record from the database.
@@ -630,9 +630,9 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **Use Case: UC06 - Delete Patient Information**
 
 - **Actor:** Healthcare Worker
-- **Description:** Healthcare worker deletes specific information from a patient's record in the ImmuniMate Address Book System.
-- **Preconditions:** Healthcare worker has logged into the system and has selected the patient whose information needs to be deleted.
-- **Guarantees:** Specified information is successfully deleted from the patient's record in the ImmuniMate Address Book System.
+- **Description:** Healthcare worker deletes specific information from a patient's record in the IMS.
+- **Preconditions:** Healthcare worker has launched the system and has selected the patient whose information needs to be deleted.
+- **Guarantees:** Specified information is successfully deleted from the patient's record in the IMS.
 - **MSS:**
     1. Healthcare worker chooses to delete certain fields of a certain patient's profile.
     2. IMS validates the information to be deleted and deletes the specified information from the patient's record in the database.
@@ -662,9 +662,9 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 
 - **Actor:** Healthcare Worker
-- **Description:** Healthcare worker adds a visit record for a patient in the ImmuniMate Address Book System.
-- **Preconditions:** Healthcare worker has logged into the system.
-- **Guarantees:** A new visit record is successfully added for the patient in the ImmuniMate Address Book System.
+- **Description:** Healthcare worker adds a visit record for a patient in the IMS.
+- **Preconditions:** Healthcare worker has launched the system.
+- **Guarantees:** A new visit record is successfully added for the patient in the IMS.
 - **Main Success Scenario (MSS):**
   1. Healthcare worker chooses to add a new patient visit.
   2. IMS requests the necessary details for the visit (NRIC, date of visit, diagnosis, symptoms, status).
@@ -705,9 +705,9 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **Use Case: UC08 - Check Patient Visit History**
 
 - **Actor:** Healthcare Worker
-- **Description:** Healthcare worker checks patient visit history in the ImmuniMate Address Book System.
-- **Preconditions:** Healthcare worker has logged into the system.
-- **Guarantees:** Existing patient visit history in the ImmuniMate Address Book System is successfully displayed.
+- **Description:** Healthcare worker checks patient visit history in the IMS.
+- **Preconditions:** Healthcare worker has launched the system.
+- **Guarantees:** Existing patient visit history in the IMS is successfully displayed.
 - **MSS:**
     1. Healthcare worker choose to check a patient visit history.
     2. IMS requests the necessary detail for checking patient visit history (NRIC).
@@ -736,6 +736,27 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
   *a1. IMS requests confirmation to cancel.
   *a2. Healthcare Worker confirms the cancellation.
   Use case ends.
+
+---
+**Use Case: UC09 - List all patients**
+
+- **Actor:** Healthcare Worker
+- **Description:** Healthcare worker lists all patients in the IMS.
+- **Preconditions:** Healthcare worker has launched the system. The data file is not corrupted.
+- **Guarantees:** Existing patients in the IMS are successfully displayed.
+- **MSS:**
+  1. Healthcare worker choose to list all patients.
+  2. IMS displays all patients in the database.
+
+---
+**Use Case: UC10 - Access help**
+- **Actor:** Healthcare Worker
+- **Description:** Healthcare worker accesses the help guide in the IMS.
+- **Preconditions:** Healthcare worker has launched the system.
+- **Guarantees:** The help guide is successfully displayed.
+- **MSS:**
+  1. Healthcare worker chooses to access the help guide.
+  2. IMS displays the help guide.
 
 
 ### Non-Functional Requirements
@@ -994,14 +1015,6 @@ testers are expected to do more *exploratory* testing.
         3. The person with NRIC `S1234567A` is already created in the system with a `create` command.
     1. Test case: `check S1234567A`<br>
        Expected: The result panel shows the details of the checked person's visit history. The list panel shows the checked person.
-
-### Saving data
-
-1. Dealing with missing/corrupted data files
-
-   1. _{explain how to simulate a missing/corrupted file, and the expected behavior}_
-
-1. _{ more test cases …​ }_
 
 <div style="page-break-after: always;"></div>
 
