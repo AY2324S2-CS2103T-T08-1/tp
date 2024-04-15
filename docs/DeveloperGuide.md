@@ -633,7 +633,7 @@ Quality requirements:
 17. **Cluster**: A group of patients who are infected by the same disease.
 18. **Patient Visit**: A record of a patient's one specific visit to the clinic, including the date of visit, symptoms, diagnosis, and status.
 19. **Patient History**: A collection of all the visits by a patient.
-20. **Patient Record**: A collection of all the information about a patient, including the patient's name, NRIC, phone number, address, email, country.
+20. **Patient Record**: A collection of all the information about a patient, including the patient's name, `Nric`, `Phone`, `Address`, `Email`, `Country`.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -754,6 +754,7 @@ testers are expected to do more *exploratory* testing.
        1. The person with NRIC `S1234567A` exists in the system.
     1. Test case: `deleteinfo S1234567A n/`<br>
        Expected: The person's name is not deleted. The result panel shows an error message, indicating that the name field cannot be deleted.
+
 ### Saving data
 
 1. Dealing with missing/corrupted data files
@@ -764,5 +765,9 @@ testers are expected to do more *exploratory* testing.
 
 ## Planned enhancements
 **Include FIN as accepted values for field `NRIC`**: The field `NRIC` should accept `F`, `M` and `G` as valid values, as they are valid first characters for foreigners' FIN (foreign identification number).
-**Make `email` case-insensitive**: The field `Email` should be case-insensitive, as emails are not case-sensitive in practice.
-**Limit `country` to a list of valid countries**: The field `country` should be limited to a list of countries, to prevent invalid entries.
+
+**Allow `Name` to take special characters**: The field `Name` should be able to accommodate names with special characters such as dashes, slashes, apostrophes etc.
+
+**Limit `Country` to a list of valid countries**: The field `Country` should be limited to a list of countries, to prevent invalid entries.
+
+**Make `Email` case-insensitive**: The field `Email` should be case-insensitive, as emails are not case-sensitive in practice.
