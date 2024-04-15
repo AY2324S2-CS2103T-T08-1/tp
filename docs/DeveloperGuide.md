@@ -468,26 +468,26 @@ The following sequence diagram shows how a `cluster` operation goes through the 
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
 
 | Priority | As a …​           | I want to …​                                    | So that I can…​                                                              |
-|---------|-------------------|-------------------------------------------------|------------------------------------------------------------------------------|
-| `* * *` | New user          | see usage instructions                          | refer to instructions when I forget how to use the App                       |
-| `* * *` | Healthcare Worker | create a new patient profile                    | add new patient to database                                                  |
-| `* * *` | Healthcare Worker | delete a patient                                | remove wrong or obselete patient profile from the database                   |
-| `* * *` | Healthcare Worker | delete patient's information                    | remove patient information that is known to be incorrect                     |
-| `* * *` | Healthcare Worker | read a patient's information by NRIC            | locate details of persons without having to go through the entire list       |
-| `* * *` | Healthcare Worker | update a person's details                       | keep the details up to date                                                  |
-| `* * *` | Healthcare Worker | find a patient by matching criteria             | Find a list of patients from with a certain conditio or address              |
-| `* * *` | Healthcare Worker | find a patient by name                          | find a patient in the situation when their NRIC is not immediately available |
-| `* * *` | Healthcare Worker | record visits made by patients                  | record the change in health condition of the patients across time            |
-| `* *`   | Healthcare Worker | highlight contradicting information and entries | minimize the mistakes in entries                                             |
-| `* *`   | Healthcare Worker | see the history of visits made by a patient     | understand the past health condition of a patient                            |
-| `* *`   | Healthcare Worker | be able to tap different contact methods        | make sure important information is sent                                      |
-| `* *`   | Healthcare Worker | status of health of a patient                   | give appropriate treatment                                                   |
-| `* *`   | Healthcare Worker | see clusters of infected patients               | understand which areas are at high risk of infection                         |
-| `*`     | Healthcare Worker | find the person who first spread the disease    | better understand the disease                                                |
-| `*`     | Healthcare Worker | sort persons by name                            | locate a person easily                                                       |
-| `*`     | Healthcare Worker | hide private contact details                    | minimize chance of someone else seeing them by accident                      |
-| `*`     | Healthcare Worker | be able to resolve duplicate information        | correct wrong inputs                                                         |
-| `*`     | Healthcare Worker | see the close contacts of a patient             | see the links between infected patients                                      |
+|----------|-------------------|-------------------------------------------------|------------------------------------------------------------------------------|
+| `* * *`  | New user          | see usage instructions                          | refer to instructions when I forget how to use the App                       |
+| `* * *`  | Healthcare Worker | create a new patient profile                    | add new patient to database                                                  |
+| `* * *`  | Healthcare Worker | delete a patient                                | remove wrong or obselete patient profile from the database                   |
+| `* * *`  | Healthcare Worker | delete patient's information                    | remove patient information that is known to be incorrect                     |
+| `* * *`  | Healthcare Worker | read a patient's information by NRIC            | locate details of persons without having to go through the entire list       |
+| `* * *`  | Healthcare Worker | update a person's details                       | keep the details up to date                                                  |
+| `* * *`  | Healthcare Worker | find a patient by matching criteria             | Find a list of patients from with a certain conditio or address              |
+| `* * *`  | Healthcare Worker | find a patient by name                          | find a patient in the situation when their NRIC is not immediately available |
+| `* * *`  | Healthcare Worker | record visits made by patients                  | record the change in health condition of the patients across time            |
+| `* *`    | Healthcare Worker | highlight contradicting information and entries | minimize the mistakes in entries                                             |
+| `* *`    | Healthcare Worker | see the history of visits made by a patient     | understand the past health condition of a patient                            |
+| `* *`    | Healthcare Worker | be able to tap different contact methods        | make sure important information is sent                                      |
+| `* *`    | Healthcare Worker | status of health of a patient                   | give appropriate treatment                                                   |
+| `* *`    | Healthcare Worker | see clusters of infected patients               | understand which areas are at high risk of infection                         |
+| `*`      | Healthcare Worker | find the person who first spread the disease    | better understand the disease                                                |
+| `*`      | Healthcare Worker | sort persons by name                            | locate a person easily                                                       |
+| `*`      | Healthcare Worker | hide private contact details                    | minimize chance of someone else seeing them by accident                      |
+| `*`      | Healthcare Worker | be able to resolve duplicate information        | correct wrong inputs                                                         |
+| `*`      | Healthcare Worker | see the close contacts of a patient             | see the links between infected patients                                      |
 ### Use cases
 
 (For all use cases below, the **IMS** is the `ImmuniMate system` and the **Healthcare worker** is the `user`, unless specified otherwise)
