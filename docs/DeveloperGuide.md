@@ -371,8 +371,8 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | Priority | As a …​           | I want to …​                                    | So that I can…​                                                              |
 |---------|-------------------|-------------------------------------------------|------------------------------------------------------------------------------|
 | `* * *` | New user          | see usage instructions                          | refer to instructions when I forget how to use the App                       |
-| `* * *` | Healthcare Worker | create a new patient record                     | add new patient to database                                                  |
-| `* * *` | Healthcare Worker | delete a patient                                | remove wrong or obselete patient record from the database                    |
+| `* * *` | Healthcare Worker | create a new patient profile                    | add new patient to database                                                  |
+| `* * *` | Healthcare Worker | delete a patient                                | remove wrong or obselete patient profile from the database                   |
 | `* * *` | Healthcare Worker | delete patient's information                    | remove patient information that is known to be incorrect                     |
 | `* * *` | Healthcare Worker | read a patient's information by NRIC            | locate details of persons without having to go through the entire list       |
 | `* * *` | Healthcare Worker | update a person's details                       | keep the details up to date                                                  |
@@ -393,18 +393,18 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 (For all use cases below, the **System** is the `AddressBook` and the **Actor** is the `user`, unless specified otherwise)
 
-**Use Case: UC01 - Create Patient Record**
+**Use Case: UC01 - Create Patient Profile**
 
 - **Actor:** Healthcare Worker
-- **Description:** Healthcare worker creates a new patient record in the ImmuniMate Address Book System.
+- **Description:** Healthcare worker creates a new patient profile in the ImmuniMate Address Book System.
 - **Preconditions:** Healthcare worker has logged into the system.
-- **Guarantees:** New patient record is successfully created in the ImmuniMate Address Book System.
+- **Guarantees:** New patient profile is successfully created in the ImmuniMate Address Book System.
 - **MSS:**
-    1. Healthcare worker choose to create a new patient record.
-    2. IABS requests the necessary details for the new patient record (name, NRIC, date of birth, sex, phone number, address, email, country of nationality, date of admission, blood type, allergies).
+    1. Healthcare worker choose to create a new patient profile.
+    2. IABS requests the necessary details for the new patient profile (name, NRIC, date of birth, sex, phone number, address, email, country of nationality, date of admission, blood type, allergies).
     3. Healthcare worker enters the patient's details.
     4. IABS validates the entered data.
-    5. IABS adds the new patient record to the database.
+    5. IABS adds the new patient profile to the database.
 - **Extensions:**
 
   3a. IABS detects a conflict in the entered data (user existing).
@@ -422,7 +422,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
   Steps 3b1-3b2 are repeated until the data entered are correct.
   Use case resumes from step 4.
 
-  *a. At any time, Healthcare Worker chooses to cancel creating the patient record.
+  *a. At any time, Healthcare Worker chooses to cancel creating the patient profile.
 
   *a1. IABS requests confirmation to cancel.
   *a2. Healthcare Worker confirms the cancellation.
@@ -431,18 +431,18 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 ---
 
-**Use Case: UC02 - Read Patient Record**
+**Use Case: UC02 - Read Patient Profile**
 
 - **Actor:** Healthcare Worker
-- **Description:** Healthcare worker reads patient record in the ImmuniMate Address Book System.
+- **Description:** Healthcare worker reads patient profile in the ImmuniMate Address Book System.
 - **Preconditions:** Healthcare worker has logged into the system.
-- **Guarantees:** Existing patient record  in the ImmuniMate Address Book System is successfully displayed.
+- **Guarantees:** Existing patient profile  in the ImmuniMate Address Book System is successfully displayed.
 - **MSS:**
-    1. Healthcare worker choose to read a patient record.
-    2. IABS requests the necessary detail for reading patient record (NRIC).
+    1. Healthcare worker choose to read a patient profile.
+    2. IABS requests the necessary detail for reading patient profile (NRIC).
     3. Healthcare worker enters the patient's details.
     4. IABS validates the entered data.
-    5. IABS displays the patient record to the database.
+    5. IABS displays the patient profile to the database.
 - **Extensions:**
 
   3a. IABS detects an error in the entered data (user does not exist).
@@ -460,7 +460,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
   Steps 3b1-3b2 are repeated until the data entered are correct.
   Use case resumes from step 4.
 
-  *a. At any time, Healthcare Worker chooses to cancel creating the patient record.
+  *a. At any time, Healthcare Worker chooses to cancel creating the patient profile.
 
   *a1. IABS requests confirmation to cancel.
   *a2. Healthcare Worker confirms the cancellation.
@@ -509,7 +509,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 ---
 
-**Use Case: UC05 - Delete Patient Record**
+**Use Case: UC05 - Delete Patient Profile**
 
 - **Actor:** Healthcare worker
 - **Description:** Healthcare worker deletes a patient's record from the ImmuniMate Address Book System.
@@ -572,7 +572,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     2. IABS requests the necessary detail for checking patient visit history (NRIC).
     3. Healthcare worker enters the patient's details.
     4. IABS validates the entered data.
-    5. IABS displays the patient record to the database.
+    5. IABS displays the patient profile to the database.
 - **Extensions:**
 
   3a. IABS detects an error in the entered data (user does not exist).
@@ -590,7 +590,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
   Steps 3b1-3b2 are repeated until the data entered are correct.
   Use case resumes from step 4.
 
-  *a. At any time, Healthcare Worker chooses to cancel creating the patient record.
+  *a. At any time, Healthcare Worker chooses to cancel creating the patient profile.
 
   *a1. IABS requests confirmation to cancel.
   *a2. Healthcare Worker confirms the cancellation.
@@ -662,7 +662,7 @@ Quality requirements:
 17. **Cluster**: A group of patients who are infected by the same disease.
 18. **Patient Visit**: A record of a patient's one specific visit to the clinic, including the date of visit, symptoms, diagnosis, and status.
 19. **Patient History**: A collection of all the visits by a patient.
-20. **Patient Record**: A collection of all the information about a patient, including the patient's name, NRIC, phone number, address, email, country.
+20. **Patient Profile**: A collection of all the information about a patient, including the patient's name, NRIC, phone number, address, email, country.
 
 --------------------------------------------------------------------------------------------------------------------
 
