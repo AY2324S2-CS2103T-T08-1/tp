@@ -242,7 +242,7 @@ This `deleteinfo` command is facilitated by `DeleteInfoCommand` and `DeleteInfoC
 * `DeleteInfoCommandParser#parse` is responsible for parsing the user input and creating a new `DeleteInfoCommand` instance.
 * `DeleteInfoCommand#execute` is responsible for executing the command and removing the field of information from the patient.
 * `Model#getFilteredPersonList()` is called to get the list of patients in the system.
-* `Model#setField` where `Field` refers to whichever field specified to be deleted, is responsible for removing the field of information from the patient.
+* `Person#setField` where `Field` refers to whichever field specified to be deleted, is responsible for removing the field of information from the patient.
   `DeleteInfoCommand` checks if the patient exists in the system before removing the field of information.
 * `ModelManager#hasPerson(Person)` is called to check if the patient already exists in the system. It calls `ImmuniMate.hasPerson(Person)` which calls `UniquePersonList#contains(Person)` to check if the patient already exists in the internal list of patients.
 
@@ -250,7 +250,7 @@ Step 1. `DeleteInfoCommandParser` interprets the user's input for NRIC and the f
 
 Step 2. The `DeleteInfoCommand#execute` is called by the `LogicManager`. The `DeleteInfoCommand` checks if the patient exists in the system by calling `model.hasPerson(person)`.
 
-Step 3. If the patient exists, the `DeleteInfoCommand` calls `model.setField` (where the field is the specified field to delete) to get the list of patients in the system.
+Step 3. If the patient exists, the `DeleteInfoCommand` calls `model.getFilteredPersonList().filtered().get()` to get the specified patients in the system.
 
 Step 4. `DeleteInfoCommand#execute` check which fields are to be deleted, and remove the field of information using `Person#setField(null)`. Where `Field` is the field to be deleted.
 
