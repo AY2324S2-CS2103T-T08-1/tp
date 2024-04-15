@@ -165,6 +165,14 @@ The list of fields and their formats are specified below:
 | **Diagnosis**              | `d/`   | Any text. Blank or empty text is not accepted.                                                                                                                                     | No   |
 | **Date of visit**          | `dov/` | `yyyy-MM-dd` format.                                                                                                                                                               | No   |
 
+Sometimes, you might type in commands in the wrong format, or fields that don't make sense, and that's fine.
+When that happens, the erroneous command you typed will light up in red, while more details on the nature of the error will be shown in the feedback box, like in the picture below.
+
+![Error Message](images/ErrorMessage.png)
+
+Not to worry, you can just edit that command, or delete it and type in a correct one.
+**TIP**: Find retyping commands a hassle? Use your 'Up' and 'Down' arrow keys to access your past commands saved in your [Command History](#command-history)!
+
 ----------------------------------------------------------------
 
 ## Quick start
