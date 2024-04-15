@@ -143,7 +143,7 @@ The `Storage` component,
 
 ### Common classes
 
-Classes used by multiple components are in the `seedu.addressbook.commons` package.
+Classes used by multiple components are in the `seedu.address.commons` package.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -491,7 +491,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 ### Use cases
 
-(For all use cases below, the **IMS** is the `ImmuniMate system` and the **Healthcare worker** is the `user`, unless specified otherwise)
+(For all use cases below, the **IMS** is the `ImmuniMate system` and the **Healthcare Worker** is the `user`, unless specified otherwise)
 
 **Use Case: UC01 - Create Patient Profile**
 
@@ -699,7 +699,6 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
   - *a2. Healthcare Worker confirms the cancellation.
   - Use case ends.
 
-
 ---
 
 **Use Case: UC08 - Check Patient Visit History**
@@ -738,6 +737,37 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
   Use case ends.
 
 ---
+
+**Use Case: UC09 - Finding Clusters**
+
+- **Actor:** Healthcare Worker
+- **Description:** Healthcare worker tries to identify disease clusters through data in the ImmuniMate System.
+- **Preconditions:** Healthcare worker has logged into the system.
+- **Guarantees:** There is at least 1 patient profile saved in IMS.
+- **MSS:**
+    1. Healthcare worker wants to find disease clusters/potential disease clusters.
+    2. IMS requests Healthcare Worker for relevant details.
+    3. Healthcare worker enters integer, location and illness.
+    4. IMS validates the entered data and displays all patients at that location unwell with the illness.
+- **Extensions:**
+
+  3a. IMS detects an error in the entered data (invalid cluster size).
+
+  * 3a1. IMS shows the conflicting existing entry
+  * 3a2. IMS requests for the correct data.
+  * 3a3. Healthcare Worker enters data with valid cluster size.<br>
+  Steps 3a1-3a3 are repeated until the data entered are correct, or the user cancels the action.
+  Use case resumes from step 4.
+
+  3b. IMS detects an error in the entered data (empty location).
+
+  * 3b1. IMS requests for the correct data.
+  * 3b2. Healthcare Worker enters data with valid location.<br>
+  Steps 3b1-3b2 are repeated until the data entered are correct.
+  Use case resumes from step 4.
+  
+---
+  
 **Use Case: UC10 - List all patients**
 
 - **Actor:** Healthcare Worker
@@ -758,49 +788,23 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
   1. Healthcare worker chooses to access the help guide.
   2. IMS displays the help guide.
 
-
 ### Non-Functional Requirements
 
 1.  Should work on any _mainstream OS_ as long as it has Java `11` or above installed.
-2.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
-*{More to be added}*
-
-Data Requirements:
-* the app should have high data persistency
-
-Environment Requirements:
-* the app should work on both 32-bit and 64-bit environments
-
-Accessibility:
-* the app should be easily downloaded from websites/app stores, and need no prior setup
-
-Capacity:
-* the app should be able to store 10000 profiles 
-* the app should not exceed 10GB in storage space
-
-Compliance with regulations:
-* personal data collection on the app should adhere to the Personal Data Protection Act (PDPA)
-
-Extensibility:
-* the app should enable new profile fields to be added easily
-* the app should be convenient to expand its capacity when needed
-
-Interoperability:
-* the app should be compatible with Windows, MacOS, Linux platforms
-
-Maintainability:
-* the app should use automated testing
-
-Performance requirements:
-* the app should respond to queries within 1 second
-
-Process requirements:
-* the project should adhere to a schedule to deliver new features fortnightly
-* the project should aim to solve bugs found in one version by the next version
-
-Quality requirements:
-* the app should be usable by doctors/nurses/receptionists with limited guidance
-* the app should be faster to use by typing queries than using the mouse
+2.  Should be able to hold up to 10000 persons without a noticeable sluggishness in performance for typical usage.
+3.  Should have high data persistency.
+4.  Should work on both 32-bit and 64-bit environments.
+5.  Should be easily downloaded from websites/app stores, and need no prior setup besides downloading Java 11.
+6.  Should not exceed 100MB in storage space.
+7.  Data collection on the app should adhere to the Personal Data Protection Act (PDPA).
+8.  Unimplemented fields should be added easily.
+9.  Should be convenient to expand storage capacity of the app when needed.
+10. Should use automated testing.
+11. Should respond to queries within 1 second.
+12. Project should adhere to a schedule to deliver new features fortnightly.
+13. Project should aim to solve bugs found in one version by the next version.
+14. Should be usable by doctors/nurses/receptionists with limited guidance. 
+15. Should be faster to use by typing queries than using the mouse.
 
 ### Glossary
 
