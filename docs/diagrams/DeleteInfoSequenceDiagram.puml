@@ -50,9 +50,16 @@ deactivate ImmuniMateParser
 LogicManager -> DeleteInfoCommand : execute(m)
 activate DeleteInfoCommand
 
+DeleteInfoCommand -> Model : getFilteredPersonsList()
+activate Model
+
+Model --> DeleteInfoCommand : persons
+deactivate Model
+
 DeleteInfoCommand -> Model : hasPerson(...)
 activate Model
-Model --> DeleteInfoCommand : false
+
+Model --> DeleteInfoCommand : true
 deactivate Model
 
 DeleteInfoCommand -> Model : getFilteredPersonList().filtered().get(0)

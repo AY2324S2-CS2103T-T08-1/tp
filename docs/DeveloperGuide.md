@@ -51,7 +51,7 @@ The bulk of the app's work is done by the following four components:
 
 **How the architecture components interact with each other**
 
-The *Sequence Diagram* below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
+The *Sequence Diagram* below shows how the components interact with each other for the scenario where the user issues the command `delete S1234567X`.
 
 <img src="images/ArchitectureSequenceDiagram.png" width="574" />
 
@@ -91,7 +91,7 @@ Here's a (partial) class diagram of the `Logic` component:
 
 <img src="images/LogicClassDiagram.png" width="550"/>
 
-The sequence diagram below illustrates the interactions within the `Logic` component, taking `execute("delete 1")` API call as an example.
+The sequence diagram below illustrates the interactions within the `Logic` component, taking `execute("delete S1234567X")` API call as an example.
 
 ![Interactions Inside the Logic Component for the `delete 1` Command](images/DeleteSequenceDiagram.png)
 
@@ -100,7 +100,7 @@ The sequence diagram below illustrates the interactions within the `Logic` compo
 
 How the `Logic` component works:
 
-1. When `Logic` is called upon to execute a command, it is passed to an `AddressBookParser` object which in turn creates a parser that matches the command (e.g., `DeleteCommandParser`) and uses it to parse the command.
+1. When `Logic` is called upon to execute a command, it is passed to an `ImmuniMateParser` object which in turn creates a parser that matches the command (e.g., `DeleteCommandParser`) and uses it to parse the command.
 2. This results in a `Command` object (more precisely, an object of one of its subclasses e.g., `DeleteCommand`) which is executed by the `LogicManager`.
 3. The command can communicate with the `Model` when it is executed (e.g. to delete a person).<br>
    Note that although this is shown as a single step in the diagram above (for simplicity), in the code it can take several interactions (between the command object and the `Model`) to achieve.
@@ -111,8 +111,8 @@ Here are the other classes in `Logic` (omitted from the class diagram above) tha
 <img src="images/ParserClasses.png" width="600"/>
 
 How the parsing works:
-* When called upon to parse a user command, the `AddressBookParser` class creates an `XYZCommandParser` (`XYZ` is a placeholder for the specific command name e.g., `AddCommandParser`) which uses the other classes shown above to parse the user command and create a `XYZCommand` object (e.g., `AddCommand`) which the `AddressBookParser` returns back as a `Command` object.
-* All `XYZCommandParser` classes (e.g., `AddCommandParser`, `DeleteCommandParser`, ...) inherit from the `Parser` interface so that they can be treated similarly where possible e.g, during testing.
+* When called upon to parse a user command, the `ImmuniMateParser` class creates an `XYZCommandParser` (`XYZ` is a placeholder for the specific command name e.g., `CreateCommandParser`) which uses the other classes shown above to parse the user command and create a `XYZCommand` object (e.g., `CreateCommand`) which the `ImmuniMateParser` returns back as a `Command` object.
+* All `XYZCommandParser` classes (e.g., `CreateCommandParser`, `DeleteCommandParser`, ...) inherit from the `Parser` interface so that they can be treated similarly where possible e.g, during testing.
 
 ### Model component
 **API** : [`Model.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/model/Model.java)
@@ -151,7 +151,7 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 This section describes some noteworthy details on how certain features are implemented.
 
 ### List all patients
-#### Proposed Implementation
+#### Implementation
 
 The `list` feature allows users to view all patients in the system through the `list` command. This patient data is then displayed in the system for the user to have an overview of all patients.
 The `list` command is facilitated by `ListCommand` which extends the `Command` classes, listing all instances in the `Model`.
@@ -160,21 +160,24 @@ The `list` command is facilitated by `ListCommand` which extends the `Command` c
 * `Model#updateFilteredPersonList()` is called to make the UI display all patients in the system.
 
 Step 1. `ListCommand#execute` is called by the `LogicManager`. The `ListCommand` calls `model.updateFilteredPersonList()` to update the filtered list of patients in the system.
+
 Step 2. `Model#updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS)` is called to update the filtered list such that it shows all patients in the system. 
+
 Step 3. The `ListCommand` returns the appropriate `CommandResult` to indicate the success of the operation.
 
 ### Help
-#### Proposed Implementation
+#### Implementation
 
 The `help` feature allows users to view the link to User Guide. This command is facilitated by `HelpCommand` which extends the `Command` classes.
 
 * `HelpCommand#execute` is responsible for executing the command and listing the link to the User Guide.
 
 Step 1. Parser interprets the user's input and creates a new `HelpCommand` instance.
+
 Step 2. `HelpCommand#execute` is called by the `LogicManager`. The `HelpCommand` returns the appropriate `CommandResult`, which signals the UI to display the help window .
 
 ### Create new patient
-#### Proposed Implementation
+#### Implementation
 
 The `create` feature allows users to create a patient by providing input through a command with specific arguments. This patient data is then stored within the system for future reference.
 The `create` command is facilitated by `CreateCommand` and `CreateCommandParser`. They extend the `Command` and `Parser` classes respectively, storing a new instance of `Person` in the `UniquePersonList`.
@@ -198,13 +201,14 @@ Step 2. The `CreateCommand#execute` is called by the `LogicManager`. The `Create
 Step 3. If there is no duplicate, the patient is added to the system by calling `model.addPerson(person)`.
 
 Step 4: After the patient is added, the `CreateCommand` returns the appropriate `CommandResult` to indicate the success of the operation.
-The following sequence diagram shows how a create operation goes through the Logic component:
+
+The following sequence diagram shows how a create operation goes through the `Logic` component:
 ![CreateState1](images/CreateCommandLogic.png)
-Similarly, the following sequence diagram shows how a create operation goes through the Model component:
+Similarly, the following sequence diagram shows how a create operation goes through the `Model` component:
 ![CreateState1](images/CreateCommandModel.png)
 
 ### Delete patient
-#### Proposed Implementation
+#### Implementation
 
 The `delete` feature allows users to delete a patient by providing NRIC through a command. This patient data is then removed from the system.
 The `delete` command is facilitated by `DeleteCommand` and `DeleteCommandParser`. They extend the `Command` and `Parser` classes respectively, removing an instance of `Person` from the `UniquePersonList`.
@@ -218,16 +222,18 @@ The `delete` command is facilitated by `DeleteCommand` and `DeleteCommandParser`
 * `ModelManager#hasPerson(Person)` is called to check if the patient already exists in the system. It calls `ImmuniMate.hasPerson(Person)` which calls `UniquePersonList#contains(Person)` to check if the patient already exists in the internal list of patients.
 
 Step 1. `DeleteCommandParser` interprets the user's input for NRIC, and creates a new `DeleteCommand` instance.
+
 Step 2. The `DeleteCommand#execute` is called by the `LogicManager`. The `DeleteCommand` checks if the patient exists in the system by calling `model.hasPerson(person)`.
+
 Step 3. If the patient exists, the patient is removed from the system by calling `model.deletePerson(person)`.
+
 Step 4: After the patient is removed, the `DeleteCommand` returns the appropriate `CommandResult` to indicate the success of the operation.
 
-The following sequence diagram shows how a delete operation goes through the Logic component:
+The following sequence diagram shows how a delete operation goes through the `Logic` and `Model` component:
 ![DeleteState1](images/DeleteSequenceDiagram.png)
-How a delete operation goes through the Model component is very similar to that of the create operation, therefore the sequence diagram is omitted.
 
 ### Delete patient information
-#### Proposed Implementation
+#### Implementation
 
 The `deleteinfo` command allows users to delete a patient's particular field of information by providing NRIC and the field to be deleted through a command. 
 This `deleteinfo` command is facilitated by `DeleteInfoCommand` and `DeleteInfoCommandParser`. They extend the `Command` and `Parser` classes respectively, removing a particular field of information from the `Person` object.
@@ -240,18 +246,23 @@ This `deleteinfo` command is facilitated by `DeleteInfoCommand` and `DeleteInfoC
 * `ModelManager#hasPerson(Person)` is called to check if the patient already exists in the system. It calls `ImmuniMate.hasPerson(Person)` which calls `UniquePersonList#contains(Person)` to check if the patient already exists in the internal list of patients.
 
 Step 1. `DeleteInfoCommandParser` interprets the user's input for NRIC and the fields to be deleted, and creates a new `DeleteInfoCommand` instance.
+
 Step 2. The `DeleteInfoCommand#execute` is called by the `LogicManager`. The `DeleteInfoCommand` checks if the patient exists in the system by calling `model.hasPerson(person)`.
+
 Step 3. If the patient exists, the `DeleteInfoCommand` calls `model.setField` (where the field is the specified field to delete) to get the list of patients in the system.
+
 Step 4. `DeleteInfoCommand#execute` check which fields are to be deleted, and remove the field of information using `Person#setField(null)`. Where `Field` is the field to be deleted.
+
 Step 5: After the field of information is removed, the `DeleteInfoCommand` returns the appropriate `CommandResult` to indicate the success of the operation.
 
-The following sequence diagram shows how a deleteinfo operation goes through the Logic component:
+The following sequence diagram shows how a `deleteinfo` operation goes through the `Logic` component:
 ![DeleteInfoState1](images/DeleteInfoSequenceDiagram.png)
-The sequence diagram for how the deleteinfo operation goes through the Model Component is as the following:
+
+The sequence diagram for how the `deleteinfo` operation goes through the `Model` Component is as the following:
 ![DeleteInfoState1](images/DeleteInfoModelDiagram.png)
 
 ### Read a patient's information
-#### Proposed Implementation
+#### Implementation
 The `read` feature allows users to read a patient profile by providing NRIC through a command. This patient data is then displayed.
 The `read` command is facilitated by `ReadCommand` and `ReadCommandParser`. They extend the `Command` and `Parser` classes respectively, displaying patient profile from an instance of `Person` from the `UniquePersonList`.
 
@@ -262,22 +273,44 @@ The `read` command is facilitated by `ReadCommand` and `ReadCommandParser`. They
 * `Model#updateFilteredPersonList(Predicate)` and is called to update the list to be of patient with specified NRIC in the system.
 * `Model#getFilteredPersonList()` is called to get the list of patient with specified NRIC in the system.
 * `Observablelist<Persons>#get(int)` is called to obtain `Person` object of patient with speicified NRIC.  
+
 Step 1. `ReadCommandParser` interprets the user's input for NRIC, and creates a new `ReadCommand` instance.
+
 Step 2. The `ReadCommand#execute` is called by the `LogicManager`. The `ReadCommand` checks if the patient exists in the system by calling `model.hasPerson(person)`.
+
 Step 3. If the patient exists, the patient is obtained from the system by calling `model.updateFilteredPersonList(person)`, followed by calling `model.getFilteredPersonList()` and `Observablelist<Persons>#get(int)`.
+
 Step 4: After the patient is obtained, the `ReadCommand` formats the patient profile by calling `Messages.format(person)` and returns the appropriate `CommandResult` to indicate the success of the operation.
 
-The following sequence diagram shows how a delete operation goes through the Logic component:
+The following sequence diagram shows how a `read` operation goes through the `Logic` component:
 ![ReadState1](images/ReadCommandSequenceDiagram.png)
-How a read operation goes through the Model component is shown below:
+
+How a `read` operation goes through the `Model` component is shown below:
 ![ReadState2](images/ReadCommandModelDiagram.png)
 
-
 ### Find patient
-#### Proposed Implementation
+#### Implementation
+
+The `find` feature lets users find patients with certain values in various fields, namely `name`, `address` and `condition`.
+After a command with specific arguments as input, the patient list is filtered and the resultant list is shown.
+
+The `find` command is facilitated by `FindCommand` and `FindCommandParser`, extending the `Command` and `Parser` classes respectively.
+* `FindCommandParser#parse` is responsible for parsing the user input and creating a new `FindCommand` instance.
+* `FindCommand#execute` is responsible for executing the command, calling `ModelManager#updateFilteredPersonList(Predicate<Person>)` to find patients with the given keywords in the given field.
+
+Step 1. `FindCommandParser` interprets the user's input, determine which field the user wishes to find patients by, and creates a new `FindCommand` instance.
+
+Step 2. The `FindCommand#execute` is called by the `LogicManager`.
+
+Step 3. This in turn calls `model.updateFilteredPersonList(Predicate<Person>)`, which identifies patients having any of the keywords in `Predicate<Person>` in the given field.
+
+Step 4: The `FindCommand` returns the appropriate `CommandResult` to indicate the success of the operation.
+
+The following sequence diagram shows how a `find` operation goes through the `Logic` and `Model` components:
+![ReadState1](images/FindLogicModelDiagram.png)
 
 ### Update patient fields
-#### Proposed Implementation
+#### Implementation
 Given below is an example usage scenario and how the update mechanism behaves at each step.
 
 Step 1. The user launches the application for the first time.
@@ -294,17 +327,14 @@ Step 6. `model.getFilteredPersonsList()` retrieves the list of `Person`s stored,
 
 Step 7. `model.setPerson()` then replaces the retrieved `Person` object with the new `Person` object with fields updated, taking in both `Person` objects as arguments. The `model` is then saved into `storage`.
 
-#### Design considerations:
+The following sequence diagram shows how an `update` operation goes through the `Logic` components:
+![ReadState1](images/UpdateLogicDiagram.png)
 
-* **Alternative 1 (current choice):** Identify patient by `Nric`.
-    * Pros: More user convenience, as user just needs to type NRIC patients provide
-
-* **Alternative 2:** Identify patient by given `Index`.
-    * Pros: Easier to implement.
-    * Cons: Less user convenience, as user has to first know patient `Index` to find patient.
+How an `update` operation goes through the `Model` component is shown below:
+![ReadState2](images/UpdateModelDiagram.png)
 
 ### Add patient visit
-#### Proposed Implementation
+#### Implementation
 
 #### Overview
 The `addvisit` feature allows healthcare workers to record a new visit for a patient by providing necessary details such as NRIC, date of visit, symptoms, diagnosis, and status. This command enhances the ImmuniMate Address Book System (IABS) by maintaining up-to-date health records for patients.
@@ -347,7 +377,7 @@ This proposed implementation ensures robust handling of patient visit data, enha
 
 
 ### Check a patient's visit history
-#### Proposed Implementation
+#### Implementation
 The `check` feature allows users to check the visit history of a patient by providing NRIC through a command. This patient visit history is then displayed.
 The `check` command is facilitated by `CheckCommand` and `CheckCommandParser`. They extend the `Command` and `Parser` classes respectively, displaying patient visit history from list of `Visit` from the `UniqueVisitList`.
 
@@ -357,25 +387,49 @@ The `check` command is facilitated by `CheckCommand` and `CheckCommandParser`. T
 * `ModelManager#hasPerson(Person)` is called to check if the patient exists in the system. It calls `ImmuniMate.hasPerson(Person)` which calls `UniquePersonList#contains(Person)` to check if the patient already exists in the internal list of patients.
 * `Model#updateFilteredPersonList(Predicate)` is called to get the list of patient with specified NRIC in the system.
 * `Model#updateFilteredVisitList(Predicate)` is called to get the list of visits with specified NRIC in the system.
-  Step 1. `CheckCommandParser` interprets the user's input for NRIC, and creates a new `CheckCommand` instance.
-  Step 2. The `CheckCommand#execute` is called by the `LogicManager`. The `CheckCommand` checks if the patient exists in the system by calling `model.hasPerson(person)`.
-  Step 3. If the patient exists, the patient is obtained from the system by calling `model.updateFilteredPersonList(pred)`, followed by calling `model.getFilteredPersonList()` and `Observablelist<Persons>#get(int)`.
-  Step 4: Patient visit history is obtained from the system by calling `model.updateFilteredVisitList(pred)`, followed by `model.getFilteredVisitList()`.
-  Step 5: After the patient visit history is obtained, the `CheckCommand` formats the patient visit history by calling `Messages.formatCheck(visit)` and returns the appropriate `CommandResult` to indicate the success of the operation.
+  
+Step 1. `CheckCommandParser` interprets the user's input for NRIC, and creates a new `CheckCommand` instance. 
 
-The following sequence diagram shows how a delete operation goes through the Logic component:
+Step 2. The `CheckCommand#execute` is called by the `LogicManager`. The `CheckCommand` checks if the patient exists in the system by calling `model.hasPerson(person)`.
+
+Step 3. If the patient exists, the patient is obtained from the system by calling `model.updateFilteredPersonList(pred)`, followed by calling `model.getFilteredPersonList()` and `Observablelist<Persons>#get(int)`.
+
+Step 4: Patient visit history is obtained from the system by calling `model.updateFilteredVisitList(pred)`, followed by `model.getFilteredVisitList()`.
+
+Step 5: After the patient visit history is obtained, the `CheckCommand` formats the patient visit history by calling `Messages.formatCheck(visit)` and returns the appropriate `CommandResult` to indicate the success of the operation.
+
+The following sequence diagram shows how a delete operation goes through the `Logic` component:
 ![ReadState1](images/CheckCommandSequenceDiagram.png)
-How a check operation goes through the Model component is shown below:
+How a check operation goes through the `Model` component is shown below:
 ![ReadState2](images/CheckCommandModelDiagram.png)
 
-### Check for clusters
-#### Proposed Implementation
+### Cluster Identification
+#### Implementation
+
+The `cluster` feature tells users if a certain location has a certain number of patients unwell with an illness.
+Provided an integer, location and disease as inputs, it finds unwell patients having an address with the given location as a substring, and diagnosis with the given illness as a substring, and informs the user if the number of those patients is at least that integer.
+The `cluster` command is facilitated by `ClusterCommand` and `ClusterCommandParser`, extending the `Command` and `Parser` classes respectively, storing a new instance of `Person` in the `UniquePersonList`.
+
+* `ClusterCommandParser#parse` is responsible for parsing the user input and creating a new `ClusterCommand` instance.
+* `ClusterCommand#execute` is responsible for executing the command and separating the inputs into their categories (cluster size, address and illness). It calls `ModelManager#updateFilteredPersonList(Predicate<Person>)` to find patients which satisfy the given criteria.
+
+Step 1. `ClusterCommandParser` interprets the user's input, and separates it into its constituent categories, and creates a new `ClusterCommand` instance.
+
+Step 2. The `ClusterCommand#execute` is called by the `LogicManager`.
+
+Step 3. This in turn calls `model.updateFilteredPersonList(Predicate<Person>)`, takes the location and illness keywords in `Predicate<Person>`, and finds all the patients which have them as substrings in their addresses and diagnoses respectively.
+
+Step 4. This also calls `model.getFilteredPersonList().size()` to obtain the size of the patient group satisfying the given criteria.
+
+Step 5: The `ClusterCommand` returns the appropriate `CommandResult` to indicate the success of the operation.
+
+The following sequence diagram shows how a `cluster` operation goes through the `Logic` and `Model` components:
+![ReadState1](images/ClusterLogicModelDiagram.png)
 
 ### Exit the app
-#### Proposed Implementation
+#### Implementation
 
 
-#### Design considerations:
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -742,7 +796,7 @@ Quality requirements:
 17. **Cluster**: A group of patients who are infected by the same disease.
 18. **Patient Visit**: A record of a patient's one specific visit to the clinic, including the date of visit, symptoms, diagnosis, and status.
 19. **Patient History**: A collection of all the visits by a patient.
-20. **Patient Profile**: A collection of all the information about a patient, including the patient's name, NRIC, phone number, address, email, country.
+20. **Patient Profile**: A collection of all the information about a patient, including the patient's name, `Nric`, `Phone`, `Address`, `Email`, `Country`.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -925,5 +979,9 @@ testers are expected to do more *exploratory* testing.
 
 ## Planned enhancements
 **Include FIN as accepted values for field `NRIC`**: The field `NRIC` should accept `F`, `M` and `G` as valid values, as they are valid first characters for foreigners' FIN (foreign identification number).
-**Make `email` case-insensitive**: The field `Email` should be case-insensitive, as emails are not case-sensitive in practice.
-**Limit `country` to a list of valid countries**: The field `country` should be limited to a list of countries, to prevent invalid entries.
+
+**Allow `Name` to take special characters**: The field `Name` should be able to accommodate names with special characters such as dashes, slashes, apostrophes etc.
+
+**Limit `Country` to a list of valid countries**: The field `Country` should be limited to a list of countries, to prevent invalid entries.
+
+**Make `Email` case-insensitive**: The field `Email` should be case-insensitive, as emails are not case-sensitive in practice.

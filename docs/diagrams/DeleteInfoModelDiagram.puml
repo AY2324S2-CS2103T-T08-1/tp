@@ -17,6 +17,12 @@ end box
 [-> CreateCommand : execute()
 activate CreateCommand
 
+CreateCommand -> ModelManager : getFilteredPersonsList()
+activate ModelManager
+
+ModelManager --> CreateCommand : persons
+deactivate ModelManager
+
 CreateCommand -> ModelManager : hasPerson(...)
 activate ModelManager
 
@@ -32,19 +38,19 @@ activate internalList
 internalList -> p1 : isSamePerson(p1)
 activate p1
 
-p1 --> internalList
+p1 --> internalList : true
 deactivate p1
 
-internalList --> UniquePersonList
+internalList --> UniquePersonList : true
 deactivate internalList
 
-UniquePersonList --> ImmuniMate
+UniquePersonList --> ImmuniMate : true
 deactivate UniquePersonList
 
-ImmuniMate --> ModelManager
+ImmuniMate --> ModelManager : true
 deactivate ImmuniMate
 
-ModelManager --> CreateCommand
+ModelManager --> CreateCommand : true
 deactivate ModelManager
 
 CreateCommand -> ModelManager : getFilteredPersonList()
