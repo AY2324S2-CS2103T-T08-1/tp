@@ -60,14 +60,14 @@ Person *--> "1" DateOfBirth
 Person *--> "1" Sex
 Person *--> "1" Status
 
-Person *--> "1" Email
-Person *--> "1" Country
-Person *--> "1" Allergies
-Person *--> "1" BloodType
-Person *--> "1" Condition
-Person *--> "1" DateOfAdmission
-Person *--> "1" Diagnosis
-Person *--> "1" Symptom
+Person *--> "0..1" Email
+Person *--> "0..1" Country
+Person *--> "0..1" Allergies
+Person *--> "0..1" BloodType
+Person *--> "0..1" Condition
+Person *--> "0..1" DateOfAdmission
+Person *--> "0..1" Diagnosis
+Person *--> "0..1" Symptom
 
 Visit *--> "1" DateOfVisit
 Visit *--> "1" Nric
