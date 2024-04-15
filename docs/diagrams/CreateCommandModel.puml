@@ -10,30 +10,35 @@ participant ":ModelManager" as ModelManager MODEL_COLOR
 participant ":ImmuniMate" as ImmuniMate MODEL_COLOR
 participant ":UniquePersonList" as UniquePersonList MODEL_COLOR
 participant "internalList: ObservableList<Person>" as internalList MODEL_COLOR
-participant "p1:Person" as p1 MODEL_COLOR
 participant "p:Person" as p MODEL_COLOR
 end box
 
 [-> CreateCommand : execute()
 activate CreateCommand
 
-CreateCommand -> ModelManager : hasPerson(p1)
+create p
+CreateCommand -> p
+activate p
+p --> CreateCommand
+deactivate p
+
+CreateCommand -> ModelManager : hasPerson(p)
 activate ModelManager
 
-ModelManager -> ImmuniMate: hasPerson(p1)
+ModelManager -> ImmuniMate: hasPerson(p)
 activate ImmuniMate
 
-ImmuniMate -> UniquePersonList : contains(p1)
+ImmuniMate -> UniquePersonList : contains(p)
 activate UniquePersonList
 
-UniquePersonList -> internalList : stream().anyMatch(p1::isSamePerson)
+UniquePersonList -> internalList : stream().anyMatch(p::isSamePerson)
 activate internalList
 
-internalList -> p1 : isSamePerson(p1)
-activate p1
+internalList -> p : isSamePerson()
+activate p
 
-p1 --> internalList
-deactivate p1
+p --> internalList
+deactivate p
 
 internalList --> UniquePersonList
 deactivate internalList
@@ -47,17 +52,11 @@ deactivate ImmuniMate
 ModelManager --> CreateCommand
 deactivate ModelManager
 
-CreateCommand -> ModelManager : addPerson(...)
+CreateCommand -> ModelManager : addPerson(p)
 activate ModelManager
 
-ModelManager -> ImmuniMate: addPerson(...)
+ModelManager -> ImmuniMate: addPerson(p)
 activate ImmuniMate
-
-create p
-ImmuniMate -> p
-activate p
-p --> ImmuniMate
-deactivate p
 
 ImmuniMate -> UniquePersonList : add(p)
 activate UniquePersonList

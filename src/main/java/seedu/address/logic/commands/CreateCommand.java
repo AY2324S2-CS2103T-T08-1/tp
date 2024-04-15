@@ -63,8 +63,6 @@ public class CreateCommand extends Command {
         requireNonNull(person);
         toAdd = person;
     }
-
-    //TODO test cases
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);

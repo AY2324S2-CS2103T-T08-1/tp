@@ -117,7 +117,7 @@ How the parsing works:
 ### Model component
 **API** : [`Model.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/model/Model.java)
 
-<img src="images/ModelClassDiagram.png" width="450" />
+<img src="images/ModelClassDiagram.png" width="auto" />
 
 
 The `Model` component,
@@ -610,7 +610,10 @@ testers are expected to do more *exploratory* testing.
 ### Adding a person
 
 1. Adding a person while all persons are being shown.
-   1. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+   1. Prerequisites: 
+      1. List all persons using the `list` command. Multiple persons in the list.
+      1. The person with NRIC `S1234567A` is not already created in the system.
+      1. The person with NRIC `T0234567C` is already created in the system.
    1. Test case: `create n/Alice Tan ic/S1234567A dob/1990-01-01 hp/12345678 a/123, Jurong West Ave 6, #08-111 s/F st/PENDING`<br>
       Expected: A new person is added to the list. The result panel shows the details of the new person.
    1. Test case: `create n/Bob Tan ic/T0234567C dob/1990-01-01 hp/12345678 a/123, Jurong West Ave 6, #08-111 s/M st/PENDING`<br>
@@ -618,7 +621,8 @@ testers are expected to do more *exploratory* testing.
    1. Test case: `create n/Charlie Tan ic/S1234567A`<br>
       Expected: A new person is not added to the list. The result panel shows an error message, indicating that the command format is invalid.
 2. Adding a person while only some persons are being shown
-   1. Prerequisites: show only 1 person's details using the `find n/alex` command. One person is shown in the list.
+   1. Prerequisites: 
+      1. Show only 1 person's details using the `find n/alex` command. One person is shown in the list.
    1. Test case: `create n/Bob Tan ic/T0234567C dob/1990-01-01 hp/12345678 a/123, Jurong West Ave 6, #08-111 s/M st/PENDING`<br>
       Expected: A new person is not added to the list. The result panel shows an error message, indicating that the person already exists in the system.
 ### Deleting a person
@@ -639,8 +643,8 @@ testers are expected to do more *exploratory* testing.
       Expected: Similar to previous.
 2. Deleting a person while only some persons are being shown
    1. Prerequisites:
-      2. Show only 1 person's details using the `find n/alex` command. One person is shown in the list.
-      3. The person with NRIC `S1234567A` is already created in the system with a `create` command.
+      1. Show only 1 person's details using the `find n/alex` command. One person is shown in the list.
+      1. The person with NRIC `S1234567A` is already created in the system with a `create` command.
    1. Test case: `delete S1234567A`<br>
       Expected: The person is deleted from the list. The result panel shows the details of the deleted person. The list panel shows a full list of patients.
 
@@ -669,8 +673,8 @@ testers are expected to do more *exploratory* testing.
 1. Finding a person by name, condition or address
     1. Prerequisites:
        1. The person with name `Alex Yeoh` exists in the system.
-       2. The person with condition `diabetes` exists in the system.
-       3. The person with address `123, Jurong West Ave 6, #08-111` exists in the system.
+       1. The person with condition `diabetes` exists in the system.
+       1. The person with address `123, Jurong West Ave 6, #08-111` exists in the system.
     1. Test case: `find n/Alex Yeoh`<br>
        Expected: The person with name `Alex Yeoh` is shown in the list. The result panel shows the details of the person.
     1. Test case: `find con/diabetes`<br>

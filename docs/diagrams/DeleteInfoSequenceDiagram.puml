@@ -12,6 +12,7 @@ end box
 
 box Model MODEL_COLOR_T1
 participant "m:Model" as Model MODEL_COLOR
+participant "p:Person" as Person MODEL_COLOR
 end box
 
 [-> LogicManager : execute("deleteinfo S1234567X e/")
@@ -54,10 +55,15 @@ activate Model
 Model --> DeleteInfoCommand : false
 deactivate Model
 
-DeleteInfoCommand -> Model : setEmail(...)
+DeleteInfoCommand -> Model : getFilteredPersonList().filtered().get(0)
 activate Model
-Model --> DeleteInfoCommand : set email of specified person to null
+Model --> DeleteInfoCommand : p
 deactivate Model
+
+DeleteInfoCommand -> Person : setEmail(null)
+activate Person
+Person --> DeleteInfoCommand : set email of specified person to null
+deactivate Person
 
 create CommandResult
 DeleteInfoCommand -> CommandResult
