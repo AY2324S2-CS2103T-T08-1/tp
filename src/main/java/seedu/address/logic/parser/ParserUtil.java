@@ -134,7 +134,7 @@ public class ParserUtil {
         requireNonNull(dov);
         String trimmedDov = dov.trim();
         if (!DateOfVisit.isValidDateOfVisit(trimmedDov)) {
-            throw new ParseException(DateOfBirth.MESSAGE_CONSTRAINTS);
+            throw new ParseException(DateOfVisit.MESSAGE_CONSTRAINTS);
         }
         return new DateOfVisit(trimmedDov);
     }
