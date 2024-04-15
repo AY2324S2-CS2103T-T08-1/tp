@@ -38,6 +38,7 @@ Time to ditch those stacks of paper and Excel spreadsheets, and embrace the futu
 Let's dive in and explore how ImmuniMate can transform your practice!
 
 -------------------------------------------
+<div style="page-break-after: always;"></div>
 
 ## Table of Contents
 
