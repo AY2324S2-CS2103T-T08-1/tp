@@ -29,7 +29,6 @@ public class AddVisitCommandParser implements Parser<AddVisitCommand> {
      * and returns an AddCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
-    //TODO test cases
     public AddVisitCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NRIC, PREFIX_DATEOFVISIT,

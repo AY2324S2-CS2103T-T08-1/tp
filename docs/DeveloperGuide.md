@@ -334,6 +334,40 @@ How an `update` operation goes through the `Model` component is shown below:
 
 ### Record patient visit
 #### Implementation
+The `addvisit` feature allows users to add a patient visit by providing input through a command with specific arguments. This visit is then stored within the system for future reference.
+The `addvisit` command is facilitated by `AddVisitCommand` and `AddVisitCommandParser`. They extend the `Command` and `Parser` classes respectively, storing a new instance of `Visit` in the `UniqueVisitList`.
+* `AddVisitCommandParser#parse` is responsible for parsing the user input and creating a new `AddVisitCommand` instance.
+* `AddVisitCommand#execute` is responsible for executing the command and adding the new visit to the system.
+* `ImmuniMate#addVisit(Visit)` is called to add the visit to the internal list of visits.
+* `UniquePersonList#add(Visit)` is used to add the new visit to the system.
+  `ModelManager#addVisit(Visit)` is called to add the visit to the system. It calls `ImmuniMate.addVisit(Visit)` which calls `UniqueVisitList#add(Visit)` to add the visit to the internal list of visits.
+  The command checks if the patient exists in the system before adding the new visit of a patient.
+* `Person#equals(Object)` is overridden to check if two patients are the same person.
+* `UniquePersonList#contains(Person)` is used to check if the patient exists in the system's list of patients.
+* `ImmuniMate#hasPerson(Person)` is used to check if the patient exists in the system.
+  `ModelManager#hasPerson(Person)` is called to check if the patient exists in the system. It calls `ImmuniMate.hasPerson(Person)` which calls `UniquePersonList#contains(Person)` to check if the patient exists in the internal list of patients.
+  The command checks for duplicates in the system before adding the new visit.
+* `Visit#equals(Object)` is overridden to check if two visits are duplicates.
+* `UniquePersonList#contains(Visit)` is used to check if the visit already exists in the system's list of visits.
+* `ImmuniMate#hasVisit(Visit)` is used to check if the visit already exists in the system.
+  `ModelManager#hasVisit(Visit)` is called to check if the visit already exists in the system. It calls `ImmuniMate.hasVisit(Visit)` which calls `UniqueVisitList#contains(Visit)` to check if the visit already exists in the internal list of visits.
+
+The creation of `Visit` instance also rely on field classes`NRIC`, `Symptoms`,`Diagnosis`, `Status` and `DateOfVisit`.
+
+Step 1. `AddVisitCommandParser` interprets the user's input, creates instances of fields which matches the input, and creates a new `AddVisitCommand` instance.
+
+Step 2. The `AddVisitCommand#execute` is called by the `LogicManager`. The `AddVisitCommand` checks if the patient already exists in the system by calling `model.hasPerson(person)`.
+
+Step 3. If the patient exists, the `AddVisitCommand` checks if the visit already exists in the system by calling `model.hasVisit(visit)`.
+
+Step 4. If the visit does not exist, the visit is added to the system by calling `model.addVisit(visit)`.
+
+Step 4: After the visit is added, the `AddVisitCommand` returns the appropriate `CommandResult` to indicate the success of the operation.
+
+The following sequence diagram shows how a addvisit operation goes through the `Logic` component:
+![AddVisitState1](images/AddVisitCommandLogic.png)
+Similarly, the following sequence diagram shows how a addvisit operation goes through the `Model` component:
+![addVisitCommandState1](images/AddVisitCommandModel.png)
 
 ### Check a patient's visit history
 #### Implementation

@@ -12,6 +12,7 @@ Class ImmuniMate
 Class ModelManager
 Class UserPrefs
 Class UniquePersonList
+Class UniqueVisitList
 Class Person
 Class Address
 Class Name
@@ -28,6 +29,8 @@ Class Condition
 Class DateOfAdmission
 Class Diagnosis
 Class Symptom
+Class Visit
+Class DateOfVisit
 
 
 Class I #FFFFFF
@@ -46,7 +49,9 @@ ModelManager -right-> "1" UserPrefs
 UserPrefs .up.|> ReadOnlyUserPrefs
 
 ImmuniMate *--> "1" UniquePersonList
+ImmuniMate *--> "1" UniqueVisitList
 UniquePersonList --> "~* all" Person
+UniqueVisitList --> "~* all" Visit
 Person *--> "1" Nric
 Person *--> "1" Name
 Person *--> "1" Phone
@@ -64,6 +69,12 @@ Person *--> "1" DateOfAdmission
 Person *--> "1" Diagnosis
 Person *--> "1" Symptom
 
+Visit *--> "1" DateOfVisit
+Visit *--> "1" Nric
+Visit *--> "1" Diagnosis
+Visit *--> "1" Symptom
+Visit *--> "1" Status
+
 
 Person -[hidden]up--> I
 UniquePersonList -[hidden]right-> I
@@ -76,5 +87,6 @@ DateOfBirth -[hidden]right-> Sex
 Sex -[hidden]right-> Status
 
 ModelManager --> "~* filtered" Person
+ModelManager --> "~* filtered" Visit
 @enduml
 

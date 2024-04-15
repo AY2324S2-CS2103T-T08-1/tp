@@ -1,0 +1,80 @@
+@startuml
+!include style.puml
+skinparam ArrowFontStyle plain
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":ImmuniMateParser" as ImmuniMateParser LOGIC_COLOR
+participant ":AddVisitCommandParser" as AddVisitCommandParser LOGIC_COLOR
+participant "c:AddVisitCommand" as AddVisitCommand LOGIC_COLOR
+participant "r:CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant "m:Model" as Model MODEL_COLOR
+participant "v:Visit" as Visit MODEL_COLOR
+end box
+
+[-> LogicManager : execute("addvisit ...")
+activate LogicManager
+LogicManager -> ImmuniMateParser : parseCommand("addvisit ...")
+activate ImmuniMateParser
+
+create AddVisitCommandParser
+ImmuniMateParser -> AddVisitCommandParser
+activate AddVisitCommandParser
+AddVisitCommandParser --> ImmuniMateParser
+deactivate AddVisitCommandParser
+ImmuniMateParser -> AddVisitCommandParser : parse("...")
+activate AddVisitCommandParser
+
+create Visit
+AddVisitCommandParser -> Visit
+activate Visit
+Visit --> AddVisitCommandParser
+deactivate Visit
+
+create AddVisitCommand
+AddVisitCommandParser -> AddVisitCommand
+activate AddVisitCommand
+AddVisitCommand --> AddVisitCommandParser
+deactivate AddVisitCommand
+
+AddVisitCommandParser --> ImmuniMateParser : c
+deactivate AddVisitCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+AddVisitCommandParser -[hidden]-> ImmuniMateParser
+destroy AddVisitCommandParser
+ImmuniMateParser --> LogicManager : c
+deactivate ImmuniMateParser
+
+LogicManager -> AddVisitCommand : execute()
+activate AddVisitCommand
+AddVisitCommand -> Visit : getNric()
+activate Visit
+Visit --> AddVisitCommand : nric
+deactivate Visit
+AddVisitCommand -> Model : hasPerson(...)
+activate Model
+Model --> AddVisitCommand : false
+deactivate Model
+AddVisitCommand -> Model : hasVisit(...)
+activate Model
+Model --> AddVisitCommand : false
+deactivate Model
+AddVisitCommand -> Model : addVisit(v)
+activate Model
+Model --> AddVisitCommand : add visit in the model
+deactivate Model
+
+create CommandResult
+AddVisitCommand -> CommandResult
+activate CommandResult
+CommandResult --> AddVisitCommand
+deactivate
+AddVisitCommand --> LogicManager : r
+deactivate AddVisitCommand
+
+[<--LogicManager : r
+deactivate LogicManager
+@enduml
