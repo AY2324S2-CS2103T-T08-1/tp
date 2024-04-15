@@ -488,6 +488,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `*`      | Healthcare Worker | hide private contact details                    | minimize chance of someone else seeing them by accident                      |
 | `*`      | Healthcare Worker | be able to resolve duplicate information        | correct wrong inputs                                                         |
 | `*`      | Healthcare Worker | see the close contacts of a patient             | see the links between infected patients                                      |
+
 ### Use cases
 
 (For all use cases below, the **IMS** is the `ImmuniMate system` and the **Healthcare worker** is the `user`, unless specified otherwise)
@@ -495,9 +496,9 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **Use Case: UC01 - Create Patient Profile**
 
 - **Actor:** Healthcare Worker
-- **Description:** Healthcare worker creates a new patient profile in the ImmuniMate Address Book System.
+- **Description:** Healthcare worker creates a new patient profile in the IMS.
 - **Preconditions:** Healthcare worker has logged into the system.
-- **Guarantees:** New patient profile is successfully created in the ImmuniMate Address Book System.
+- **Guarantees:** New patient profile is successfully created in the IMS.
 - **MSS:**
     1. Healthcare worker choose to create a new patient profile.
     2. IMS requests the necessary details for the new patient profile (name, NRIC, date of birth, sex, phone number, address, email, country of nationality, date of admission, blood type, allergies).
@@ -623,6 +624,8 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
   - 2a1. IMS requests for the correct NRIC.
   - 2a2. Healthcare worker enters new NRIC.
   - Steps 2a1-2a2 are repeated until the data entered are correct or Healthcare worker cancels the action. Use case resumes from step 3.
+
+---
 
 **Use Case: UC06 - Delete Patient Information**
 
@@ -914,6 +917,7 @@ testers are expected to do more *exploratory* testing.
        1. The person with NRIC `S1234567A` is already created in the system with a `create` command.
    1. Test case: `update S1234567A a/35 Bishan Road, #10-40 con/myopia ic/S1234568A`<br>
       Expected: The person's address is updated to `35 Bishan Road, #10-40` and condition is updated to `myopia`. The NRIC is not updated.
+
 ### Finding a person
 
 1. Finding a person by name, condition or address
@@ -952,6 +956,22 @@ testers are expected to do more *exploratory* testing.
        Expected: The person's name is not deleted. The result panel shows an error message, indicating that the name field cannot be deleted.
 
 ### Adding a person's visit 
+1. Adding a person's visit while all persons are being shown
+    1. Prerequisites:
+       1. List all persons using the `list` command. Multiple persons in the list.
+       1. The person with NRIC `S1234567A` is already created in the system with a `create` command.
+       1. The person with NRIC `S9876543N` does not exist in the system.
+       1. The visit with date `2021-09-01` and with NRIC `S1234567A` is already created in the system.
+       1. The visit with date `2021-09-03` and with NRIC `S9876543N` does not exist in the system.
+    1. Test case: `addvisit S1234567A d/2021-09-03 dia/fever sym/cough st/PENDING`<br>
+       Expected: The person's visit is added to the system. The result panel shows the details of the added visit.
+    1. Test case: `addvisit S9876543N d/2021-09-03 dia/fever sym/cough st/PENDING`<br>
+       Expected: The person's visit is not added. The result panel shows an error message, indicating that the person does not exist in the system.
+    1. Test case: `addvisit S1234567A d/2021-09-01 dia/fever sym/cough st/PENDING`<br>
+       Expected: The person's visit is not added. The result panel shows an error message, indicating that the visit already exists in the system.
+    1. Other incorrect addvisit commands to try: `addvisit`, `addvisit 0`, `...` (where the input for NRIC field does not follow format for NRIC)<br>
+       Expected: Similar to previous. The result panel shows an error message, indicating that the command format is invalid.
+
 
 ### Checking a person's visit history
 1. Checking a person while all persons are being shown.
