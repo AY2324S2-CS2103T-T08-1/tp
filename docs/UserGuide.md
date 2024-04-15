@@ -666,11 +666,12 @@ Furthermore, certain edits can cause ImmuniMate to behave in unexpected ways (e.
 
 <br>
 
-### Archiving data files `[coming in v2.0]`
-
 ### Update patient's visit in history `[coming in v2.0]`
+- Allows updating of patient's visit in history.
 
-### Infection cluster tracking `[coming in v2.0]`
+### Automated Infection cluster tracking `[coming in v2.0]`
+- Automatically tracks clusters and stores them in storage.
+
 
 --------------------------------------------------------------------------------------------------------------------
 

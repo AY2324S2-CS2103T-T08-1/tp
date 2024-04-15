@@ -120,6 +120,7 @@ How the parsing works:
 <img src="images/ModelClassDiagram.png" width="auto" />
 
 
+
 The `Model` component,
 
 * stores the patient data i.e., all `Person` objects (which are contained in a `UniquePersonList` object).
@@ -302,8 +303,48 @@ Step 7. `model.setPerson()` then replaces the retrieved `Person` object with the
     * Pros: Easier to implement.
     * Cons: Less user convenience, as user has to first know patient `Index` to find patient.
 
-### Record patient visit
+### Add patient visit
 #### Proposed Implementation
+
+#### Overview
+The `addvisit` feature allows healthcare workers to record a new visit for a patient by providing necessary details such as NRIC, date of visit, symptoms, diagnosis, and status. This command enhances the ImmuniMate Address Book System (IABS) by maintaining up-to-date health records for patients.
+
+#### Implementation Details
+The `addvisit` command is facilitated by `AddVisitCommand` and its parser `AddVisitCommandParser`. They extend the `Command` and `Parser` classes respectively, providing a streamlined way to add visits to the system’s `UniqueVisitList`.
+
+* **AddVisitCommandParser#parse:** Parses the user input to create a new `AddVisitCommand` instance. This parser utilizes `ArgumentTokenizer` to tokenize the input arguments and extract details such as NRIC, date of visit, symptoms, diagnosis, and status.
+
+* **AddVisitCommand#execute:** Executes the command, ensuring that the patient exists and the visit does not duplicate an existing record.
+  * First, it checks if the NRIC provided matches an existing patient in the system using `Model#hasPerson(Person)`.
+  * It then validates whether a similar visit record already exists using `Model#hasVisit(Visit)`.
+  * If no duplicates are found and the patient exists, the visit is added to the system using `Model#addVisit(Visit)`.
+  * The execution concludes by returning a success message encapsulating the details of the added visit.
+
+#### Integration with Model
+The `Model` interface is used extensively to interact with the patient and visit data within IABS:
+* **Model#hasPerson(Person):** Checks if a person with the given NRIC exists in the system. This uses `UniquePersonList#contains(Person)` internally to ensure the NRIC corresponds to an existing patient.
+* **Model#hasVisit(Visit):** Ensures the visit being added is not a duplicate. It checks against the list of existing visits using `UniqueVisitList#contains(Visit)`.
+* **Model#addVisit(Visit):** Adds the new visit to the system. This method updates both the in-memory list and the persistent storage, ensuring all data is consistently synchronized.
+
+#### Command Flow
+1. **Parsing Input:** The `AddVisitCommandParser` interprets the user’s input, extracting necessary details and handling input errors or missing fields.
+2. **Validating Patient Existence:** The `AddVisitCommand` verifies the existence of a patient corresponding to the provided NRIC.
+3. **Checking for Duplicate Visits:** It then checks for potential duplicate visits to ensure each record is unique.
+4. **Adding the Visit:** If validation passes, the visit is added to the system, and the patient's health record is updated.
+5. **Success Message:** A formatted success message is generated, confirming the addition of the visit.
+
+#### Handling Errors
+Several guard clauses are in place to handle possible errors:
+* **Non-existent Patient:** Throws a `CommandException` if the NRIC does not match any existing patient.
+* **Duplicate Visit:** Prevents adding a duplicate visit record to maintain data integrity.
+* **Invalid Input:** Any parsing errors or incorrect formats in the input trigger appropriate feedback to the user, guiding them to correct the input.
+
+#### Example Usage
+```addvisit n/S0123456A dov/2024-01-04 sym/Fever, Rhinorrhea dia/Common Flu stat/PENDING```
+This command adds a visit with specified details to the patient with NRIC S0123456A. After execution, the system updates the patient’s visit records and provides feedback on the successful addition of the visit.
+This proposed implementation ensures robust handling of patient visit data, enhancing the IABS with accurate and timely health record management.
+
+
 
 ### Check a patient's visit history
 #### Proposed Implementation
@@ -359,6 +400,7 @@ How a check operation goes through the Model component is shown below:
 * can type fast
 * prefers typing to mouse interactions
 * is reasonably comfortable using CLI apps
+* works at a gp clinic or similar environments
 
 **Value proposition**: As the number of patients a General Practitioner grows, information management might prove complex, especially so for personal data. ImmuniMate offers a way to record comprehensive information about every patient, while ensuring timely updates and avoiding duplications/contradictions. It also seeks to establish links between patient for contact tracing and finding potential infectious clusters.
 
@@ -370,8 +412,8 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | Priority | As a …​           | I want to …​                                    | So that I can…​                                                              |
 |---------|-------------------|-------------------------------------------------|------------------------------------------------------------------------------|
 | `* * *` | New user          | see usage instructions                          | refer to instructions when I forget how to use the App                       |
-| `* * *` | Healthcare Worker | create a new patient record                     |                                                                              |
-| `* * *` | Healthcare Worker | delete a patient                                | remove wrong or obselete patient record from the database                    |
+| `* * *` | Healthcare Worker | create a new patient profile                    | add new patient to database                                                  |
+| `* * *` | Healthcare Worker | delete a patient                                | remove wrong or obselete patient profile from the database                   |
 | `* * *` | Healthcare Worker | delete patient's information                    | remove patient information that is known to be incorrect                     |
 | `* * *` | Healthcare Worker | read a patient's information by NRIC            | locate details of persons without having to go through the entire list       |
 | `* * *` | Healthcare Worker | update a person's details                       | keep the details up to date                                                  |
@@ -390,47 +432,85 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `*`     | Healthcare Worker | see the close contacts of a patient             | see the links between infected patients                                      |
 ### Use cases
 
-(For all use cases below, the **System** is the `AddressBook` and the **Actor** is the `user`, unless specified otherwise)
+(For all use cases below, the **IMS** is the `ImmuniMate system` and the **Healthcare worker** is the `user`, unless specified otherwise)
 
-**Use Case: UC01 - Create Patient Record**
+**Use Case: UC01 - Create Patient Profile**
 
 - **Actor:** Healthcare Worker
-- **Description:** Healthcare worker creates a new patient record in the ImmuniMate Address Book System.
+- **Description:** Healthcare worker creates a new patient profile in the ImmuniMate Address Book System.
 - **Preconditions:** Healthcare worker has logged into the system.
-- **Guarantees:** New patient record is successfully created in the ImmuniMate Address Book System.
+- **Guarantees:** New patient profile is successfully created in the ImmuniMate Address Book System.
 - **MSS:**
-    1. Healthcare worker choose to create a new patient record.
-    2. IABS requests the necessary details for the new patient record (name, NRIC, date of birth, sex, phone number, address, email, country of nationality, date of admission, blood type, allergies).
+    1. Healthcare worker choose to create a new patient profile.
+    2. IMS requests the necessary details for the new patient profile (name, NRIC, date of birth, sex, phone number, address, email, country of nationality, date of admission, blood type, allergies).
     3. Healthcare worker enters the patient's details.
-    4. IABS validates the entered data.
-    5. IABS adds the new patient record to the database.
+    4. IMS validates the entered data.
+    5. IMS adds the new patient profile to the database.
 - **Extensions:**
 
-  3a. IABS detects a conflict in the entered data (user existing).
+  3a. IMS detects a conflict in the entered data (user existing).
 
-  3a1. IABS shows the conflicting existing entry
-  3a2. IABS requests for the correct data.
+  3a1. IMS shows the conflicting existing entry
+  3a2. IMS requests for the correct data.
   3a3. Healthcare Worker enters new data.
   Steps 3a1-3a3 are repeated until the data entered are correct, or the user cancels the action.
   Use case resumes from step 4.
 
-  3b. IABS detects an error in the entered data.
+  3b. IMS detects an error in the entered data.
 
-  3b1. IABS requests for the correct data.
+  3b1. IMS requests for the correct data.
   3b2. Healthcare Worker enters new data.
   Steps 3b1-3b2 are repeated until the data entered are correct.
   Use case resumes from step 4.
 
-  *a. At any time, Healthcare Worker chooses to cancel creating the patient record.
+  *a. At any time, Healthcare Worker chooses to cancel creating the patient profile.
 
-  *a1. IABS requests confirmation to cancel.
+  *a1. IMS requests confirmation to cancel.
   *a2. Healthcare Worker confirms the cancellation.
   Use case ends.
 
 
 ---
 
-### **Use Case: UC02 - Find Patient Information**
+**Use Case: UC02 - Read Patient Profile**
+
+- **Actor:** Healthcare Worker
+- **Description:** Healthcare worker reads patient profile in the ImmuniMate Address Book System.
+- **Preconditions:** Healthcare worker has logged into the system.
+- **Guarantees:** Existing patient profile  in the ImmuniMate Address Book System is successfully displayed.
+- **MSS:**
+    1. Healthcare worker choose to read a patient profile.
+    2. IMS requests the necessary detail for reading patient profile (NRIC).
+    3. Healthcare worker enters the patient's details.
+    4. IMS validates the entered data.
+    5. IMS displays the patient profile to the database.
+- **Extensions:**
+
+  3a. IMS detects an error in the entered data (user does not exist).
+
+  3a1. IMS shows the conflicting existing entry
+  3a2. IMS requests for the correct data.
+  3a3. Healthcare Worker enters new data.
+  Steps 3a1-3a3 are repeated until the data entered are correct, or the user cancels the action.
+  Use case resumes from step 4.
+
+  3b. IMS detects an error in the entered data (wrong NRIC format).
+
+  3b1. IMS requests for the correct data.
+  3b2. Healthcare Worker enters new data.
+  Steps 3b1-3b2 are repeated until the data entered are correct.
+  Use case resumes from step 4.
+
+  *a. At any time, Healthcare Worker chooses to cancel creating the patient profile.
+
+  *a1. IMS requests confirmation to cancel.
+  *a2. Healthcare Worker confirms the cancellation.
+  Use case ends.
+
+
+---
+
+**Use Case: UC03 - Find Patient Information**
 
 - **Actor:** Healthcare Worker
 - **Description:** Healthcare worker searches for specific patient information in the ImmuniMate Address Book System.
@@ -438,17 +518,17 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 - **Guarantees:** Relevant patient information is displayed for the healthcare worker to view.
 - **Basic Flow:**
     1. Healthcare worker chooses to find patient information meeting specified criteria.
-    2. IABS searches for and displays the relevant patients.
+    2. IMS searches for and displays the relevant patients.
 - **Extensions:**
-  2a. IABS detects an error in the entered data.
+  2a. IMS detects an error in the entered data.
 
-  - 2a1. IABS requests for the correct data.
+  - 2a1. IMS requests for the correct data.
   - 2a2. Healthcare Worker enters new data.
   - Steps 2a1-2a2 are repeated until the data entered are correct. Use case resumes from step 3.
 
 ---
 
-**Use Case: UC03 - Update Patient Information**
+**Use Case: UC04 - Update Patient Information**
 
 - **Actor:** Healthcare Worker
 - **Description:** Healthcare worker updates a patient's information in the ImmuniMate Address Book System.
@@ -456,13 +536,13 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 - **Guarantees:** Patient's information is successfully updated in the ImmuniMate Address Book System.
 - **Basic Flow:**
     1. Healthcare worker chooses to update a certain patient’s certain information.
-    2. IABS validates the new content.
-    3. IABS updates the patient's information in the database.
+    2. IMS validates the new content.
+    3. IMS updates the patient's information in the database.
 - **Extensions:**
 
-  2a. IABS detects an error in the entered data.
+  2a. IMS detects an error in the entered data.
 
-  2a1. IABS requests for the correct data.
+  2a1. IMS requests for the correct data.
   2a2. Healthcare Worker enters new data.
   Steps 2a1-2a2 are repeated until the data entered are correct.
   Use case resumes from step 3.
@@ -470,7 +550,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 ---
 
-**Use Case: UC04 - Delete Patient Record**
+**Use Case: UC05 - Delete Patient Profile**
 
 - **Actor:** Healthcare worker
 - **Description:** Healthcare worker deletes a patient's record from the ImmuniMate Address Book System.
@@ -478,15 +558,15 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 - **Guarantees:** Patient's record is successfully deleted from the ImmuniMate Address Book System.
 - **MSS:**
     1. Healthcare worker choose to delete a specified patient’s record.
-    2. IABS validates the NRIC and deletes the patient's record from the database.
+    2. IMS validates the NRIC and deletes the patient's record from the database.
 - **Extensions:**
 
-  2a. IABS cannot find the patient specified.
-  - 2a1. IABS requests for the correct NRIC.
+  2a. IMS cannot find the patient specified.
+  - 2a1. IMS requests for the correct NRIC.
   - 2a2. Healthcare worker enters new NRIC.
   - Steps 2a1-2a2 are repeated until the data entered are correct or Healthcare worker cancels the action. Use case resumes from step 3.
 
-**Use Case: UC05 - Delete Patient Information**
+**Use Case: UC06 - Delete Patient Information**
 
 - **Actor:** Healthcare Worker
 - **Description:** Healthcare worker deletes specific information from a patient's record in the ImmuniMate Address Book System.
@@ -494,25 +574,108 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 - **Guarantees:** Specified information is successfully deleted from the patient's record in the ImmuniMate Address Book System.
 - **MSS:**
     1. Healthcare worker chooses to delete certain fields of a certain patient's profile.
-    2. IABS validates the information to be deleted and deletes the specified information from the patient's record in the database.
+    2. IMS validates the information to be deleted and deletes the specified information from the patient's record in the database.
 - **Extensions:**
 
-  2a. IABS cannot find the patient specified.
-  - 2a1. IABS requests for the correct NRIC.
+  2a. IMS cannot find the patient specified.
+  - 2a1. IMS requests for the correct NRIC.
   - 2a2. Healthcare worker enters new NRIC.
   - Steps 2a1-2a2 are repeated until the data entered are correct or Healthcare worker cancels the action. Use case resumes from step 3.
 
-  2b. IABS cannot find the specified information.
+  2b. IMS cannot find the specified information.
 
-  - 2b1. IABS alerts healthcare worker that the specified information is not found.
+  - 2b1. IMS alerts healthcare worker that the specified information is not found.
   - 2b2. Healthcare worker enters new field.
   - Steps 2b1-2b2 are repeated until the data entered are correct or Healthcare worker cancels the action. Use case resumes from step 3.
 
   2c. Healthcare worker chooses to delete a mandatory field.
 
-  - 2c1. IABS alerts healthcare worker that mandatory field cannot be deleted.
+  - 2c1. IMS alerts healthcare worker that mandatory field cannot be deleted.
   - 2c2. Healthcare worker enters new field.
   - Steps 2c1-2c2 are repeated until the data entered are correct or Healthcare worker cancels the action. Use case resumes from step 3.
+
+
+---
+
+**Use Case: UC07 - Add Patient Visit**
+
+
+- **Actor:** Healthcare Worker
+- **Description:** Healthcare worker adds a visit record for a patient in the ImmuniMate Address Book System.
+- **Preconditions:** Healthcare worker has logged into the system.
+- **Guarantees:** A new visit record is successfully added for the patient in the ImmuniMate Address Book System.
+- **Main Success Scenario (MSS):**
+  1. Healthcare worker chooses to add a new patient visit.
+  2. IMS requests the necessary details for the visit (NRIC, date of visit, diagnosis, symptoms, status).
+  3. Healthcare worker enters the required information for the visit.
+  4. IMS validates the entered data.
+  5. IMS adds the visit record to the patient's profile in the database.
+  6. IMS confirms that the visit has been added successfully.
+  7. Use case ends.
+
+- **Extensions:**
+
+  3a. IMS detects an error in the entered data (patient does not exist).
+  - 3a1. IMS notifies Healthcare Worker that the patient does not exist.
+  - 3a2. Healthcare Worker opts to create a new patient profile or re-enters correct data.
+  - Steps 3a1-3a2 are repeated until valid data are entered, or the user cancels the action.
+  - Use case resumes from step 4 if valid data are entered.
+
+  3b. IMS detects an error in the entered data (e.g., incorrect NRIC format, invalid date of visit).
+  - 3b1. IMS requests for the correct data.
+  - 3b2. Healthcare Worker enters new data.
+  - Steps 3b1-3b2 are repeated until the data entered are correct.
+  - Use case resumes from step 4.
+
+  3c. IMS detects missing mandatory fields (e.g., NRIC, date of visit).
+  - 3c1. IMS displays an error message indicating which fields are missing.
+  - 3c2. Healthcare Worker provides the missing information.
+  - Steps 3c1-3c2 are repeated until all required data are provided.
+  - Use case resumes from step 4.
+
+  *a. At any time, Healthcare Worker chooses to cancel the addition of the patient visit.
+  - *a1. IMS requests confirmation to cancel.
+  - *a2. Healthcare Worker confirms the cancellation.
+  - Use case ends.
+
+
+---
+
+**Use Case: UC08 - Check Patient Visit History**
+
+- **Actor:** Healthcare Worker
+- **Description:** Healthcare worker checks patient visit history in the ImmuniMate Address Book System.
+- **Preconditions:** Healthcare worker has logged into the system.
+- **Guarantees:** Existing patient visit history in the ImmuniMate Address Book System is successfully displayed.
+- **MSS:**
+    1. Healthcare worker choose to check a patient visit history.
+    2. IMS requests the necessary detail for checking patient visit history (NRIC).
+    3. Healthcare worker enters the patient's details.
+    4. IMS validates the entered data.
+    5. IMS displays the patient profile to the database.
+- **Extensions:**
+
+  3a. IMS detects an error in the entered data (user does not exist).
+
+  3a1. IMS shows the conflicting existing entry
+  3a2. IMS requests for the correct data.
+  3a3. Healthcare Worker enters new data.
+  Steps 3a1-3a3 are repeated until the data entered are correct, or the user cancels the action.
+  Use case resumes from step 4.
+
+  3b. IMS detects an error in the entered data (wrong NRIC format).
+
+  3b1. IMS requests for the correct data.
+  3b2. Healthcare Worker enters new data.
+  Steps 3b1-3b2 are repeated until the data entered are correct.
+  Use case resumes from step 4.
+
+  *a. At any time, Healthcare Worker chooses to cancel creating the patient profile.
+
+  *a1. IMS requests confirmation to cancel.
+  *a2. Healthcare Worker confirms the cancellation.
+  Use case ends.
+
 
 ### Non-Functional Requirements
 
@@ -579,7 +742,7 @@ Quality requirements:
 17. **Cluster**: A group of patients who are infected by the same disease.
 18. **Patient Visit**: A record of a patient's one specific visit to the clinic, including the date of visit, symptoms, diagnosis, and status.
 19. **Patient History**: A collection of all the visits by a patient.
-20. **Patient Record**: A collection of all the information about a patient, including the patient's name, NRIC, phone number, address, email, country.
+20. **Patient Profile**: A collection of all the information about a patient, including the patient's name, NRIC, phone number, address, email, country.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -625,6 +788,29 @@ testers are expected to do more *exploratory* testing.
       1. Show only 1 person's details using the `find n/alex` command. One person is shown in the list.
    1. Test case: `create n/Bob Tan ic/T0234567C dob/1990-01-01 hp/12345678 a/123, Jurong West Ave 6, #08-111 s/M st/PENDING`<br>
       Expected: A new person is not added to the list. The result panel shows an error message, indicating that the person already exists in the system.
+
+### Reading a person
+1. Reading a person while all persons are being shown.
+    1. Prerequisites:
+       1. List all persons using the `list` command. Multiple persons in the list.
+       1. The person with NRIC `S1234567A` is already created in the system with a `create` command.
+
+   1. Test case: `read S1234567A`<br>
+      Expected: Details of the read patient shown in result panel. The list panel shows the read person.
+
+   1. Test case: `read S9876543N`<br>
+      Expected: No person is read. Error details shown.
+
+   1. Other incorrect read commands to try: `read`, `read 0`, `...` (where the input for NRIC field does not follow format for NRIC)<br>
+      Expected: Similar to previous.
+   2. 
+2. Reading a person while only some persons are being shown
+    1. Prerequisites:
+        2. Show only 1 person's details using the `find n/alex` command. One person is shown in the list.
+        3. The person with NRIC `S1234567A` is already created in the system with a `create` command.
+    1. Test case: `read S1234567A`<br>
+       Expected: The result panel shows the details of the read person. The list panel shows the read person.
+
 ### Deleting a person
 
 1. Deleting a person while all persons are being shown
@@ -704,6 +890,31 @@ testers are expected to do more *exploratory* testing.
        1. The person with NRIC `S1234567A` exists in the system.
     1. Test case: `deleteinfo S1234567A n/`<br>
        Expected: The person's name is not deleted. The result panel shows an error message, indicating that the name field cannot be deleted.
+
+### Adding a person's visit 
+
+### Checking a person's visit history
+1. Checking a person while all persons are being shown.
+    1. Prerequisites:
+        1. List all persons using the `list` command. Multiple persons in the list.
+        1. The person with NRIC `S1234567A` is already created in the system with a `create` command.
+
+    1. Test case: `check S1234567A`<br>
+       Expected: Details of the checked person's visit history is shown in the result panel. The list panel shows the checked person.
+
+    1. Test case: `check S9876543N`<br>
+       Expected: No person is checked. Error details shown.
+
+    1. Other incorrect read commands to try: `check`, `check 0`, `...` (where the input for NRIC field does not follow format for NRIC)<br>
+       Expected: Similar to previous.
+    2.
+2. Checking a person while only some persons are being shown
+    1. Prerequisites:
+        2. Show only 1 person's details using the `find n/alex` command. One person is shown in the list.
+        3. The person with NRIC `S1234567A` is already created in the system with a `create` command.
+    1. Test case: `check S1234567A`<br>
+       Expected: The result panel shows the details of the checked person's visit history. The list panel shows the checked person.
+
 ### Saving data
 
 1. Dealing with missing/corrupted data files
