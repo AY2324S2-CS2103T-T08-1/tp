@@ -242,6 +242,8 @@ This `deleteinfo` command is facilitated by `DeleteInfoCommand` and `DeleteInfoC
 * `DeleteInfoCommandParser#parse` is responsible for parsing the user input and creating a new `DeleteInfoCommand` instance.
 * `DeleteInfoCommand#execute` is responsible for executing the command and removing the field of information from the patient.
 * `Model#getFilteredPersonList()` is called to get the list of patients in the system.
+* `Observablelist<Persons>#filtered(Predicate)` is called to obtain `Person` object of patient with specified NRIC.
+* `Observablelist<Persons>#get(int)` is called to obtain `Person` object in the filtered list.
 * `Person#setField` where `Field` refers to whichever field specified to be deleted, is responsible for removing the field of information from the patient.
   `DeleteInfoCommand` checks if the patient exists in the system before removing the field of information.
 * `ModelManager#hasPerson(Person)` is called to check if the patient already exists in the system. It calls `ImmuniMate.hasPerson(Person)` which calls `UniquePersonList#contains(Person)` to check if the patient already exists in the internal list of patients.
@@ -520,7 +522,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 ---
 
-### **Use Case: UC02 - Find Patient Information**
+**Use Case: UC02 - Find Patient Information**
 
 - **Actor:** Healthcare Worker
 - **Description:** Healthcare worker searches for specific patient information in the ImmuniMate Address Book System.
