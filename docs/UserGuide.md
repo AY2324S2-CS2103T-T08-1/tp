@@ -101,6 +101,8 @@ Common mistakes:
 
 <br>
 
+### Glossary
+
 Throughout this guide, there might be some terms that you might not be familiar with, and that's fine.
 Here's a table of some technical terms you'll see further in the guide:
 
@@ -218,12 +220,12 @@ Take great care in downloading the one which suits your operating system (Linux,
 `cd` is a Linux command. New to Linux? You can learn the basics fast from [here](https://ubuntu.com/tutorials/command-line-for-beginners#1-overview).
 </div>
 
-6. Type `java -jar immuniMate.jar` and press "Enter" to run the application.<br>
+5. Type `java -jar immuniMate.jar` and press "Enter" to run the application.<br>
    A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data. The colored circle on the right of each patient's name is the status indicator. For more information about the status indicator, see [create](#creating-a-patient-profile-create).<br>
 
 ![Ui](images/GUI.png)
 
-5. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
+6. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
    Some example commands you can try:
 
    * `list` : Lists all contacts.
@@ -305,9 +307,12 @@ Examples:
 
 ![Create Command Result](images/CreateCommandResult.png)
 
-Common mistakes:
+<div markdown="block" class="alert alert-danger">
+
+**:x: Common Mistakes**<br>
 * `create n/John Doe hp/98765432 a/311, Clementi Ave 2, #02-25 dob/1990-01-01 s/M st/PENDING` (missing NRIC)
 * `create ic/S1234567A n/John Doe hp/98765432 a/311, Clementi Ave 2, #02-25 dob/1990-2-30 s/M st/PENDING` (Wrong date format)
+</div>
 
 <br>
 
@@ -322,9 +327,12 @@ Examples:
 * `read t0234567c`
 
 ![Read Command Result](images/ReadCommandResult.png)
-  
-Common mistakes:
+
+<div markdown="block" class="alert alert-danger">
+
+**:x: Common Mistakes**<br>
 * `read S12345678` (wrong NRIC format)
+</div>
 
 <br>
 
@@ -355,9 +363,12 @@ Examples:
 
 <img src="images/UpdateCommandResult.png" alt="result for 'find alex david'" width="800"/>
 
-Common mistakes:
+<div markdown="block" class="alert alert-danger">
+
+**:x: Common Mistakes**<br>
 * `update S1234567A ic/T1234567A` (NRIC cannot be updated)
 * `update S1234567A` (no field specified)
+</div>
 
 <br>
 
@@ -433,8 +444,11 @@ Examples:
 
 <img src="images/FindConditionCommandResult.png" alt="result for 'find serangoon'" width="800"/>
 
-Common mistakes:
+<div markdown="block" class="alert alert-danger">
+
+**:x: Common Mistakes**<br>
 * `find ic/S1234567X` (only condition, name and address can be searched with find)<br>
+</div>
 
 <div markdown="block" class="alert alert-success">
 
@@ -457,9 +471,12 @@ Examples:
 * `delete S1234567A`
   * deletes patient uniquely identified by NRIC S1234567A.
 
-Common mistakes:
+<div markdown="block" class="alert alert-danger">
+
+**:x: Common Mistakes**<br>
 * `delete S12345678` (NRIC must be in the correct format)
 * `delete` (NRIC must be provided)
+</div>
 
 <br>
 
@@ -479,10 +496,13 @@ Examples:
 * `deleteinfo S0123456A e/ bt/ c/`
   * Deletes the email, blood type and country of nationality of patient uniquely identified by NRIC S0123456A.
 
-Common mistakes:
+<div markdown="block" class="alert alert-danger">
+
+**:x: Common Mistakes**<br>
 * `deleteinfo S1234567A abc/` (a valid optional field from the [Field Summary](#field-summary) must be provided)
 * `deleteinfo S1234567A` (a field must be provided)
 * `deleteinfo S1234567A ic/` (mandatory fields cannot be deleted)<br>
+</div>
 
 <div markdown="block" class="alert alert-success">
 
@@ -508,9 +528,12 @@ Examples:
 
 ![Add Visit Result](images/AddVisitCommandResult.png)
 
-Common mistakes:
+<div markdown="block" class="alert alert-danger">
+
+**:x: Common Mistakes**<br>
 * `addvisit ic/S7654321X dov/2024-01-01 sym/Cough d/Covid st/` (NRIC must belong to a person existing in the system)
 * `addvisit ic/S1234567A a/#101 Hougang Ave` (fields other than date of visit, symptoms, diagnosis and status cannot be added)
+</div>
 
 <br>
 
@@ -527,8 +550,11 @@ Example:
 
 ![Check Command Result](images/CheckCommandResult.png)
 
-Common mistakes:
+<div markdown="block" class="alert alert-danger">
+
+**:x: Common Mistakes**<br>
 * `check S12345678` (NRIC must be in the correct format, and must exist in the system)
+</div>
 
 <br>
 
@@ -550,12 +576,15 @@ Example:
 
 ![Cluster Command Result](images/ClusterCommandResult.png)
 
-Common mistakes:
+<div markdown="block" class="alert alert-danger">
+
+**:x: Common Mistakes**<br>
 * `cluster 3 a/S d/dengue` (address should be a meaningful word or phrase indicative of a location in Singapore)
 * `cluster 3 a/Serangoon` (diagnosis must be provided)
 * `cluster 3 d/dengue` (diagnosis must be provided)
 * `cluster 0 a/Serangoon d/dengue` (a positive cluster size must be provided)
 * `cluster 30.5 a/Serangoon d/dengue` (an integer cluster sizet must be provided)
+</div>
 
 <br>
 
