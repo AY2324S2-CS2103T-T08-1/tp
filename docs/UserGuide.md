@@ -69,6 +69,8 @@ The table of contents just before this section breaks down the guide into its co
 Navigating a complex document can be time-consuming, and we understand.
 That's why we've placed hyperlinks throughout this article (like [this one](#command-summary), to the command summary), so that any information you need is truly at your fingertips.
 
+<div style="page-break-after: always;"></div>
+
 ### Information Boxes
 
 Before engaging with ImmuniMate, there are some things that are so important that they have to catch your eye.
