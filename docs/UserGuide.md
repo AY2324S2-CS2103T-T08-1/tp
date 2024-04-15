@@ -696,6 +696,8 @@ If your name has any special characters, kindly remove them for compliance. For 
 **Q**: Why is it when I update a patient's diagnosis, his/her status is not automatically updated to "UNWELL"?<br>
 **A**: This is intended behaviour. We wish to leave it to your expertise to determine when a patient has truly contracted a disease, as there are some ambiguous cases which might not necessitate an "UNWELL" status, such as asymptomatic coronavirus cases.
 
+**Q**: Why is it that when I update a person's field to the exact same content as the current one, no error is shown? Similarly, why is that when I delete a field that originally was not filled, no error message is shown?<br>
+**A**: This is intended behaviour. This operation does not cause error in the system as the content is the same, and we do not want to interrupt your workflow with unnecessary error messages.
 --------------------------------------------------------------------------------------------------------------------
 
 ## Known issues
@@ -706,3 +708,4 @@ If your name has any special characters, kindly remove them for compliance. For 
 4. **The `email` field** is case-sensitive, but in practical usage, email is case-insensitive.
 5. **The `NRIC` field** cannot yet take NRIC numbers starting with F, G or M, which might cause inconvenience to a small segment of the Singapore population.
 6. **The ImmuniMate icon** cannot be displayed on Windows systems, instead showing up as a brown square with a person icon. This is simply a cosmetic issue, so it should not pose other technical issues to Windows users.
+7. **The `DateOfBirth`, `DateOfVisit` and `DateOfAdmission` fields** do allow future dates to be added, which might cause inconsistent entry if input is wrong.

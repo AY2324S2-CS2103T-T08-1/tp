@@ -184,7 +184,9 @@ The `create` command is facilitated by `CreateCommand` and `CreateCommandParser`
 * `CreateCommand#execute` is responsible for executing the command and adding the new patient to the system.
 * `ImmuniMate#addPerson(Person)` is called to add the patient to the internal list of patients.
 * `UniquePersonList#add(Person)` is used to add the new patient to the system.
+
 `ModelManager#addPerson(Person)` is called to add the patient to the system. It calls `ImmuniMate.addPerson(Person)` which calls `UniquePersonList#add(Person)` to add the patient to the internal list of patients.
+
 The command checks for duplicates in the system before adding the new patient.
 * `Person#equals(Object)` is overridden to check if two patients are duplicates.
 * `UniquePersonList#contains(Person)` is used to check if the patient already exists in the system's list of patients.
