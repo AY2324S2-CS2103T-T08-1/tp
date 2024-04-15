@@ -303,8 +303,48 @@ Step 7. `model.setPerson()` then replaces the retrieved `Person` object with the
     * Pros: Easier to implement.
     * Cons: Less user convenience, as user has to first know patient `Index` to find patient.
 
-### Record patient visit
+### Add patient visit
 #### Proposed Implementation
+
+#### Overview
+The `addvisit` feature allows healthcare workers to record a new visit for a patient by providing necessary details such as NRIC, date of visit, symptoms, diagnosis, and status. This command enhances the ImmuniMate Address Book System (IABS) by maintaining up-to-date health records for patients.
+
+#### Implementation Details
+The `addvisit` command is facilitated by `AddVisitCommand` and its parser `AddVisitCommandParser`. They extend the `Command` and `Parser` classes respectively, providing a streamlined way to add visits to the system’s `UniqueVisitList`.
+
+* **AddVisitCommandParser#parse:** Parses the user input to create a new `AddVisitCommand` instance. This parser utilizes `ArgumentTokenizer` to tokenize the input arguments and extract details such as NRIC, date of visit, symptoms, diagnosis, and status.
+
+* **AddVisitCommand#execute:** Executes the command, ensuring that the patient exists and the visit does not duplicate an existing record.
+  * First, it checks if the NRIC provided matches an existing patient in the system using `Model#hasPerson(Person)`.
+  * It then validates whether a similar visit record already exists using `Model#hasVisit(Visit)`.
+  * If no duplicates are found and the patient exists, the visit is added to the system using `Model#addVisit(Visit)`.
+  * The execution concludes by returning a success message encapsulating the details of the added visit.
+
+#### Integration with Model
+The `Model` interface is used extensively to interact with the patient and visit data within IABS:
+* **Model#hasPerson(Person):** Checks if a person with the given NRIC exists in the system. This uses `UniquePersonList#contains(Person)` internally to ensure the NRIC corresponds to an existing patient.
+* **Model#hasVisit(Visit):** Ensures the visit being added is not a duplicate. It checks against the list of existing visits using `UniqueVisitList#contains(Visit)`.
+* **Model#addVisit(Visit):** Adds the new visit to the system. This method updates both the in-memory list and the persistent storage, ensuring all data is consistently synchronized.
+
+#### Command Flow
+1. **Parsing Input:** The `AddVisitCommandParser` interprets the user’s input, extracting necessary details and handling input errors or missing fields.
+2. **Validating Patient Existence:** The `AddVisitCommand` verifies the existence of a patient corresponding to the provided NRIC.
+3. **Checking for Duplicate Visits:** It then checks for potential duplicate visits to ensure each record is unique.
+4. **Adding the Visit:** If validation passes, the visit is added to the system, and the patient's health record is updated.
+5. **Success Message:** A formatted success message is generated, confirming the addition of the visit.
+
+#### Handling Errors
+Several guard clauses are in place to handle possible errors:
+* **Non-existent Patient:** Throws a `CommandException` if the NRIC does not match any existing patient.
+* **Duplicate Visit:** Prevents adding a duplicate visit record to maintain data integrity.
+* **Invalid Input:** Any parsing errors or incorrect formats in the input trigger appropriate feedback to the user, guiding them to correct the input.
+
+#### Example Usage
+```addvisit n/S0123456A dov/2024-01-04 sym/Fever, Rhinorrhea dia/Common Flu stat/PENDING```
+This command adds a visit with specified details to the patient with NRIC S0123456A. After execution, the system updates the patient’s visit records and provides feedback on the successful addition of the visit.
+This proposed implementation ensures robust handling of patient visit data, enhancing the IABS with accurate and timely health record management.
+
+
 
 ### Check a patient's visit history
 #### Proposed Implementation
